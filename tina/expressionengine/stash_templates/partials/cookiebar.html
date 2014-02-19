@@ -1,0 +1,11 @@
+{exp:cookie_consent:message}
+	{if cookies_allowed == 'no'}
+		<div id="cookie-bar">
+			<div id="cookie-bar-content">
+				<h3>Cookies</h3>
+				<small>By continuing to use the this website you agree to the use of cookies. You can find out more by <a href="/home/privacy-policy">following this link.</a></small>
+				<a href='{cookies_allowed_link}' id="cookie-bar-accept">Close This</a>
+			</div>   
+		</div>
+	{/if}
+{/exp:cookie_consent:message}

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>		<html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>			<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie8"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html class="no-js"> <!--<![endif]-->
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Entries | Freeform | Solspace Addon Documentation</title>
+		<meta name="description" content="" />
+		<meta name="copyright" content="(c) 2010 Copyright content: Copyright design: Solspace, Inc."/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox-1.3.4.css" />
+		<link href="assets/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="assets/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="assets/js/modernizr.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<header>
+			<div class="header-inner">
+				<div class="logo">
+					<img src="assets/images/logo.png" />
+				</div>
+
+				<div class="bread_crumbs">
+					<ul class="crumbs">
+						<li class="first"><a href="index.html">Freeform</a></li>
+						<li>Entries</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="content-wrapper">
+			<nav class="toc">
+				<ul>
+<li><a href="http://www.solspace.com/software/detail/freeform/">More Info | Purchase</a></li>
+<li><a href="change_log.html">Change Log</a></li>
+<li><a href="install_update.html">Install / Update</a></li>
+<li><a href="control_panel.html">Control Panel</a></li>
+<li><a href="channel_entry_fieldtype.html">Channel Entry Fieldtype</a></li>
+<li><a href="default_fieldtypes.html">Default Fieldtypes</a></li>
+<li><a href="fieldtype_development.html">Fieldtype Development</a></li>
+<li><a href="extension_hooks.html">Extension Hooks</a></li>
+<li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+<li><p><a href="upgrade_3.x-4.x.html">Freeform 3.x to 4.x Guide</a></p></li>
+<li class="template_tags"><h3>Template Tags</h3>
+
+<ul>
+<li><a href="composer.html">Composer</a></li>
+<li><a href="composer_edit.html">Composer_Edit</a></li>
+<li><a href="edit.html">Edit</a></li>
+<li class="current"><a href="entries.html">Entries</a></li>
+<li><a href="error_page.html">Error Page</a></li>
+<li><a href="form.html">Form</a></li>
+<li><a href="form_info.html">Form_Info</a></li>
+</ul></li>
+<li><h3>Requirements</h3><div class="requirements">
+
+<ul>
+<li>ExpressionEngine 2.4+</li>
+<li>PHP 5.2+</li>
+<li>MySQL 5+</li>
+<li>All modern browsers or IE 8+</li>
+</ul></div></li>
+</ul>
+			</nav>
+
+			<article class="docs">
+				<p>The <em>Freeform:Entries</em> tag allows you to display Freeform entries in
+your EE templates, similar to the way <em>Channel:Entries</em> works. You can
+filter the results by a variety of parameters, and display as much or as
+little data as you wish from the submissions. This tag can be used to
+display a list of entries, or use as a single entry view where just a
+single entry is shown.</p>
+
+<pre class="brush: html;">{exp:freeform:entries} content {/exp:freeform:entries} </pre>
+
+<ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#variable_pairs">Variable Pairs</a></li>
+<li><a href="#conditionals">Conditionals</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+
+<p><a name="parameters"></a></p>
+
+<h2>Parameters</h2>
+
+<p>The following parameters are available for use:</p>
+
+<ul>
+<li><a href="#author_id">author_id</a></li>
+<li><a href="#backspace">backspace</a></li>
+<li><a href="#date_range">date_range</a></li>
+<li><a href="#date_range_start">date_range_start</a></li>
+<li><a href="#date_range_end">date_range_end</a></li>
+<li><a href="#entry_id">entry_id</a></li>
+<li><a href="#form_id">form_id</a></li>
+<li><a href="#form_name">form_name</a></li>
+<li><a href="#limit">limit</a></li>
+<li><a href="#offset">offset</a></li>
+<li><a href="#orderby">orderby</a></li>
+<li><a href="#paginate">paginate</a></li>
+<li><a href="#site_id">site_id</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#status">status</a></li>
+<li><a href="#search_field_name">search:FIELD_NAME</a></li>
+</ul>
+
+<p><a name="author_id"></a></p>
+
+<h3>author_id=</h3>
+
+<pre class="brush: html;">author_id="7" </pre>
+
+<p>This parameter lets you filter all results down to a specific
+author/submitter of Freeform entries. You can hardcode this value or
+feed an ID through the URI or through an embed. To specify multiples,
+separate with pipe character (<strong>|</strong>).</p>
+
+<p><a name="backspace"></a></p>
+
+<h3>backspace=</h3>
+
+<pre class="brush: html;">backspace="2" </pre>
+
+<p>This parameter can be used to remove excess formatting from the contents
+of your <em>Freeform:Entries</em> tag. It works by removing the specified
+amount of characters from the end of what is parsed. This would
+typically be used in a case like separating simple values by commas, but
+removing the last trailing comma, etc.</p>
+
+<p><a name="date_range"></a></p>
+
+<h3>date_range=</h3>
+
+<pre class="brush: html;">date_range="this month"
+</pre>
+
+<p>This parameter is used to control the results to show only entries
+within a specified timeframe given this accepted list of simple keywords:</p>
+
+<ul>
+<li><em>today</em></li>
+<li><em>this week</em></li>
+<li><em>this month</em></li>
+<li><em>last month</em></li>
+<li><em>this year</em></li>
+</ul>
+
+<p>These are the only accepted keywords for this parameter.</p>
+
+<p><a name="date_range_start"></a></p>
+
+<h3>date_range_start=</h3>
+
+<pre class="brush: html;">date_range_start="2012-01-01 12:00 PM" </pre>
+
+<p>This parameter is used to control the results to show only entries
+within a specified timeframe. Specify a date in which you want entry
+submissions to start at (be no older than), using standard EE date
+syntax, or <a href="http://php.net/manual/en/datetime.formats.php">PHP datetime and relative formats</a>
+like <strong>2 weeks ago</strong>. May be used in
+conjunction with <a href="#date_range_end">date_range_end</a> parameter.</p>
+
+<p><a name="date_range_end"></a></p>
+
+<h3>date_range_end=</h3>
+
+<pre class="brush: html;">date_range_end="2012-06-30 12:00 PM" </pre>
+
+<p>This parameter is used to control the results to show only entries
+within a specified timeframe. Specify a date in which you want entry
+submissions to stop at (be no newer than), using standard EE date
+syntax, or <a href="http://php.net/manual/en/datetime.formats.php">PHP datetime and relative formats</a>
+like <strong>2 weeks ago</strong>. May be used in conjunction
+with <a href="#date_range_start">date_range_start</a> parameter.</p>
+
+<p><a name="entry_id"></a></p>
+
+<h3>entry_id=</h3>
+
+<pre class="brush: html;">entry_id="{segment_3}" </pre>
+
+<p>This parameter is necessary to limit the results to display a specific
+Freeform entry by specifying its entry ID. If there's an ID in the URI,
+and the <a href="#dynamic">dynamic</a> parameter is not set to no, Freeform will
+automatically serve an entry matching that ID. You can hardcode an entry
+ID, pass it through an embed, or grab it from the URI.</p>
+
+<p><a name="form_id"></a></p>
+
+<h3>form_id=</h3>
+
+<pre class="brush: html;">form_id="{segment_3}" </pre>
+
+<p>To filter results by entries that belong to a specific form, specify the
+ID of the form you created in the Freeform control panel. Alternatively,
+you can use the <a href="#form_name">form_name</a> parameter.</p>
+
+<p><a name="form_name"></a></p>
+
+<h3>form_name=</h3>
+
+<pre class="brush: html;">form_name="{segment_3}" </pre>
+
+<p>To filter results by entries that belong to a specific form, specify the
+short name of the form you created in the Freeform control panel.
+Alternatively, you can use the <a href="#form_id">form_id</a> parameter.</p>
+
+<p><a name="limit"></a></p>
+
+<h3>limit=</h3>
+
+<pre class="brush: html;">limit="10" </pre>
+
+<p>This parameter allows you to limit the amount of results returned. The
+default is <strong>20</strong>.</p>
+
+<p><a name="offset"></a></p>
+
+<h3>offset=</h3>
+
+<pre class="brush: html;">offset="1" </pre>
+
+<p>This parameter will skip the first specified amount of entries in the
+results. For example, if you specify <strong>2</strong>, it will not show the first two
+results in the list.</p>
+
+<p><a name="orderby"></a></p>
+
+<h3>orderby=</h3>
+
+<pre class="brush: html;">orderby="entry_date" </pre>
+
+<p>This parameter is used to order your entries. You can order your entries
+by <strong>date</strong>, any custom Freeform field name, or <strong>random</strong>.</p>
+
+<p><a name="paginate"></a></p>
+
+<h3>paginate=</h3>
+
+<pre class="brush: html;">paginate="both" </pre>
+
+<p>This parameter allows you to control where the pagination will display.
+Options are <strong>top</strong>, <strong>bottom</strong>, or <strong>both</strong>. Used in conjunction with the
+<a href="#freeform_paginate">freeform:paginate</a> variable pair.</p>
+
+<p><a name="site_id"></a></p>
+
+<h3>site_id=</h3>
+
+<pre class="brush: html;">site_id="2|3" </pre>
+
+<p>If using MSM, you can specify a Site ID in this parameter to
+filter entries down to that site.</p>
+
+<p><a name="sort"></a></p>
+
+<h3>sort=</h3>
+
+<pre class="brush: html;">sort="asc" </pre>
+
+<p>This parameter lets you sort your results in ascending (<strong>asc</strong>) or
+descending (<strong>desc</strong>) order.</p>
+
+<p><a name="status"></a></p>
+
+<h3>status=</h3>
+
+<pre class="brush: html;">status="open|closed" </pre>
+
+<p>This parameter allows you to filter entries by status. If not specified,
+Freeform will display entries in open status only. Separate multiple
+statuses with the pipe character (<strong>|</strong>).</p>
+
+<p><a name="search_field_name"></a></p>
+
+<h3>search:FIELD_NAME=</h3>
+
+<pre class="brush: html;">search:city="winnipeg" </pre>
+
+<p>This parameter is used to filter your entry results by a hardcoded
+search term. For example, if you wanted only entries that contained
+Winnipeg in the city field, you would construct the parameter as seen in
+example above. It works just like the
+<a href="http://ellislab.com/expressionengine/user_guide/modules/channel/channel_entries.html#search-field-name">search:field="value"</a>
+parameter in the
+<a href="http://ellislab.com/expressionengine/user_guide/modules/channel/channel_entries.html">Channel:Entries</a>
+tag. All of the advanced "matching" syntax is available as well.</p>
+
+<p><a name="variables"></a></p>
+
+<h2>Variables</h2>
+
+<p>The following variables are available for use:</p>
+
+<ul>
+<li><a href="#freeform_field_field_name">freeform:field:FIELD_NAME</a></li>
+<li><a href="#freeform_label_field_name">freeform:label:FIELD_NAME</a></li>
+<li><a href="#freeform_description_field_name">freeform:description:FIELD_NAME</a></li>
+<li><a href="#freeform_absolute_count">freeform:absolute_count</a></li>
+<li><a href="#freeform_absolute_results">freeform:absolute_results</a></li>
+<li><a href="#freeform_attachment_count">freeform:attachment_count</a></li>
+<li><a href="#freeform_author_id">freeform:author_id</a></li>
+<li><a href="#freeform_author">freeform:author</a></li>
+<li><a href="#freeform_complete">freeform:complete</a></li>
+<li><a href="#freeform_count">freeform:count</a></li>
+<li><a href="#freeform_edit_date">freeform:edit_date</a></li>
+<li><a href="#freeform_entry_date">freeform:entry_date</a></li>
+<li><a href="#freeform_entry_id">freeform:entry_id</a></li>
+<li><a href="#freeform_form_id">freeform:form_id</a></li>
+<li><a href="#freeform_form_label">freeform:form_label</a></li>
+<li><a href="#freeform_form_name">freeform:form_name</a></li>
+<li><a href="#freeform_ip_address">freeform:ip_address</a></li>
+<li><a href="#freeform_reverse_count">freeform:reverse_count</a></li>
+<li><a href="#freeform_status">freeform:status</a></li>
+<li><a href="#freeform_switch">freeform:switch</a></li>
+<li><a href="#freeform_total_results">freeform:total_results</a></li>
+</ul>
+
+<p><a name="freeform_field_field_name"></a></p>
+
+<h3>freeform:field:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:field:FIELD_NAME} </pre>
+
+<p>All Freeform fields are available for use as variables here to display
+submitted data. To display a Freeform fields' data, just specify the
+<strong>short_name</strong> of the field, prepended with <em>freeform:field:</em> (ex:
+<strong>comments</strong> becomes <em>freeform:field:comments</em>).</p>
+
+<p>For more information about each field types' output and special handling
+capabilities, please refer to the <a href="default_fieldtypes.html">Default
+Fieldtypes</a> documentation. For any 3rd
+party field types, please refer to any documentation provided by its
+developer.</p>
+
+<p><a name="freeform_label_field_name"></a></p>
+
+<h3>freeform:label:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:label:FIELD_NAME} </pre>
+
+<p>This variable parses out as the label for the field. Simply construct
+your variables like this: <em>freeform:label:</em> + <strong>FREEFORM_FIELD_NAME</strong>. So if
+you have a field with a short name of <strong>favorite_food</strong>, the variable
+would look like this: <em>{freeform:label:favorite_food}</em>.</p>
+
+<p><a name="freeform_description_field_name"></a></p>
+
+<h3>freeform:description:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:description:FIELD_NAME} </pre>
+
+<p>This variable parses out as the description for the field. Simply
+construct your variables like this: <em>freeform:description:</em> +
+<strong>FREEFORM_FIELD_NAME</strong>. So if you have a field with a short name of
+<strong>favorite_food</strong>, the variable would look like this:
+<em>{freeform:description:favorite_food}</em>.</p>
+
+<p><a name="freeform_absolute_count"></a></p>
+
+<h3>freeform:absolute_count</h3>
+
+<pre class="brush: html;">{freeform:absolute_count} </pre>
+
+<p>This variable will return the absolute position number of the entry
+within the list of results, including paginated results.</p>
+
+<p><a name="freeform_absolute_results"></a></p>
+
+<h3>freeform:absolute_results</h3>
+
+<pre class="brush: html;">{freeform:absolute_results} </pre>
+
+<p>This variable will return the absolute total amount of entries being
+displayed in the results, including paginated results. You would
+typically use this in a conditional statement.</p>
+
+<p><a name="freeform_attachment_count"></a></p>
+
+<h3>freeform:attachment_count</h3>
+
+<pre class="brush: html;">{freeform:attachment_count} </pre>
+
+<p>This variable will output the total number of files uploaded across all
+file upload fields for the entry. For example, if you had 2 fields that
+were the <strong>file upload</strong> field type, and one had 2 file uploads within
+it, while the other had one, and each contained files uploaded, the
+total value would be <strong>3</strong>.</p>
+
+<p><a name="freeform_author_id"></a></p>
+
+<h3>freeform:author_id</h3>
+
+<pre class="brush: html;">{freeform:author_id} </pre>
+
+<p>This variable will display the member ID of the form submitter IF they
+were logged in when they submitted the form. It will return <strong>0</strong> for guests /
+logged out users. If you're looking to display standard or custom member
+fields for the author of the Freeform entry (if they were logged in when
+submitting the form), you can feed the author ID to the native EE
+<a href="http://ellislab.com/expressionengine/user_guide/modules/member/#custom-profile-data-tag">Custom Profile
+Data</a>
+tag.</p>
+
+<p><a name="freeform_author"></a></p>
+
+<h3>freeform:author</h3>
+
+<pre class="brush: html;">{freeform:author} </pre>
+
+<p>This variable will display the screen name of the form submitter IF they
+were logged in when they submitted the form. Will return empty value for
+guests / logged out users. You could create a conditional like this if
+you have a combination of members and guests submitting the form:</p>
+
+<pre class="brush: html;">{if freeform:author}{freeform:author}{if:else}{name} (guest){/if} </pre>
+
+<p>If you're looking to display standard or custom member fields for the
+author of the Freeform entry (if they were logged in when submitting the
+form), you can feed the author ID to the native EE <a href="http://ellislab.com/expressionengine/user_guide/modules/member/#custom-profile-data-tag">Custom Profile
+Data</a>
+tag.</p>
+
+<p><a name="freeform_complete"></a></p>
+
+<h3>freeform:complete</h3>
+
+<pre class="brush: html;">{freeform:complete} </pre>
+
+<p>This variable will parse out to <strong>y</strong> or <strong>n</strong>, based on whether or not the form
+submission has been completed. This would typically apply to multipage
+forms.</p>
+
+<p><a name="freeform_count"></a></p>
+
+<h3>freeform:count</h3>
+
+<pre class="brush: html;">{freeform:count} </pre>
+
+<p>This variable outputs the display order number for each result in the
+list of entries (within the page, if using pagination).</p>
+
+<p><a name="freeform_edit_date"></a></p>
+
+<h3>freeform:edit_date</h3>
+
+<pre class="brush: html;">{freeform:edit_date format="%F %j, %Y at %g:%i %a"} </pre>
+
+<p>This variable will display the date the Freeform entry was last edited.
+If the entry has not been edited, this variable will not output
+anything. This variable should be formatted using standard EE date
+formatting.</p>
+
+<p><a name="freeform_entry_date"></a></p>
+
+<h3>freeform:entry_date</h3>
+
+<pre class="brush: html;">{freeform:entry_date format="%F %j, %Y at %g:%i %a"} </pre>
+
+<p>This variable will display the date the Freeform entry was submitted.
+This variable should be formatted using standard EE date formatting.</p>
+
+<p><a name="freeform_entry_id"></a></p>
+
+<h3>freeform:entry_id</h3>
+
+<pre class="brush: html;">{freeform:entry_id} </pre>
+
+<p>This variable will display the unique ID for the Freeform entry.</p>
+
+<p><a name="freeform_form_id"></a></p>
+
+<h3>freeform:form_id</h3>
+
+<pre class="brush: html;">{freeform:form_id} </pre>
+
+<p>This variable will display the unique ID of the Freeform form.</p>
+
+<p><a name="freeform_form_label"></a></p>
+
+<h3>freeform:form_label</h3>
+
+<pre class="brush: html;">{freeform:form_label} </pre>
+
+<p>This variable will display the label of the Freeform form.</p>
+
+<p><a name="freeform_form_name"></a></p>
+
+<h3>freeform:form_name</h3>
+
+<pre class="brush: html;">{freeform:form_name} </pre>
+
+<p>This variable will display the short name of the Freeform form.</p>
+
+<p><a name="freeform_ip_address"></a></p>
+
+<h3>freeform:ip_address</h3>
+
+<pre class="brush: html;">{freeform:ip_address} </pre>
+
+<p>This variable will be display the IP Address of the user that submitted
+the form.</p>
+
+<p><a name="freeform_reverse_count"></a></p>
+
+<h3>freeform:reverse_count</h3>
+
+<pre class="brush: html;">{freeform:reverse_count} </pre>
+
+<p>This variable outputs the display order number for each result in
+reverse order in the list of entries.</p>
+
+<p><a name="freeform_status"></a></p>
+
+<h3>freeform:status</h3>
+
+<pre class="brush: html;">{freeform:status} </pre>
+
+<p>This variable will display the status of the Freeform entry.</p>
+
+<p><a name="freeform_switch"></a></p>
+
+<h3>freeform:switch</h3>
+
+<pre class="brush: html;">{freeform:switch="style_one|style_two"} </pre>
+
+<p>This variable allows you to switch a CSS class back and fourth for all
+outputted results.</p>
+
+<p><a name="freeform_total_results"></a></p>
+
+<h3>freeform:total_results</h3>
+
+<pre class="brush: html;">{freeform:total_results} </pre>
+
+<p>This variable outputs the total amount of entries in the results (within
+the page, if using pagination). You would typically use this in a
+conditional statement.</p>
+
+<p><a name="variable_pairs"></a></p>
+
+<h2>Variable Pairs</h2>
+
+<p>The following variable pairs are available for use:</p>
+
+<ul>
+<li><a href="#freeform_all_form_fields">freeform:all_form_fields</a></li>
+<li><a href="#freeform_paginate">freeform:paginate</a></li>
+</ul>
+
+<p><a name="freeform_all_form_fields"></a></p>
+
+<h3>freeform:all_form_fields</h3>
+
+<pre class="brush: html;">{freeform:all_form_fields}
+&lt;p&gt;
+    &lt;label&gt;{freeform:field_label}&lt;/label&gt;
+    {freeform:field_output}
+    {if freeform:field_type == 'text'}
+        hello!
+    {/if}
+&lt;/p&gt;
+{/freeform:all_form_fields}
+</pre>
+
+<p>In the event you wish to have Freeform just populate your field data
+automatically for you, this variable pair, along with other variables
+are available to use. Just apply the formatting of your choice and wrap
+that around the variables and Freeform will do the rest. The following
+variables are available for use within this variable pair:</p>
+
+<ul>
+<li><em>{freeform:field_id}</em> - the unique ID of the field</li>
+<li><em>{freeform:field_name}</em> - the short name of the field</li>
+<li><em>{freeform:field_label}</em> - the label for the field</li>
+<li><em>{freeform:field_type}</em> - the type of field the form field is (most
+likely used for creating conditionals on what kind of formatting to
+use around certain field types)</li>
+<li><em>{freeform:field_output}</em> - data output from field (This is the entry
+data after having given the field type a chance to make it
+consumable.)</li>
+</ul>
+
+<p><a name="freeform_paginate"></a></p>
+
+<h3>freeform:paginate</h3>
+
+<pre class="brush: html;">{freeform:paginate}
+    Page {freeform:current_page}
+    of {freeform:total_pages}
+    pages &amp;nbsp;
+    {freeform:pagination_links}
+{/freeform:paginate}
+</pre>
+
+<p>Pagination is available for this tag and works just like regular EE
+pagination, but each variable/variable pair is prepended with freeform:
+(except for any variables/variable pairs inside of the
+<em>freeform:pagination_links</em> variable pair in EE 2.3+). Used in
+conjunction with the <a href="#paginate">paginate</a> parameter.</p>
+
+<p><a name="conditionals"></a></p>
+
+<h2>Conditionals</h2>
+
+<p>Conditionals are available on all of the variables above. Additionally,
+these exist as well:</p>
+
+<ul>
+<li><a href="#freeform_no_results">if freeform:no_results</a></li>
+</ul>
+
+<p><a name="freeform_no_results"></a></p>
+
+<h3>if freeform:no_results</h3>
+
+<pre class="brush: html;">{if freeform:no_results}Sorry, no results were found.{/if} </pre>
+
+<p>This conditional evaluates to true and displays its contents when there
+are no results found for this tag with the given set of parameters.</p>
+
+<p><a name="examples"></a></p>
+
+<h2>Examples</h2>
+
+<p>The following is a basic example of how you can display a simple list of
+submitted Freeform entries:</p>
+
+<pre class="brush: html;">&lt;ul&gt;
+{exp:freeform:entries
+    form_name="cheese_survey"
+    orderby="name"
+    sort="asc"
+    limit="20"
+}
+    &lt;li&gt;
+        &lt;b&gt;{freeform:field:name}&lt;/b&gt; -
+        {freeform:field:favorite_cheese}
+    &lt;/li&gt;
+    {if freeform:no_results}
+        &lt;li&gt;No Results&lt;/li&gt;
+    {/if}
+{/exp:freeform:entries}
+&lt;ul&gt;
+</pre>
+
+<p>The following is a slightly more advanced example of how you can
+display several details of a submitted Freeform entry:</p>
+
+<pre class="brush: html;">{exp:freeform:entries
+    form_id="1"
+    orderby="date"
+    sort="desc"
+    limit="20"
+    paginate="both"
+}
+
+    &lt;p&gt;
+        Submitted:
+        {freeform:entry_date format="%F %j, %Y at %g:%i %a"}
+    &lt;/p&gt;
+
+    &lt;h3&gt;
+        By: {freeform:field:name}
+        {if freeform:field:urgent == "yes"}
+            (URGENT!)
+        {/if}
+    &lt;/h3&gt;
+
+    &lt;p&gt;Email Address: {freeform:field:email}&lt;/p&gt;
+
+    &lt;p&gt;Home Phone: {freeform:field:home_phone}&lt;/p&gt;
+
+    {if freeform:field:cell_phone}
+        &lt;p&gt;Cell Phone: {freeform:field:cell_phone}&lt;/p&gt;
+    {/if}
+
+    &lt;p&gt;Subject: {freeform:field:subject}&lt;/p&gt;
+    &lt;p&gt;Questions or Comments:&lt;br /&gt;{freeform:field:question}&lt;/p&gt;
+
+    {if freeform:no_results}
+        &lt;p&gt;No results found.&lt;/p&gt;
+    {/if}
+
+    {freeform:paginate}
+        &lt;p&gt;
+            Page {freeform:current_page}
+            of {freeform:total_pages}
+            pages &amp;nbsp;
+            {freeform:pagination_links}
+        &lt;/p&gt;
+    {/freeform:paginate}
+
+{/exp:freeform:entries}
+</pre>
+			</article>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

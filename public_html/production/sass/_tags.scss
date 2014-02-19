@@ -1,0 +1,291 @@
+
+
+/* =============================================================================
+   Main Tags
+   ========================================================================== */
+
+html{
+	background-color:white;	
+}
+body{
+	margin:0;
+	padding:0;
+	font-size:$font-size / $em;
+	font-family:$globale;
+}
+strong{
+	font-family:$globaleBold;
+	font-weight:normal;
+}
+p{
+	@include font(16px);
+	line-height:1.125em;
+	margin:0;
+	font-family:$helveticaNeueLight;
+	padding:0 0 0.875em;
+	color:$tundora;
+	letter-spacing: 0px;
+	strong, b{
+		font-weight:normal;
+		font-family:$helveticaNeue;
+	}
+	
+	&.highlight{
+		font-family:$helveticaNeue;
+		text-transform:uppercase;
+		
+	}
+}
+a{
+	text-decoration:none;
+	color:$astronaut;
+	&:hover, &.active{
+		@include opac(0.5);
+	}
+	img{
+		border:0 none;
+	}
+}
+h1{
+	margin:0;
+	font-weight:normal;
+	@include font(51px);
+	color:$astronaut;
+	font-family:$globale;
+	line-height:1em;
+	strong{
+		font-family:$globaleBold;
+	}
+	small{
+		font-size:0.67em;
+	}
+}
+h2{
+	@extend h1;
+	@include font(40px);
+}
+h3{
+	@extend h2;
+	@include font(18px);
+	font-family:$globaleBold;
+}
+h4{
+	@extend h3;
+	@include font(16px);
+	font-family:$helveticaNeue;
+	
+}
+h5{
+	@extend h4;
+	@include font(15px);
+	text-transform:uppercase;	
+}
+h6{
+	@extend h5;
+	@include font(14px);
+}
+
+
+menu, ul, ol{
+	padding:0;
+	margin:0;
+}
+
+button{
+	background:none transparent;
+	border:0 none;
+	padding:0;
+	margin:0;
+	width:auto;
+	line-height:100%;
+}
+table{
+	margin:0 0 1em;
+	border-collapse:collapse;
+	
+	strong{
+		font-family:$helveticaNeueBold;
+		@include font(13px);
+		color:$astronaut;
+	}
+	small{
+		@include font(11px);
+		
+	}
+	h2{
+		margin:0;
+		padding:0;
+	}
+	p{
+		@include fontInherited(13px,13px);
+		padding:0;
+		line-height:1.36em;
+		strong{
+			@include fontInherited(13px,13px);
+			font-weight:normal;
+		}
+		small{
+			@include fontInherited(11px,13px);
+			line-height:1.16em;
+			display:inline-block
+			
+		}
+	}
+}
+td{
+	@include font(13px);
+	padding:1.333em 1em;
+	text-align:left;
+	font-family:$helveticaNeue;
+	border-bottom:1px solid #efefef;
+	color:$tundora;
+	vertical-align:middle;
+}
+th{
+	padding:0.5em 1.091em;
+	text-align:left;
+	background-color:#f0f0f6;
+	@include font(11px);
+	font-family:$helveticaNeue;
+	vertical-align:middle;
+	font-weight:normal;
+}
+table.table-simple{
+	th,td{
+		border:0;
+		padding:0 0 0;
+		@include font(15px);
+	}
+	
+}
+.content{
+	p{
+		@include font(15px);
+		
+		strong{
+			color:$astronaut;
+		}
+		small{
+			font-size:0.8em;
+		}
+	}
+	ul{
+		padding:0;
+		margin:0 0 0 1em;
+		li{
+			@extend p;
+			list-style:outside disc;
+			padding-bottom:0;
+			line-height:1.4em;
+		}
+	}
+	
+	ol{
+		margin:0 0 0 1.2em;
+		padding:0;
+		li{
+			@extend p;
+			list-style:outside decimal;
+			padding-bottom:0;
+			line-height:1.4em;
+		}
+	}
+	
+	p + ul, p + ol {  
+	   margin-top: -0.8em;
+	}
+	br + ul, br + ol{
+		margin-top: -1.6em;
+	}
+	h4 + ul {  
+	   margin-top: -0.25em;
+	}
+	h4 + ol{
+		margin-top: -0.25em;
+	}
+	p + hr{
+		margin-top:0;
+	}
+	h2 + hr{
+		margin-top:0;
+	}
+	ul + p{
+		margin-top:0.875em;
+	}
+	img[style*="left"], img.f-left  {margin:0 1.250em 1.250em 0;}
+	img[style*="right"], img.f-right {margin:0 0 1.250em 1.250em; }
+	
+	table{
+		width:100%;
+
+		td,th{
+			border-bottom: 1px solid #ECEEF1;
+		}
+		tr:last-child td{
+			border-bottom:0 none;
+		}
+	}
+	p a{
+		font-family:$globaleBold;
+	}
+}
+
+small{
+	font-size:0.86em;
+}
+nav{
+	margin:0;
+}
+sup{
+	font-size:0.67em;
+}
+sub{
+	font-size:0.67em;
+}
+
+form{
+	padding:0;
+}
+legend{
+	@include font(14px);
+	color:$astronaut;
+	font-family:$helveticaNeue;
+	margin-bottom:0.875em;
+}
+fieldset{
+	margin:0.750em;
+}
+label{
+	font-family:$helveticaNeue;
+	@include font(14px);
+	color:$astronaut;
+	width:100%;
+	clear:both;
+	display:block;
+	padding-bottom:0.143em;
+}
+input, select, textarea{
+	@include font(12px);
+	font-family:$helveticaNeue;
+	color:$tundora;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #333333;
+		opacity:1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    opacity:1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    filter:alpha(opacity=100);
+}
+blockquote{
+	margin:0;
+	padding:0.750em 0.500em 0.375em 1.125em;
+	text-align:center;
+	font-family:$globale;
+}
+figure,figcaption{
+	margin:0;
+	padding:0;
+}

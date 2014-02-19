@@ -35,3 +35,23 @@ CKEDITOR.editorConfig = function( config ) {
 //		ev.editor.dataProcessor.writer.setRules( blockTags[i], blockTagRules);
 //});
 
+
+// DIOGO
+CKEDITOR.on('dialogDefinition', function( ev ) {
+  var dialogName = ev.data.name;
+  var dialogDefinition = ev.data.definition;
+
+  if(dialogName === 'table') {
+    var infoTab = dialogDefinition.getContents('info');
+    var cellSpacing = infoTab.get('txtCellSpace');
+    cellSpacing['default'] = "0";
+    var cellPadding = infoTab.get('txtCellPad');
+    cellPadding['default'] = "0";
+    var border = infoTab.get('txtBorder');
+    border['default'] = "0";
+		var width = infoTab.get('txtWidth');
+		width['default'] = '';
+		var headers = infoTab.get('selHeaders');
+		headers['default'] = 'row';
+  }
+});

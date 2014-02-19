@@ -493,8 +493,15 @@ class Matrix_ft extends EE_Fieldtype {
 		if (version_compare($from, '2.3', '<'))
 		{
 			// Add the var_id columns
-			$this->EE->db->query('ALTER TABLE exp_matrix_cols ADD var_id INT(6) UNSIGNED AFTER field_id, ADD INDEX (var_id)');
-			$this->EE->db->query('ALTER TABLE exp_matrix_data ADD var_id INT(6) UNSIGNED AFTER field_id, ADD INDEX (var_id)');
+
+			if (!$this->EE->db->field_exists('var_id', 'exp_matrix_cols'))
+			{
+				$this->EE->db->query('ALTER TABLE exp_matrix_cols ADD var_id INT(6) UNSIGNED AFTER field_id, ADD INDEX (var_id)');
+			}
+			if (!$this->EE->db->field_exists('var_id', 'exp_matrix_data'))
+			{
+				$this->EE->db->query('ALTER TABLE exp_matrix_data ADD var_id INT(6) UNSIGNED AFTER field_id, ADD INDEX (var_id)');
+			}
 		}
 
 		if (version_compare($from, '2.5', '<'))
@@ -502,11 +509,14 @@ class Matrix_ft extends EE_Fieldtype {
 			$this->EE->load->dbforge();
 
 			// Add is_draft column for Better Workflow add-on by Electric Putty.
-			$new_field = array(
-				'is_draft' => array('type' => 'TINYINT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 0),
-			);
+			if (!$this->EE->db->field_exists('is_draft', 'exp_matrix_data'))
+			{
+				$new_field = array(
+					'is_draft' => array('type' => 'TINYINT', 'constraint' => '1', 'unsigned' => TRUE, 'default' => 0),
+				);
+				$this->EE->dbforge->add_column('matrix_data', $new_field);
+			}
 
-			$this->EE->dbforge->add_column('matrix_data', $new_field);
 
 			$rows = $this->EE->db->where('col_type', 'text')->get('matrix_cols')->result_object();
 			foreach ($rows as $row)
@@ -1953,6 +1963,12 @@ class Matrix_ft extends EE_Fieldtype {
 			}
 		}
 
+		if ($this->EE->extensions->active_hook("matrix_modify_field_data"))
+		{
+			$parameters = array('matrix_modify_field_data', $data, $this->settings);
+			$data = call_user_func_array(array($this->EE->extensions, 'call'), $parameters);
+		}
+
 		// -------------------------------------------
 		//  Reach the Minimum Rows count
 		// -------------------------------------------
@@ -2432,6 +2448,36 @@ class Matrix_ft extends EE_Fieldtype {
 		$keywords = '';
 		$total_rows = 0;
 
+		$only_new_rows = TRUE;
+		if (!empty($data['row_order']) && is_array($data['row_order']) && $cols)
+		{
+			foreach ($data['row_order'] as $i => $row_name)
+			{
+				$only_new_rows = substr($row_name, 0, 8) == 'row_new_' && $only_new_rows;
+			}
+		}
+
+		$max_order = 0;
+		if ($only_new_rows && isset($data['row_order']) && count($data['row_order']) && !$this->var_id)
+		{
+			$rows = $this->EE->db->query("SELECT MAX(row_order) AS max_order FROM `exp_matrix_data` WHERE `entry_id` = " . (int) $this->entry_id . " AND `field_id` = " . (int) $this->field_id)->result();
+			$row = $rows[0];
+			$max_order = (int) $row->max_order;
+		}
+
+		// -------------------------------------------
+		//  'matrix_save_field' hook
+		//   - Modify the field data before it gets saved to exp_matrix_data
+		//
+		if ($this->EE->extensions->active_hook('matrix_save_field'))
+		{
+			$data = $this->EE->extensions->call('matrix_save_field', $this, $data);
+		}
+
+		//
+		// -------------------------------------------
+
+
 		if (!empty($data['row_order']) && is_array($data['row_order']) && $cols)
 		{
 			foreach ($data['row_order'] as $i => $row_name)
@@ -2458,6 +2504,8 @@ class Matrix_ft extends EE_Fieldtype {
 						$is_new = false;
 						$row_name = 'row_new_'.(count($data['row_order'])+$i+1);
 					}
+
+					$only_new_rows = FALSE;
 				}
 
 				// -------------------------------------------
@@ -2531,7 +2579,7 @@ class Matrix_ft extends EE_Fieldtype {
 				// -------------------------------------------
 
 				$total_rows++;
-				$row_data['row_order'] = $total_rows;
+				$row_data['row_order'] = ++$max_order;
 
 				if (! $is_new)
 				{
@@ -3611,12 +3659,15 @@ class Matrix_ft extends EE_Fieldtype {
 			// If so any existing Row ID needs to be made a new row
 			$draft_data = array();
 			$c = 0;
-			foreach($data['row_order'] as $row_id)
+			if (isset($data['row_order']))
 			{
-				$new_row_id = 'row_new_'.$c;
-				$draft_data['row_order'][] = $new_row_id;
-				$draft_data[$new_row_id] = $data[$row_id];
-				$c++;
+				foreach($data['row_order'] as $row_id)
+				{
+					$new_row_id = 'row_new_'.$c;
+					$draft_data['row_order'][] = $new_row_id;
+					$draft_data[$new_row_id] = $data[$row_id];
+					$c++;
+				}
 			}
 		}
 		else
@@ -3662,6 +3713,7 @@ class Matrix_ft extends EE_Fieldtype {
 			if (method_exists($celltype, 'draft_publish'))
 			{
 				$celltype->settings = $col['celltype_settings'];
+				$celltype->settings['entry_id'] = $this->settings['entry_id'];
 				$celltype->draft_publish();
 			}
 		}

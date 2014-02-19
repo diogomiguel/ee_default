@@ -209,3 +209,5 @@ td.matrix-rte.matrix-firstcell .WysiHat-editor:focus {
 	border-left-width: 2px;
 	padding-left: 2px;
 }
+
+a.undo_remove{ color: #333; }

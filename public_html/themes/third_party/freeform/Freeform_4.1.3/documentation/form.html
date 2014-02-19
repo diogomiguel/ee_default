@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>		<html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>			<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie8"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html class="no-js"> <!--<![endif]-->
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Form | Freeform | Solspace Addon Documentation</title>
+		<meta name="description" content="" />
+		<meta name="copyright" content="(c) 2010 Copyright content: Copyright design: Solspace, Inc."/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox-1.3.4.css" />
+		<link href="assets/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="assets/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="assets/js/modernizr.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<header>
+			<div class="header-inner">
+				<div class="logo">
+					<img src="assets/images/logo.png" />
+				</div>
+
+				<div class="bread_crumbs">
+					<ul class="crumbs">
+						<li class="first"><a href="index.html">Freeform</a></li>
+						<li>Form</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="content-wrapper">
+			<nav class="toc">
+				<ul>
+<li><a href="http://www.solspace.com/software/detail/freeform/">More Info | Purchase</a></li>
+<li><a href="change_log.html">Change Log</a></li>
+<li><a href="install_update.html">Install / Update</a></li>
+<li><a href="control_panel.html">Control Panel</a></li>
+<li><a href="channel_entry_fieldtype.html">Channel Entry Fieldtype</a></li>
+<li><a href="default_fieldtypes.html">Default Fieldtypes</a></li>
+<li><a href="fieldtype_development.html">Fieldtype Development</a></li>
+<li><a href="extension_hooks.html">Extension Hooks</a></li>
+<li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+<li><p><a href="upgrade_3.x-4.x.html">Freeform 3.x to 4.x Guide</a></p></li>
+<li class="template_tags"><h3>Template Tags</h3>
+
+<ul>
+<li><a href="composer.html">Composer</a></li>
+<li><a href="composer_edit.html">Composer_Edit</a></li>
+<li><a href="edit.html">Edit</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="error_page.html">Error Page</a></li>
+<li class="current"><a href="form.html">Form</a></li>
+<li><a href="form_info.html">Form_Info</a></li>
+</ul></li>
+<li><h3>Requirements</h3><div class="requirements">
+
+<ul>
+<li>ExpressionEngine 2.4+</li>
+<li>PHP 5.2+</li>
+<li>MySQL 5+</li>
+<li>All modern browsers or IE 8+</li>
+</ul></div></li>
+</ul>
+			</nav>
+
+			<article class="docs">
+				<p>The <em>Freeform:Form</em> tag is what is used to generate forms in your EE
+templates. A wide variety of forms can be created, including contact
+forms, multi-page surveys, testimonials, etc. Form submissions are
+stored in the database and their content can be reviewed, displayed on
+front end templates with <a href="entries.html">Freeform:Entries</a> tag,
+formatted and emailed to admins and/or the user that submitted the form,
+etc. File Attachments can also be received, stored and included in email
+notifications. You must select from valid Freeform custom fields that
+are created in the Freeform control panel. Freeform entries are
+available for editing. For editing, see the
+<a href="edit.html">Freeform:Edit</a> documentation.</p>
+
+<p>If you have created a complete form in
+<a href="control_panel.html#forms">Composer</a>, then you'll need to use
+the <a href="composer.html">Freeform:Composer</a> tag to parse your form.</p>
+
+<pre class="brush: html;">{exp:freeform:form} content {/exp:freeform:form} </pre>
+
+<ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#variable_pairs">Variable Pairs</a></li>
+<li><a href="#conditionals">Conditionals</a></li>
+<li><a href="#form_fields">Form Fields</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+
+<p><a name="parameters"></a></p>
+
+<h2>Parameters</h2>
+
+<p>The following parameters are available for use:</p>
+
+<p><strong>Basic:</strong></p>
+
+<ul>
+<li><a href="#form_attribute_name">form:ATTRIBUTE_NAME</a></li>
+<li><a href="#form_id">form_id</a></li>
+<li><a href="#form_name">form_name</a></li>
+<li><a href="#required">required</a></li>
+<li><a href="#return">return</a></li>
+<li><a href="#status">status</a></li>
+</ul>
+
+<p><strong>Advanced:</strong></p>
+
+<ul>
+<li><a href="#ajax">ajax</a></li>
+<li><a href="#allow_status_edit">allow_status_edit</a></li>
+<li><a href="#error_page">error_page</a></li>
+<li><a href="#inline_errors">inline_errors</a></li>
+<li><a href="#inline_error_return">inline_error_return</a></li>
+<li><a href="#matching_fields">matching_fields</a></li>
+<li><a href="#require_captcha">require_captcha</a></li>
+<li><a href="#require_ip">require_ip</a></li>
+<li><a href="#secure_action">secure_action</a></li>
+<li><a href="#secure_return">secure_return</a></li>
+</ul>
+
+<p><strong>Multi-Page:</strong></p>
+
+<ul>
+<li><a href="#multipage">multipage</a></li>
+<li><a href="#multipage_page">multipage_page</a></li>
+<li><a href="#multipage_page_names">multipage_page_names</a></li>
+<li><a href="#page_marker">page_marker</a></li>
+<li><a href="#paging_url">paging_url</a></li>
+<li><a href="#redirect_on_timeout">redirect_on_timeout</a></li>
+<li><a href="#redirect_on_timeout_to">redirect_on_timeout_to</a></li>
+</ul>
+
+<p><strong>Notifications:</strong></p>
+
+<ul>
+<li><a href="#admin_notify">admin_notify</a></li>
+<li><a href="#admin_cc_notify">admin_cc_notify</a></li>
+<li><a href="#admin_bcc_notify">admin_bcc_notify</a></li>
+<li><a href="#admin_notification_template">admin_notification_template</a></li>
+<li><a href="#notify_admin">notify_admin</a></li>
+<li><a href="#notify_user">notify_user</a></li>
+<li><a href="#user_email_field">user_email_field</a></li>
+<li><a href="#user_notification_template">user_notification_template</a></li>
+</ul>
+
+<p><strong>Dynamic Recipients:</strong></p>
+
+<ul>
+<li><a href="#recipients">recipients</a></li>
+<li><a href="#recipients_limit">recipients_limit</a></li>
+<li><a href="#recipient1">recipient1</a></li>
+<li><a href="#recipient_template">recipient_template</a></li>
+<li><a href="#recipient_user_input">recipient_user_input</a></li>
+<li><a href="#recipient_user_limit">recipient_user_limit</a></li>
+<li><a href="#recipient_user_template">recipient_user_template</a></li>
+</ul>
+
+<p><strong>Duplicate Detection:</strong></p>
+
+<ul>
+<li><a href="#duplicate_redirect">duplicate_redirect</a></li>
+<li><a href="#prevent_duplicate_on">prevent_duplicate_on</a></li>
+<li><a href="#prevent_duplicate_per_site">prevent_duplicate_per_site</a></li>
+</ul>
+
+<p><a name="form_attribute_name"></a></p>
+
+<h3>form:ATTRIBUTE_NAME=</h3>
+
+<pre class="brush: html;">form:class="your_class_name" </pre>
+
+<p>This parameter allows you to control any form attribute for the form in
+your template. Simply replace <strong>ATTRIBUTE_NAME</strong> with an attribute name
+such as <em>id</em>, <em>name</em>, <em>class</em>, <em>onsubmit</em>, etc, and specify a value for that
+attribute. You can specify this parameter multiple times to control as
+many attributes as necessary. This would normally be done to control
+your form with Javascript or style it with CSS.</p>
+
+<p><a name="form_id"></a></p>
+
+<h3>form_id=</h3>
+
+<pre class="brush: html;">form_id="4" </pre>
+
+<p>Specify the ID of the form you created in the Freeform control panel so
+that Freeform knows which form the submissions should be tied to.
+Alternatively, you can use the <a href="#form_name">form_name</a> parameter.</p>
+
+<p><a name="form_name"></a></p>
+
+<h3>form_name=</h3>
+
+<pre class="brush: html;">form_name="contact_form" </pre>
+
+<p>Specify the short name of the form you created in the Freeform control
+panel so that Freeform knows which form the submissions should be tied
+to. Alternatively, you can use the <a href="#form_id">form_id</a> parameter.</p>
+
+<p><a name="required"></a></p>
+
+<h3>required=</h3>
+
+<pre class="brush: html;">required="name|email" </pre>
+
+<p>Specify the short name of each Freeform field you want to be required to
+be completed by the user before form submission. Separate multiple
+values with the pipe character. When using <a href="#multipage">multipage</a>
+forms, this parameter should be applied directly to the
+<a href="#freeform_page_1">freeform:page:1</a> variable pairs.</p>
+
+<p><a name="return"></a></p>
+
+<h3>return=</h3>
+
+<pre class="brush: html;">return="template_group/template" </pre>
+
+<pre class="brush: html;">return="template_group/template/%%entry_id%%" </pre>
+
+<p>This parameter lets you set where to send users once they have submitted
+the form. If not specified, the user will be returned to the same page.
+If you'd like to send the user to a page with the newly created Freeform
+entry ID in the URI, just add <strong>%%entry_id%%</strong> to the end of the URL you've
+specified in the <em>return</em> parameter. That variable will be replaced by the
+Freeform entry ID of the newly submitted entry. This parameter can be
+overridden by the <a href="#return_f">return</a> field.</p>
+
+<p><a name="status"></a></p>
+
+<h3>status=</h3>
+
+<pre class="brush: html;">status="closed" </pre>
+
+<p>This parameter allows you to override the default status set for the
+form (in the Freeform control panel) for all entries submitted.</p>
+
+<p><a name="ajax"></a></p>
+
+<h3>ajax=</h3>
+
+<pre class="brush: html;">ajax="no" </pre>
+
+<p>By default, Freeform auto-detects if you are using AJAX for the form
+submission. AJAX requests will return errors and success mesages in
+JSON. If you wish to disable this, specify a value of <strong>no</strong>.</p>
+
+<p><a name="allow_status_edit"></a></p>
+
+<h3>allow_status_edit=</h3>
+
+<pre class="brush: html;">allow_status_edit="yes" </pre>
+
+<p>This parameter let you have your users specify a status for the form and
+override the default status set for the form (in the Freeform control
+panel). Used in conjunction with the <a href="#status_f">status</a> form field and
+<a href="#freeform_statuses">freeform:statuses</a> variable pair.</p>
+
+<p><a name="error_page"></a></p>
+
+<h3>error_page= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">error_page="path_to/template" </pre>
+
+<p>This parameter allows you to bypass the EE message template for
+displaying errors, and instead show your own regular template with the
+error messages. Your error template must follow guidelines mentioned in
+<a href="error_page.html">Freeform Error Page</a>. If the
+<a href="#inline_errors">inline_errors</a> parameter is called (with a value of
+<strong>yes</strong>), it overrides this <em>error_page</em> parameter.</p>
+
+<p><a name="inline_errors"></a></p>
+
+<h3>inline_errors=</h3>
+
+<pre class="brush: html;">inline_errors="yes" </pre>
+
+<p>This parameter allows you to bypass the EE message template for
+displaying errors, and instead show inline error messages on your form.
+What it does is when there is any error(s) on form submission, it
+reloads the page with the previously entered values, but your
+<a href="#freeform_error_field_name">freeform:error:FIELD_NAME</a> conditional
+evaluates to true, and the variable parses out as the appropriate error
+message for that field. If you wish to adjust the return URL from
+something different that reloading the same page, refer to the
+<a href="#inline_error_return">inline_error_return</a> parameter. If this
+parameter is called (with a value of <strong>yes</strong>), it overrides this <em>error_page</em>
+parameter.</p>
+
+<p><a name="inline_error_return"></a></p>
+
+<h3>inline_error_return=</h3>
+
+<pre class="brush: html;">inline_error_return="path_to/template_name" </pre>
+
+<p>This parameter is used in conjunction with the
+<a href="#inline_errors">inline_errors</a> parameter, and allows you to specify
+your own return URL for when errors occur on form submission, instead of
+reloading the same page. Typically you would want to just reload the
+same page with the errors shown inline, but this parameter is available
+in the event you have a particular or complicated case for it. Simply
+specify the URI path you'd like the form to return to.</p>
+
+<p><a name="matching_fields"></a></p>
+
+<h3>matching_fields=</h3>
+
+<pre class="brush: html;">matching_fields="email" </pre>
+
+<p>This parameter allows you to use and validate confirmation/matching
+fields. For example, if you want a user to enter their email address a
+second time as a confirmation, you would enter that fields' name in this
+parameter. To create the extra form field, just copy and paste the field
+again, but append <em>_confirm</em> to the name of the field. If the values in
+the 2 fields do NOT match, an error will be shown upon submit. To
+specify multiples, separate with pipe character (<strong>|</strong>). The parameter would
+look like this:</p>
+
+<pre class="brush: html;">matching_fields="email" </pre>
+
+<p>And your form fields would look like this:</p>
+
+<pre class="brush: html;">&lt;input type="text" name="email" /&gt;
+&lt;input type="text" name="email_confirm" /&gt;
+</pre>
+
+<p><a name="require_captcha"></a></p>
+
+<h3>require_captcha=</h3>
+
+<pre class="brush: html;">require_captcha="yes" </pre>
+
+<p>By default, Freeform respects the setting you have for the <em>Require
+CAPTCHA with logged-in members?</em> preference in the EE control panel
+(<strong>Admin -> CAPTCHA Preferences</strong>) to display and require a CAPTCHA for
+logged in members. To override this, specify a value of <strong>yes</strong> or <strong>no</strong>.</p>
+
+<p><a name="require_ip"></a></p>
+
+<h3>require_ip=</h3>
+
+<pre class="brush: html;">require_ip="yes" </pre>
+
+<p>By default, Freeform will verify that the user submitting has a
+recordable IP address based on the setting for the <em>Require IP Address
+and User Agent for posting?</em> preference in the EE control panel
+(<strong>Admin -> Security and Session Preferences</strong>). To override this,
+specify a value of <strong>yes</strong> or <strong>no</strong>.</p>
+
+<p><a name="secure_action"></a></p>
+
+<h3>secure_action=</h3>
+
+<pre class="brush: html;">secure_action="yes" </pre>
+
+<p>This parameter allows you to set the action on the form to have
+<em>https://</em>. Used for securely processing forms with SSL.</p>
+
+<p><a name="secure_return"></a></p>
+
+<h3>secure_return=</h3>
+
+<pre class="brush: html;">secure_return="yes" </pre>
+
+<p>This parameter allows you to set the return on the form to have
+<em>https://</em>. Used for securely processing forms with SSL.</p>
+
+<p><a name="multipage"></a></p>
+
+<h3>multipage= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">multipage="yes" </pre>
+
+<p>This parameter is used with a value of <strong>yes</strong> if the form is to span across
+more than 1 page. Default is <strong>no</strong>. Used in conjunction with the
+<a href="#freeform_page_1">freeform:page:1</a> variable pairs.</p>
+
+<p><a name="multipage_page"></a></p>
+
+<h3>multipage_page= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">multipage_page="billing" </pre>
+
+<p>When using <a href="#multipage">multipage</a> forms, Freeform will automatically
+look for a page segment in the URI. If it finds none, it will show page
+1. If it finds a page name or ID, it will show that page. In the event
+you wish to start the form at a page other than page 1, or force the current
+page with a segment, you can hardcode or feed a page name or ID in this parameter.</p>
+
+<p>This can be useful when using multipage forms with other third party addons
+that transform urls.</p>
+
+<pre class="brush: html;">{exp:freeform:form
+    multipage="yes"
+    multipage_page_names="contact_info|billing|confirm"
+    multipage_page="{segment_3}"
+    }
+</pre>
+
+<p><a name="multipage_page_names"></a></p>
+
+<h3>multipage_page_names= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">multipage_page_names="contact_info|billing|confirm" </pre>
+
+<p>This parameter allows you to create custom page names (in the URI) for
+your multi-page form. By default, the values are <em>page1</em>, <em>page2</em>, <em>page3</em>,
+etc. If you have a 3-page form and you want the page names to be
+<em>contact_info</em>, <em>billing</em>, and <em>confirm</em> (and in that order), you would
+specify those page names in this parameter in the order you want them
+(see given example above). The naming of the
+<a href="#freeform_page_1">freeform:page:1</a> variable pairs will then match the
+names you have in this parameter (ex: <strong>freeform:page:contact_info</strong>,
+<strong>freeform:page:billing</strong>, etc).</p>
+
+<p><a name="page_marker"></a></p>
+
+<h3>page_marker= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">page_marker="step" </pre>
+
+<p>The default page marker is <em>page</em>. If you do not have <a href="#multipage_page_names">custom page
+names</a> for your multi-page form, then default is
+<strong>page1</strong>, <strong>page2</strong>, <strong>page3</strong>, etc. If you set this parameter to have a value of
+<em>step</em>, then your page names will become <strong>step1</strong>, <strong>step2</strong>, <strong>step3</strong>, etc</p>
+
+<p><a name="paging_url"></a></p>
+
+<h3>paging_url= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">paging_url="/group/template/%page%/other_segment/" </pre>
+
+<p>The paging_url paramter is used to allow fine tuning of where next page
+urls on multipage forms are sent.</p>
+
+<p>The default paging_url is the current URL with '%page%' at the end or
+if not on the first page, '%page%' is wherever the multipage page name
+or marker+number is found.</p>
+
+<p>'%page%' in this parameter represents where the multipage marker will be
+in the url after a page is submitted.</p>
+
+<p>For example: If you have parameters like so:</p>
+
+<pre class="brush: html;">multipage_page_names="name|address|message|finish" paging_url="/group/template/%page%/other_segment/"
+</pre>
+
+<p>and you submit page one, you will be taken to:</p>
+
+<pre class="brush: html;">http://example.com/group/template/message/other_segment/
+</pre>
+
+<p><a name="redirect_on_timeout"></a></p>
+
+<h3>redirect_on_timeout= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">redirect_on_timeout="no" </pre>
+
+<p>This parameter lets you specify whether or not the user should be
+redirected upon timeout of completing form. This respects the
+<strong>Multi-page Form Completion Timeout</strong> setting in the Preferences page
+in the Freeform control panel area (default is 3 hrs per page). If the
+form times out, all data on the current page and previous page(s) will
+be lost and the user will have to start over. This parameter defaults to
+<strong>yes</strong>. To disable this, specify <strong>no</strong>. If <strong>yes</strong> is specified, the user will be
+redirected to the path specified in the
+<a href="#redirect_on_timeout_to">redirect_on_timeout_to</a> parameter. If <strong>no</strong> is
+specified, the page will just reload and start at page 1.</p>
+
+<p><a name="redirect_on_timeout_to"></a></p>
+
+<h3>redirect_on_timeout_to= <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">redirect_on_timeout_to="path_to/error_message" </pre>
+
+<p>If the <a href="#redirect_on_timeout">redirect_on_timeout</a> parameter is set to
+<strong>yes</strong>, the user will be redirected to the template path specified in this
+parameter if the form expires.</p>
+
+<p><a name="admin_notify"></a></p>
+
+<h3>admin_notify=</h3>
+
+<pre class="brush: html;">admin_notify="name@domain.com|name2@domain.com" </pre>
+
+<p>This parameter is used to specify an admin email address(es) to receive
+an email notification upon successful submission of the form. Separate
+multiple values with commas or the pipe character (<strong>|</strong>). By default,
+Freeform will use the email(s) specified in the form itself in the
+Freeform control panel. If this parameter is specified, it will override
+that preference. Used in conjunction with the
+<a href="#admin_notification_template">admin_notification_template</a> parameter.
+<strong>NOTE:</strong> If you're having trouble receiving email notifications, please
+make sure the email address the notification is being sent from is valid
+(actually created on the server).</p>
+
+<p><a name="admin_cc_notify"></a></p>
+
+<h3>admin_cc_notify=</h3>
+
+<pre class="brush: html;">admin_cc_notify="name@domain.com" </pre>
+
+<p>This parameter is used to specify an admin email address(es) to receive
+an email notification as a carbon copy upon successful submission of the
+form. Used in conjunction with the
+<a href="#admin_notification_template">admin_notification_template</a> parameter.</p>
+
+<p><a name="admin_bcc_notify"></a></p>
+
+<h3>admin_bcc_notify=</h3>
+
+<pre class="brush: html;">admin_bcc_notify="name@domain.com" </pre>
+
+<p>This parameter is used to specify an admin email address(es) to receive
+an email notification as a blind carbon copy upon successful submission
+of the form. Used in conjunction with the
+<a href="#admin_notification_template">admin_notification_template</a> parameter.</p>
+
+<p><a name="admin_notification_template"></a></p>
+
+<h3>admin_notification_template=</h3>
+
+<pre class="brush: html;">admin_notification_template="billing_enquiry" </pre>
+
+<p>This parameter is used to specify which notification template should be
+used to generate the email notification for admin notifications. Using
+this parameter will override the default template specified in the
+Freeform control panel. Used in conjunction with the
+<a href="#notify_admin">notify_admin</a> parameter, and the
+<a href="#admin_notify">admin_notify</a>, <a href="#admin_cc_notify">admin_cc_notify</a>,
+and <a href="#admin_bcc_notify">admin_bcc_notify</a> parameters.</p>
+
+<p><a name="notify_admin"></a></p>
+
+<h3>notify_admin=</h3>
+
+<pre class="brush: html;">notify_admin="yes" </pre>
+
+<p>Override whether or not email notifications should be sent to admins. By
+default, Freeform will respect the settings for the form given in the
+Freeform control panel. Used in conjunction with the
+<a href="#admin_notification_template">admin_notification_template</a> parameter,
+and the <a href="#admin_notify">admin_notify</a>,
+<a href="#admin_cc_notify">admin_cc_notify</a>, and
+<a href="#admin_bcc_notify">admin_bcc_notify</a> parameters.</p>
+
+<p><a name="notify_user"></a></p>
+
+<h3>notify_user=</h3>
+
+<pre class="brush: html;">notify_user="yes" </pre>
+
+<p>Override whether or not email notifications should be sent to the user
+that submitted the form. By default, Freeform will respect the settings
+for the form given in the Freeform control panel. Used in conjunction
+with the <a href="#user_notification_template">user_notification_template</a> and
+<a href="#user_email_field">user_email_field</a> parameters.</p>
+
+<p><a name="user_email_field"></a></p>
+
+<h3>user_email_field=</h3>
+
+<pre class="brush: html;">user_email_field="customer_email" </pre>
+
+<p>In the event you wish to have users receive an email notification of
+their submission, this parameter is necessary to let Freeform know which
+field contains the users' email address. Simply specify the short name
+of the custom Freeform field that contains it. Used in conjunction with
+the <a href="#notify_user">notify_user</a> and
+<a href="#user_notification_template">user_notification_template</a> parameters.</p>
+
+<p><a name="user_notification_template"></a></p>
+
+<h3>user_notification_template=</h3>
+
+<pre class="brush: html;">user_notification_template="confirmation_email" </pre>
+
+<p>This parameter is used to specify which notification template should be
+used to generate the email notification for the user that fills out the
+form. Using this parameter will override the default template specified
+in the Freeform control panel. Used in conjunction with the
+<a href="#notify_user">notify_user</a> and <a href="#user_email_field">user_email_field</a>
+parameters.</p>
+
+<p><a name="recipients"></a></p>
+
+<h3>recipients=</h3>
+
+<pre class="brush: html;">recipients="yes" </pre>
+
+<p>This parameter allows you to let your users select recipient email
+addresses dynamically within the form itself. So for example, you can
+have a dropdown select menu that allows your users to select the
+destination for their email (<strong>Sales</strong>, <strong>Support</strong>, <strong>Service</strong>, etc). You can have
+corresponding email addresses to those options and the result is that
+the user can direct which email the notification should go to. This form
+field must be named <em>recipient_email</em> in order to work. Please see the
+<a href="#recipient_email">recipient_email</a> form field for more information.</p>
+
+<p><a name="recipient_limit"></a></p>
+
+<h3>recipient_limit=</h3>
+
+<pre class="brush: html;">recipient_limit="3" </pre>
+
+<p>Allows you to set a maximum amount of recipients that can be sent to at
+once (for spam control measures), specifically in regards to the
+<a href="#recipient1">recipient1</a> parameter method. Default value is <strong>3</strong>. Used in
+conjunction with the <a href="#recipients">recipients</a> and
+<a href="#recipient1">recipient1</a> parameters.</p>
+
+<p><a name="recipient1"></a></p>
+
+<h3>recipient1=</h3>
+
+<pre class="brush: html;">recipient1="John McCrackin|john@mccrackinandco.com" </pre>
+
+<pre class="brush: html;">recipient1="john@mccrackinandco.com" </pre>
+
+<p>If you're using the <a href="#recipients">recipients</a> feature (allows you to let
+your users select recipient email addresses dynamically within the form
+itself), this parameter allows you to securely list available
+recipients. You can just specify the recipients email, OR if you wish
+you can also specify the recipients name before the email, seperated by
+the pipe character. You can create as many recipients as you wish. For
+each recipient, add a <em>recipient</em> parameter to your form tag and name them
+<strong>recipient1</strong>, <strong>recipient2</strong>, <strong>recipient3</strong> successively. The values in these
+parameters are then available to use as variables in your form. See
+<a href="#freeform_recipient_value1">freeform:recipient_value1</a> and
+<a href="#freeform_recipient_name1">freeform:recipient_name1</a> variables. Used
+in conjunction with the <a href="#recipient_email">recipient_email</a> form field
+and <a href="#recipient_limit">recipient_limit</a> parameter.</p>
+
+<p><a name="recipient_template"></a></p>
+
+<h3>recipient_template=</h3>
+
+<pre class="brush: html;">recipient_template="contact_form" </pre>
+
+<p>Specify a notification template you created in the Notifications tab in
+the Freeform control panel area. This is the notification that is sent
+out to the email address selected in the form field. To be used in
+conjunction with the <a href="#recipients">recipients</a> and
+<a href="#recipient1">recipient1</a> parameters.</p>
+
+<p><a name="recipient_user_input"></a></p>
+
+<h3>recipient_user_input=</h3>
+
+<pre class="brush: html;">recipient_user_input="yes" </pre>
+
+<p>If you wish to allow users to enter in their own recipient emails into
+an input field (for example: Tell-a-Friend form), specify a value of <strong>yes</strong>
+for this parameter. This form field must be named <em>recipient_email_user</em>
+in order to work. Please see the
+<a href="#recipient_email_user">recipient_email_user</a> form field for more
+information. Used in conjunction with the
+<a href="#recipient_user_limit">recipient_user_limit</a> and
+<a href="#recipient_user_template">recipient_user_template</a> parameters.</p>
+
+<p><a name="recipient_user_limit"></a></p>
+
+<h3>recipient_user_limit=</h3>
+
+<pre class="brush: html;">recipient_user_limit="1" </pre>
+
+<p>Allows you to set a maximum amount of manually entered (or hardcoded
+into template) recipients that can be sent to at once (for spam control
+measures). Default value is <strong>3</strong>. Used in conjunction with the
+<a href="#recipient_user_input">recipient_user_input</a> and
+<a href="#recipient_user_template">recipient_user_template</a> parameters.</p>
+
+<p><a name="recipient_user_template"></a></p>
+
+<h3>recipient_user_template=</h3>
+
+<pre class="brush: html;">recipient_user_template="tell_a_friend" </pre>
+
+<p>Specify a notification template you created in the Notifications tab in
+the Freeform control panel area. This is the notification that is sent
+out to the email address selected in the form field. To be used in
+conjunction with the <a href="#recipient_user_input">recipient_user_input</a> and
+<a href="#recipient_user_limit">recipient_user_limit</a> parameters.</p>
+
+<p><a name="duplicate_redirect"></a></p>
+
+<h3>duplicate_redirect=</h3>
+
+<pre class="brush: html;">duplicate_redirect="template_group/template" </pre>
+
+<p>This parameter allows for a different variation of duplicate control.
+When Freeform detects that the user has already submitted the form, you
+would use this parameter in the event you'd like a user to be
+completely redirected to a template instead of the native EE error page. 
+It only works on <em>form load</em> if Freeform is able to recognize a logged in 
+member or an IP address already on file, and on <em>form submission</em> when
+Freeform is able to recognize a duplicate email address. Used in combination
+with the <a href="#prevent_duplicate_on">prevent_duplicate_on</a> parameter.</p>
+
+<p><a name="prevent_duplicate_on"></a></p>
+
+<h3>prevent_duplicate_on=</h3>
+
+<pre class="brush: html;">prevent_duplicate_on="email" </pre>
+
+<p>If you'd like to enforce duplicate checking on your form submissions,
+you can use this parameter to do so. It allows you to base the check on
+one of these three options: <em>member_id</em>, <em>ip_address</em> or <em>email</em> (the value
+provided within the <strong>email</strong> form field if specified). Provide any of
+those three in the parameter and Freeform will test for duplicate
+postings WITHIN the specific form.</p>
+
+<p><a name="prevent_duplicate_per_site"></a></p>
+
+<h3>prevent_duplicate_per_site=</h3>
+
+<pre class="brush: html;">prevent_duplicate_per_site="no" </pre>
+
+<p>When performing duplicate checks, Freeform will check to see if the
+particular form was submitted by the same user before, but on a per MSM
+site level. If you specify a value of <strong>no</strong>, Freeform will look across all
+sites to see if the user has already submitted the form.</p>
+
+<p><a name="variables"></a></p>
+
+<h2>Variables</h2>
+
+<p>The following variables are available for use:</p>
+
+<ul>
+<li><a href="#freeform_field_field_name">freeform:field:FIELD_NAME</a></li>
+<li><a href="#freeform_label_field_name">freeform:label:FIELD_NAME</a></li>
+<li><a href="#freeform_description_field_name">freeform:description:FIELD_NAME</a></li>
+<li><a href="#freeform_mp_data_field_name">freeform:mp_data:FIELD_NAME</a></li>
+<li><a href="#freeform_error_field_name">freeform:error:FIELD_NAME</a></li>
+<li><a href="#freeform_form_label">freeform:form_label</a></li>
+<li><a href="#freeform_form_name">freeform:form_name</a></li>
+<li><a href="#freeform_form_description">freeform:form_description</a></li>
+<li><a href="#freeform_submit">freeform:submit</a></li>
+<li><a href="#freeform_submit_previous">freeform:submit_previous</a></li>
+<li><a href="#freeform_captcha">freeform:captcha</a></li>
+<li><a href="#freeform_recipient_value1">freeform:recipient_value1</a></li>
+<li><a href="#freeform_recipient_name1">freeform:recipient_name1</a></li>
+<li><a href="#freeform_form_page">freeform:form_page</a></li>
+<li><a href="#freeform_form_page_total">freeform:form_page_total</a></li>
+</ul>
+
+<p><a name="freeform_field_field_name"></a></p>
+
+<h3>freeform:field:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:field:FIELD_NAME
+    attr:id="my_id"
+    attr:class="my_class"
+    attr:onclick="myFunction();"}  `
+</pre>
+
+<p>This variable parses out as a complete form field for the specified field. This is the optimal way to display fields as it auto applies settings and includes all needed HTML to display the field. Default Freeform fields can accept attributes such as <em>attr:id</em>, <em>attr:class</em>, and <em>attr:onclick</em> as parameters. Individual first and third party fields might have other field parameters available. Simply construct your variables like this: <strong>freeform:name:</strong> + <strong>FREEFORM_FIELD_NAME</strong>. So if you have a field with a short name of <em>favorite_food</em>, the variable would look like this:
+<strong>{freeform:name:favorite_food}</strong>.</p>
+
+<p>Also available is the <em>default_value="VALUE"</em> parameter, which can be
+applied directly to the <strong>{freeform:field:FIELD_NAME}</strong> variable. For field
+types that contain predetermined values such as select lists and radios,
+this can be used to pre-select a value from that list. For field types
+such as text input or text area, this can be used to add sample text to
+the field.</p>
+
+<p>For more information about each field types' output and special handling
+capabilities, please refer to the <a href="default_fieldtypes.html">Default
+Fieldtypes</a> documentation. For any 3rd
+party field types, please refer to any documentation provided by its
+developer.</p>
+
+<p><a name="freeform_label_field_name"></a></p>
+
+<h3>freeform:label:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:label:FIELD_NAME} </pre>
+
+<p>This variable parses out as the label for the field. Simply construct
+your variables like this: <em>freeform:label:</em> + <strong>FREEFORM_FIELD_NAME</strong>. So if
+you have a field with a short name of <strong>favorite_food</strong>, the variable
+would look like this: <em>{freeform:label:favorite_food}</em></p>
+
+<p><a name="freeform_description_field_name"></a></p>
+
+<h3>freeform:description:FIELD_NAME</h3>
+
+<pre class="brush: html;">{freeform:description:FIELD_NAME} </pre>
+
+<p>This variable parses out as the description for the field. Simply
+construct your variables like this: <em>freeform:description:</em> +
+<strong>FREEFORM_FIELD_NAME</strong>. So if you have a field with a short name of
+<strong>favorite_food</strong>, the variable would look like this:
+<em>{freeform:description:favorite_food}</em></p>
+
+<p><a name="freeform_mp_data_field_name"></a></p>
+
+<h3>freeform:mp_data:FIELD_NAME <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">{freeform:mp_data:FIELD_NAME} </pre>
+
+<p>This variable is available for use in <a href="#multipage">multipage</a> forms, and
+parses out data for form fields that were submitted in previous pages.
+This allows you to display the user's previous selections/data as they
+continue to fill out the form, and even use the data as conditionals to
+determine what form fields or wording to display on the following
+page(s). Simply construct your variables like this: <em>freeform:mp_data:</em> +
+<strong>FREEFORM_FIELD_NAME</strong>. So if you have a field with a short name of
+<strong>favorite_food</strong>, the variable would look like this:
+<em>{freeform:mp_data:favorite_food}</em></p>
+
+<p><a name="freeform_error_field_name"></a></p>
+
+<h3>freeform:error:FIELD_NAME</h3>
+
+<pre class="brush: html;">{if freeform:error:FIELD_NAME}
+    &lt;strong&gt;{freeform:error:FIELD_NAME}&lt;/strong&gt;
+{/if}
+</pre>
+
+<p>This variable is for serving inline errors in your form (to be used with
+<a href="#inline_errors">inline_errors</a> parameter), and parses out as the
+appropriate error message for each form field if there are errors in the
+form submission. Simply construct your variables like this:
+<em>freeform:error:</em> + <strong>FREEFORM_FIELD_NAME</strong>. So if you have a field with a
+short name of <strong>favorite_food</strong>, the variable would look like this:
+<em>{freeform:error:favorite_food}</em>. All other non-field errors will parse
+through the <a href="#freeform_general_errors">freeform:general_errors</a>
+variable pair.</p>
+
+<p><a name="freeform_form_label"></a></p>
+
+<h3>freeform:form_label</h3>
+
+<pre class="brush: html;">{freeform:form_label} </pre>
+
+<p>This variable parses out as the <strong>label</strong> for the Freeform form, as set
+in creation of form in Freeform control panel.</p>
+
+<p><a name="freeform_form_name"></a></p>
+
+<h3>freeform:form_name</h3>
+
+<pre class="brush: html;">{freeform:form_name} </pre>
+
+<p>This variable parses out as the short <strong>name</strong> for the Freeform form, as
+set in creation of form in Freeform control panel.</p>
+
+<p><a name="freeform_form_description"></a></p>
+
+<h3>freeform:form_description</h3>
+
+<pre class="brush: html;">{freeform:form_description} </pre>
+
+<p>This variable parses out as the <strong>description</strong> for the Freeform form,
+as set in creation of form in Freeform control panel.</p>
+
+<p><a name="freeform_submit"></a></p>
+
+<h3>freeform:submit</h3>
+
+<pre class="brush: html;">{freeform:submit} </pre>
+
+<p>This variable parses out as a simple submit button for the form.</p>
+
+<p><a name="freeform_submit_previous"></a></p>
+
+<h3>freeform:submit_previous</h3>
+
+<pre class="brush: html;">{freeform:submit_previous} </pre>
+
+<p>This variable is meant for multi-page forms and parses out as a submit button and submits data from the current page of the form, but returns the user to the previous page. Used in conjunction with the <a href="#multipage">multipage</a> parameter.</p>
+
+<p><a name="freeform_captcha"></a></p>
+
+<h3>freeform:captcha</h3>
+
+<pre class="brush: html;">{freeform:captcha} </pre>
+
+<p>Captcha is available for use in your Freeform forms. This variable will
+be replaced by a unique captcha image. The text in this image must be
+submitted into the <a href="#captcha_f">captcha</a> form field by the user in order
+for the form to post. Freeform will call in the Captcha requirement
+under the following circumstances:</p>
+
+<ol>
+<li>The Captcha code is present in the form, and the user is a Guest
+(not logged in).</li>
+<li>The Captcha code is present in the form, the <em>Require captcha with
+logged-in members?</em> setting in the CP is set to <strong>Yes</strong>, AND the user is
+logged in.</li>
+</ol>
+
+<p><a name="freeform_recipient_value1"></a></p>
+
+<h3>freeform:recipient_value1</h3>
+
+<pre class="brush: html;">&lt;select name="recipient_email" /&gt;
+    &lt;option value="{freeform:recipient_value1}"&gt;Sales&lt;/option&gt;
+    &lt;option value="{freeform:recipient_value2}"&gt;Technical Support&lt;/option&gt;
+    &lt;option value="{freeform:recipient_value3}"&gt;Service&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<p>When using the <a href="#recipient1">recipient1</a> parameter, this variable will
+parse out as a hash value to protect your email addresses. For each
+<a href="#recipient1">recipient1</a> parameter you've specified, use the
+<em>freeform_recipient_value</em> variable and add the corresponding number to
+it (ex: <strong>{freeform:recipient_value1}</strong>, <strong>{freeform:recipient_value2}</strong>,
+<strong>{freeform:recipient_value3}</strong> successively.</p>
+
+<p><a name="freeform_recipient_name1"></a></p>
+
+<h3>freeform:recipient_name1</h3>
+
+<pre class="brush: html;">&lt;select name="recipient_email" /&gt;
+    &lt;option value="{freeform:recipient_value1}"&gt;{freeform:recipient_name1}&lt;/option&gt;
+    &lt;option value="{freeform:recipient_value2}"&gt;{freeform:recipient_name2}&lt;/option&gt;
+    &lt;option value="{freeform:recipient_value3}"&gt;{freeform:recipient_name3}&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<p>When using the <a href="#recipient1">recipient1</a> parameter and specifying a name
+value as well, this variable will parse out as the name value. For each
+<a href="#recipient1">recipient1</a> parameter you've specified, use the
+<em>freeform:recipient_name</em> variable and add the corresponding number to it
+(ex: <strong>{freeform:recipient_name1}</strong>, <strong>{freeform:recipient_name2}</strong>,
+<strong>{freeform:recipient_name3}</strong> successively.</p>
+
+<p><a name="freeform_form_page"></a></p>
+
+<h3>freeform:form_page <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">{freeform:form_page} </pre>
+
+<p>In <a href="#multipage">multipage</a> forms, this variable will parse the page
+number the user is currently on. You would likely use this in
+conjunction with the
+<a href="#freeform_form_page_total">freeform:form_page_total</a> variable to show
+progress of form completion. Used in conjunction with the
+<a href="#multipage">multipage</a> parameter. This variable is parseable on its own
+(outside of the <em>Freeform:Form</em> tag, similar to how a global variable
+works.</p>
+
+<p><a name="freeform_form_page_total"></a></p>
+
+<h3>freeform:form_page_total <span class="pro">Pro</span></h3>
+
+<pre class="brush: html;">{freeform:form_page_total} </pre>
+
+<p>In <a href="#multipage">multipage</a> forms, this variable will parse the total
+amount of pages for a given multi-page form. You would likely use this
+in conjunction with the <a href="#freeform_form_page">freeform:form_page</a>
+variable to show progress of form completion. Used in conjunction with
+the <a href="#multipage">multipage</a> parameter. This variable is parseable on its
+own (outside of the <em>Freeform:Form</em> tag, similar to how a global
+variable works.</p>
+
+<p><a name="variable_pairs"></a></p>
+
+<h2>Variable Pairs</h2>
+
+<p>The following variable pairs are available for use:</p>
+
+<ul>
+<li><a href="#freeform_all_form_fields">freeform:all_form_fields</a></li>
+<li><a href="#freeform_page_1">freeform:page:1</a></li>
+<li><a href="#freeform_recipients">freeform:recipients</a></li>
+<li><a href="#freeform_statuses">freeform:statuses</a></li>
+<li><a href="#freeform_general_errors">freeform:general_errors</a></li>
+</ul>
+
+<p><a name="freeform_all_form_fields"></a></p>
+
+<h3>freeform:all_form_fields</h3>
+
+<pre class="brush: html;">{freeform:all_form_fields}
+&lt;p&gt;
+    &lt;label&gt;{freeform:field_label}&lt;/label&gt;
+    {freeform:field_output}
+    {if freeform:field_type == 'text'}hello!{/if}
+&lt;/p&gt;
+{/freeform:all_form_fields}
+</pre>
+
+<p>In the event you wish to have Freeform just populate your form fields
+automatically for you, this variable pair, along with other variables
+are available to use. Just apply the formatting of your choice and wrap
+that around the variables and Freeform will do the rest. This will
+output all fields except a submit button. The following variables are
+available for use within this variable pair:</p>
+
+<ul>
+<li><em>{freeform:field_id}</em> - the unique ID of the field</li>
+<li><em>{freeform:field_data}</em> - previously saved data for the field (when
+editing)</li>
+<li><em>{freeform:field_name}</em> - the short name of the field</li>
+<li><em>{freeform:field_label}</em> - the label for the field</li>
+<li><em>{freeform:field_type}</em> - the type of field the form field is (most
+likely used for creating conditionals on what kind of formatting to
+use around certain field types)</li>
+<li><em>{freeform:field_output}</em> - parses as complete HTML code for the form
+field</li>
+<li><em>{freeform:field_description}</em> - the field's description</li>
+</ul>
+
+<p><a name="freeform_page_1"></a></p>
+
+<h3>freeform:page:1</h3>
+
+<pre class="brush: html;">{freeform:page:1}
+     // content
+{/freeform:page:1}
+</pre>
+
+<p>When creating <a href="#multipage">multipage</a> forms, this variable pair lets you
+tell Freeform which content applies for each page/section of the form.
+Just wrap these variable pairs with successive numbers, around your
+content to differentiate the pages. For example, <strong>page 1</strong> should be
+wrapped with <em>freeform:page:1</em>, <strong>page 2</strong> should be wrapped with
+<em>freeform:page:2</em>, <strong>page 3</strong> should be wrapped with <em>freeform:page:3</em> ,etc. If you wish to have custom names for each page (and the URI segment), call
+the <a href="#multipage_page_names">multipage_page_names</a> parameter, and just
+have your variable pairs match those specified names.</p>
+
+<p>For example, if you have:</p>
+
+<pre class="brush: html;">multipage_page_names="contact_info|billing|confirm"</pre>
+
+<p>then your variable pair names should be <em>freeform:page:contact_info</em>,
+<em>freeform:page:billing</em>, and <em>freeform:page:confirm</em>.</p>
+
+<p>You can also specify which Freeform fields are required on a per page
+basis. Simply add the <a href="#required">required</a> parameter directly to the
+page variable pair (instead of to the <em>Freeform:Form</em> loop), and specify
+which fields per page to be required to be filled out. Example:</p>
+
+<pre class="brush: html;">{freeform:page:1 required="name|phone|address"}
+    // content
+{/freeform:page:1}
+
+{freeform:page:2 required="favorite_food|favorite_sports"}
+    // content
+{/freeform:page:2}
+</pre>
+
+<p><a name="freeform_recipients"></a></p>
+
+<h3>freeform:recipients</h3>
+
+<pre class="brush: html;">&lt;label&gt;Choose Recipients&lt;/label&gt;
+&lt;select name="recipient_email" /&gt;
+    {freeform:recipients}
+    &lt;option value="{freeform:recipient_value}"
+    {if freeform:recipient_selected}selected="selected"{/if}&gt;
+        {freeform:recipient_name}
+    &lt;/option&gt;
+    {/freeform:recipients}
+&lt;/select&gt;
+</pre>
+
+<p>This variable pair will provide the formatting for parsing out all
+available contacts you've specified in the <a href="#recipient1">recipient1</a>
+parameters. Used in conjunction with the <a href="#recipients">recipients</a>
+parameter. Within this variable pair is the following variables and
+conditionals:</p>
+
+<ul>
+<li><em>freeform:recipient_value</em> variable - pulls email value from
+<a href="#recipient1">recipient1</a> parameter.</li>
+<li><em>freeform:recipient_name</em> variable - pulls
+name value if present, from <a href="#recipient1">recipient1</a> parameter.</li>
+<li><em>if freeform:recipient_selected</em> conditional - available for use when editing an entry.</li>
+</ul>
+
+<p><a name="freeform_statuses"></a></p>
+
+<h3>freeform:statuses</h3>
+
+<pre class="brush: html;">&lt;select name="status" id="status"&gt;
+    &lt;option value=""&gt;Select:&lt;/option&gt;
+    {freeform:statuses status="not closed|testing"}
+        &lt;option value="{status_name}"
+            {if freeform:edit_data:status == "{status_name}"} selected="selected"
+        {/if}&gt;
+        {status_label}
+    &lt;/option&gt;
+    {/freeform:statuses}
+&lt;/select&gt;
+</pre>
+
+<p>This variable pair is available to help with parsing a list of available
+statuses. You can filter the list of statuses by specifying specific
+ones, or exclude specific statuses by prepending the status name(s) with
+not. Separate multiple status names with the pipe character (<strong>|</strong>). Used in
+conjunction with the Used in conjunction with the <a href="status_f.html">status</a>
+form field and <a href="allow_status_edit.html">allow_status_edit</a> parameter.</p>
+
+<p><a name="freeform_general_errors"></a></p>
+
+<h3>freeform:general_errors</h3>
+
+<pre class="brush: html;">{if freeform:general_errors}
+    &lt;h2&gt;There were some error(s) with your submission:&lt;/h2&gt;
+    &lt;ul&gt;
+        {freeform:general_errors}
+        &lt;li&gt;{freeform:error_message}&lt;/li&gt;
+        {/freeform:general_errors}
+    &lt;/ul&gt;
+{/if}
+</pre>
+
+<p>This variable pair is available for parsing all general errors such as
+<strong>incorrect CAPTCHA</strong>, <strong>user banned</strong>, <strong>login required</strong>, <strong>spam keyword ban</strong>, <strong>secure form timeout</strong>, <strong>invalid form</strong>, etc, inside of the form. It is used in
+conjunction with the <a href="#inline_errors">inline_errors</a> parameter. When a
+user submits the form and any general, non-field error is triggered, it
+will parse through this variable pair. Field-specific errors will parse
+through the <a href="#freeform_error_field_name">freeform:error:FIELD_NAME</a>
+variable.</p>
+
+<p><a name="conditionals"></a></p>
+
+<h2>Conditionals</h2>
+
+<p>The following conditionals are available for use:</p>
+
+<ul>
+<li><a href="#freeform_captcha_c">if freeform:captcha</a></li>
+<li><a href="#freeform_duplicate">if freeform:duplicate</a></li>
+<li><a href="#freeform_not_duplicate">if freeform:not_duplicate</a></li>
+<li><a href="#freeform_no_results">if freeform:no_results</a></li>
+</ul>
+
+<p><a name="freeform_captcha_c"></a></p>
+
+<h3>if freeform:captcha</h3>
+
+<pre class="brush: html;">{if freeform:captcha}
+    &lt;p&gt;
+        Please enter the word you see in the image below:
+        {freeform:captcha}
+    &lt;/p&gt;
+    &lt;p&gt;&lt;input type="text" name="captcha" /&gt;&lt;/p&gt;
+{/if}
+</pre>
+
+<p>Freeform respects the global Captcha preferences that you set in
+ExpressionEngine. Currently, you can indicate in EE that logged in
+members need not submit captchas. This conditional allows you to
+evaluate so that you do not show your captcha field when it is not
+necessary. Freeform will call in the Captcha requirement under the
+following circumstances:</p>
+
+<ol>
+<li>The Captcha code is present in the form, and the user is a Guest
+(not logged in).</li>
+<li>The Captcha code is present in the form, the <em>Require captcha with
+logged-in members?</em> setting in the CP is set to <strong>Yes</strong>, AND the user is
+logged in.</li>
+</ol>
+
+<p><a name="freeform_duplicate"></a></p>
+
+<h3>if freeform:duplicate</h3>
+
+<pre class="brush: html;">{if freeform:duplicate}You've already submitted this form.{/if} </pre>
+
+<p>If the user has already submitted the form, this conditional will show
+its contents. This will be determined by their member ID if logged in,
+or by their IP address if logged out/guest.</p>
+
+<p><a name="freeform_not_duplicate"></a></p>
+
+<h3>if freeform:not_duplicate</h3>
+
+<pre class="brush: html;">{if freeform:not_duplicate}You may submit the form.{/if} </pre>
+
+<p>If the user has NOT yet submitted the form, this conditional will show
+its contents. This will be determined by their member ID if logged in,
+or by their IP address if logged out/guest.</p>
+
+<p><a name="freeform_no_results"></a></p>
+
+<h3>if freeform:no_results</h3>
+
+<pre class="brush: html;">{if freeform:no_results}Form not found.{/if} </pre>
+
+<p>This conditional will show its contents if there is an invalid form name
+or ID selected.</p>
+
+<p><a name="form_fields"></a></p>
+
+<h2>Form Fields</h2>
+
+<p>The following form fields are available for use:</p>
+
+<ul>
+<li><a href="#captcha_f">captcha</a></li>
+<li><a href="#recipient_email">recipient_email</a></li>
+<li><a href="#recipient_email_user">recipient_email_user</a></li>
+<li><a href="#return_f">return</a></li>
+<li><a href="#status_f">status</a></li>
+<li><a href="#freeform_field_name">FREEFORM_FIELD_NAME</a></li>
+</ul>
+
+<p><a name="captcha_f"></a></p>
+
+<h3>captcha</h3>
+
+<pre class="brush: html;">&lt;input type="text" name="captcha" /&gt; </pre>
+
+<p>When using Captchas in your forms, this field is necessary for users to
+submit the text of the Captcha image they see. Used in conjunction with
+the <a href="#freeform_captcha">freeform:captcha</a> variable. Freeform will call
+in the Captcha requirement under the following circumstances:</p>
+
+<ol>
+<li>The Captcha code is present in the form, and the user is a Guest
+(not logged in).</li>
+<li>The Captcha code is present in the form, the <em>Require captcha with
+logged-in members?</em> setting in the CP is set to <strong>Yes</strong>, AND the user is
+logged in.</li>
+</ol>
+
+<p><a name="recipient_email"></a></p>
+
+<h3>recipient_email</h3>
+
+<pre class="brush: html;">&lt;label&gt;Choose Recipients&lt;/label&gt;
+&lt;select name="recipient_email"&gt;
+{freeform:recipients}
+    &lt;option
+        value="{freeform:recipient_value}"
+        {if freeform:recipient_selected}selected="selected"{/if}&gt;
+        {freeform:recipient_name}
+    &lt;/option&gt;
+{/freeform:recipients}
+&lt;/select&gt;
+</pre>
+
+<p>This form field allows you to have your users dynamically select the
+recipient of the form submission they're sending to. This could
+typically be used for displaying a list of departments or contacts a
+user can send the form submission to. To help prevent spam, refer to the
+<a href="#recipients_limit">recipients_limit</a> parameter. Used in conjunction
+with the <a href="#recipients">recipients</a> parameter and/or
+<a href="#freeform_recipient_value1">freeform:recipient_value1</a> variables.</p>
+
+<p><a name="recipient_email_user"></a></p>
+
+<h3>recipient_email_user</h3>
+
+<pre class="brush: html;">&lt;input type="text" name="recipient_email_user" /&gt; </pre>
+
+<p>This form field allows you to have your users dynamically specify the
+recipient of the form submission they're sending to. This would
+typically be used for a Tell-a-Friend type form on your site, where a
+user can specify their friend's email address to submit an email
+notification to. To help prevent spam, refer to the
+<a href="#recipients_limit_user">recipients_limit_user</a> parameter. Used in
+conjunction with the <a href="#recipient_user_input">recipient_user_input</a> and
+<a href="#recipient_user_template">recipient_user_template</a> parameters.</p>
+
+<p><a name="return_f"></a></p>
+
+<h3>return</h3>
+
+<pre class="brush: html;">&lt;select name="return"&gt;
+    &lt;option value="application_form/thank_you"&gt;
+        I will pay at the door
+    &lt;/option&gt;
+    &lt;option value="application_form/payment"&gt;
+        I will pay now
+    &lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<p>This field (actual Freeform field or not), will override the
+<a href="#return">return</a> parameter and allows you to control the return path,
+dependant on a users selection. If you'd like to send the user to a page
+with the newly created Freeform entry ID in the URI, just add
+<em>%%entry_id%%</em> to the end of the URL you've specified in the return
+field. That variable will be replaced by the Freeform entry ID of the
+newly submitted entry.</p>
+
+<p><a name="status_f"></a></p>
+
+<h3>status</h3>
+
+<pre class="brush: html;">&lt;select name="status" id="status"&gt;
+    &lt;option value=""&gt;Select:&lt;/option&gt;
+    {freeform:statuses status="not closed|testing"}
+        &lt;option value="{status_name}"
+        {if freeform:edit_data:status == "{status_name}"}
+            selected="selected"
+        {/if}&gt;
+        {status_label}
+    &lt;/option&gt;
+    {/freeform:statuses}
+&lt;/select&gt;
+</pre>
+
+<p>This field is available to let you have your users specify a status for
+the form and override the default status set for the form (in the
+Freeform control panel). Used in conjunction with the Used in
+conjunction with the <a href="freeform_statuses.html">freeform:statuses</a> variable
+pair and <a href="allow_status_edit.html">allow_status_edit</a> parameter.</p>
+
+<p><a name="freeform_field_name"></a></p>
+
+<h3>FREEFORM_FIELD_NAME</h3>
+
+<pre class="brush: html;">&lt;input type="text" name="FREEFORM_FIELD_NAME"&gt; </pre>
+
+<pre class="brush: html;">&lt;input type="checkbox" name="FREEFORM_FIELD_NAME[]" value="pie"&gt; </pre>
+
+<pre class="brush: html;">&lt;textarea name="FREEFORM_FIELD_NAME"&gt;&lt;/textarea&gt; </pre>
+
+<p>All Freeform fields you created for a given form are available for use
+as form fields here to collect data. Just specify the short_name of the
+field (ex: subject) as the field name. For fields that are to be
+accepting multiple values (or single and multiple <strong>file upload</strong>
+fields), be sure to include brackets ([]) after the name of the field in
+the <strong>name</strong> attribute (ex: name="FREEFORM_FIELD_NAME[]"). If you wish
+to use a more automated form of populating these fields, check out the
+<a href="#freeform_all_form_fields">freeform:all_form_fields</a> variable pair,
+or the <a href="#freeform_label_field_name">freeform_label:FIELD_NAME</a> and
+<a href="#freeform_name_field_name">freeform_name:FIELD_NAME</a> variables.</p>
+
+<p><a name="examples"></a></p>
+
+<h2>Examples</h2>
+
+<ul>
+<li><a href="#simple_contact_form">Simple Contact Form</a></li>
+<li><a href="#advanced_contact_form">Advanced Contact Form</a></li>
+<li><a href="#inline_errors_form">Inline Errors Form</a></li>
+<li><a href="#multipage_surveys">Multi-page Surveys</a></li>
+<li><a href="#simple_voting">Simple Voting / Polls</a></li>
+<li><a href="#tellafriend_form">Tell-A-Friend Form</a></li>
+<li><a href="#ajax_validation">AJAX Validation</a></li>
+</ul>
+
+<p><a name="simple_contact_form"></a></p>
+
+<h3>Simple Contact Form</h3>
+
+<p>The following example will display a simple contact form for site
+visitors to contact you. It will not send any notifications but the data
+will be posted to the database and be available for viewing in the
+Freeform control panel area or within the <em>Freeform:Entries</em> tag.</p>
+
+<pre class="brush: html;">&lt;h3&gt;Contact Us&lt;/h3&gt;
+&lt;p&gt;
+    To send us a message, please fill out the form below.
+    We’ll get back to you shortly!
+&lt;/p&gt;
+
+{exp:freeform:form
+    form_name="contact"
+    return="contact_us/thank_you"
+}
+    &lt;dl&gt;
+    {freeform:all_form_fields}
+        &lt;dt&gt;&lt;label&gt;{freeform:field_label}&lt;/label&gt;&lt;/dt&gt;
+        &lt;dd&gt;{freeform:field_output}&lt;/dd&gt;
+    {/freeform:all_form_fields}
+    &lt;/dl&gt;
+    {if freeform:captcha}
+        &lt;p&gt;Please enter the word you see in the image below:&lt;/p&gt;
+        &lt;p&gt;{freeform:captcha}&lt;br /&gt;
+        &lt;input type="text" name="captcha" style="width:140px;" /&gt;&lt;/p&gt;
+    {/if}
+    &lt;p&gt;{freeform:submit}&lt;/p&gt;
+    {if freeform:no_results}
+        &lt;p&gt;
+            Specified form was not found. Please make sure you have
+            specified the correct short name of the form in the
+            &lt;b&gt;form_name&lt;/b&gt; parameter.
+        &lt;/p&gt;
+    {/if}
+{/exp:freeform:form}
+</pre>
+
+<p><a name="advanced_contact_form"></a></p>
+
+<h3>Advanced Contact Form</h3>
+
+<p>The following example will create a more elaborate contact form for site
+visitors to contact you. This is dependant on you setting notification
+preferences for a given form in the Freeform control panel, and creating
+new fields as named in the form below. The form will send an email
+notification to the specified email the submitter selects in addition to
+posting the data to the database. It will also send out a notification
+to the user that submitted the form (good for sending a message like
+<em>"We received your submission and we'll be right with you..."</em>). It uses
+8 Freeform fields (name, email, home_phone, cell_phone, urgent,
+subject, question, and attach_file) that will need to be created in the
+Freeform control panel.</p>
+
+<pre class="brush: html;">&lt;h3&gt;Contact Us&lt;/h3&gt;
+&lt;p&gt;
+    To send us a message, please fill out the form below.
+    We’ll get back to you shortly!
+&lt;/p&gt;
+
+{exp:freeform:form
+    form_id="1"
+    required="name|email"
+    return="contact_us/thank_you"
+    recipients="yes"
+    recipient1="Happy Harry|h_harry@somemail.com"
+    recipient2="Lazy Larry|lazyl63@somemail.com"
+    recipient_template="contact_form"
+    notify_user="yes"
+    user_email_field="user_email"
+}
+
+    &lt;p&gt;&lt;label&gt;Choose Recipients&lt;/label&gt;&lt;br/&gt;
+        &lt;select name="recipient_email" /&gt;
+            {freeform:recipients}
+            &lt;option value="{freeform:recipient_value}"&gt;
+                {freeform:recipient_name}
+            &lt;/option&gt;
+            {/freeform:recipients}
+        &lt;/select&gt;&lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:name}&lt;/label&gt;
+        {freeform:field:name}
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:email}&lt;/label&gt;
+        {freeform:field:email}
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:home_phone}&lt;/label&gt;
+        {freeform:field:home_phone}
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:cell_phone}&lt;/label&gt;
+        {freeform:field:cell_phone}
+    &lt;/p&gt;
+
+    &lt;!--
+        This is the long form of a radio button.
+        With Freeform Pro, the Radio Button fieldtype
+        makes this as easy as {freeform:field:my_radio}
+    --&gt;
+    &lt;p&gt;
+        Is This Urgent?:
+        &lt;input
+            type="radio"
+            name="urgent"
+            id="urgent_yes"
+            value="yes" /&gt;
+        &lt;label for="urgent_yes"&gt;Yes&lt;/label&gt;
+
+        &lt;input
+            type="radio"
+            name="urgent"
+            id="urgent_no"
+            value="no" /&gt;
+        &lt;label for="urgent_no"&gt;No&lt;/label&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:subject}&lt;/label&gt;
+        {freeform:field:subject}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:question}&lt;/label&gt;&lt;br /&gt;
+        {freeform:field:question}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:attach_file}&lt;/label&gt;&lt;br /&gt;
+        {freeform:field:attach_file show="2"}
+    &lt;/p&gt;
+
+    {if freeform:captcha}
+        &lt;p&gt;Please enter the word you see in the image below:&lt;/p&gt;
+        &lt;p&gt;{freeform:captcha}&lt;br /&gt;
+        &lt;input type="text" name="captcha" style="width:140px;" /&gt;&lt;/p&gt;
+    {/if}
+
+    &lt;p&gt;{freeform:submit}&lt;/p&gt;
+
+{/exp:freeform:form}
+</pre>
+
+<p><a name="inline_errors_form"></a></p>
+
+<h3>Inline Errors Form</h3>
+
+<p>The following example shows the inline errors feature in use:</p>
+
+<pre class="brush: html;">&lt;h3&gt;Contact Us&lt;/h3&gt;
+&lt;p&gt;
+    To send us a message, please fill out the form below.
+    We’ll get back to you shortly!
+&lt;/p&gt;
+
+{exp:freeform:form
+    form_id="1"
+    required="name|email"
+    return="contact_us/thank_you"
+    inline_errors="yes"
+}
+
+    {if freeform:general_errors}
+        &lt;h2&gt;There were some error(s) with your submission:&lt;/h2&gt;
+        &lt;ul&gt;
+            {freeform:general_errors}
+            &lt;li&gt;{freeform:error_message}&lt;/li&gt;
+            {/freeform:general_errors}
+        &lt;/ul&gt;
+    {/if}
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:name}&lt;/label&gt;
+        {freeform:field:name}
+
+        {if freeform:error:name}
+            &lt;span class="error"&gt;
+                {freeform:error:name}
+            &lt;/span&gt;
+        {/if}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:email}&lt;/label&gt;
+        {freeform:field:email}
+
+        {if freeform:error:email}
+            &lt;span class="error"&gt;
+                {freeform:error:email}
+            &lt;/span&gt;
+        {/if}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:home_phone}&lt;/label&gt;
+        {freeform:field:home_phone}
+        {if freeform:error:home_phone}
+            &lt;span class="error"&gt;
+                {freeform:error:home_phone}
+            &lt;/span&gt;
+        {/if}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:cell_phone}&lt;/label&gt;
+        {freeform:field:cell_phone}
+        {if freeform:error:cell_phone}
+            &lt;span class="error"&gt;
+                {freeform:error:cell_phone}
+            &lt;/span&gt;
+        {/if}
+    &lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;label&gt;{freeform:label:question}&lt;/label&gt;&lt;br /&gt;
+        {freeform:field:question}&lt;br /&gt;
+        {if freeform:error:question}
+            &lt;span class="error"&gt;
+                {freeform:error:question}
+            &lt;/span&gt;
+        {/if}
+    &lt;/p&gt;
+
+    {if freeform:captcha}
+        &lt;p&gt;Please enter the word you see in the image below:&lt;/p&gt;
+        &lt;p&gt;{freeform:captcha}&lt;br /&gt;
+        &lt;input type="text" name="captcha" style="width:140px;" /&gt;&lt;/p&gt;
+    {/if}
+
+    &lt;p&gt;{freeform:submit}&lt;/p&gt;
+
+{/exp:freeform:form}
+</pre>
+
+<p><a name="multipage_surveys"></a></p>
+
+<h3>Multi-page Surveys</h3>
+
+<p>The following example shows you how to create a multi-page survey form.
+It will send an email notification to the specified admin in addition to
+posting the data to the database. We've also set conditionals in the
+code so that users are NOT allowed to submit the form more than once.</p>
+
+<pre class="brush: html;">&lt;h3&gt;Survey&lt;/h3&gt;
+&lt;p&gt;We would appreciate it if you could fill out this quick survey!&lt;/p&gt;
+
+{exp:freeform:form
+    form_name="foods_survey"
+    multipage="yes"
+    return="survey/thank_you"
+    notify_admin="yes"
+    notify="joe@yoursite.com"
+    admin_template="survey_response"
+}
+
+{if freeform:duplicate}
+    &lt;p&gt;Sorry, you’ve already submitted this survey.&lt;/p&gt;
+{/if}
+
+{if freeform:not_duplicate}
+
+{freeform:page:1 required="name|email"}
+    &lt;p&gt;&lt;label&gt;{freeform:label:name}&lt;/label&gt; {freeform:field:name}&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;{freeform:label:email}&lt;/label&gt; {freeform:field:email}&lt;/p&gt;
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Continue" /&gt;&lt;/p&gt;
+{/freeform:page:1}
+
+{freeform:page:2 required="question_1"}
+    &lt;h4&gt;Question 1&lt;/h4&gt;
+    &lt;p&gt;
+        Do you like to eat?:
+        &lt;input
+            type="radio"
+            name="question_1"
+            id="question_1_yes"
+            value="yes" /&gt;
+        &lt;label for="question_1_yes"&gt;Yes&lt;/label&gt;
+
+        &lt;input
+            type="radio"
+            name="question_1"
+            id="question_1_no"
+            value="no" /&gt;
+        &lt;label for="question_1_no"&gt;No&lt;/label&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Continue" /&gt;&lt;/p&gt;
+{/freeform:page:2}
+
+{freeform:page:3 required="question_2"}
+    &lt;h4&gt;Question 2&lt;/h4&gt;
+    &lt;p&gt;Which of the 4 Food Groups do you like most?:
+    &lt;select name="question_2" /&gt;
+        &lt;option value="Breads &amp; Grains"&gt;Breads &amp; Grains&lt;/option&gt;
+        &lt;option value="Fruits &amp; Vegetables"&gt;Fruits &amp; Vegetables&lt;/option&gt;
+        &lt;option value="Dairy Products"&gt;Dairy Products&lt;/option&gt;
+        &lt;option value="Meats"&gt;Meats&lt;/option&gt;
+    &lt;/select&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Continue" /&gt;&lt;/p&gt;
+{/freeform:page:3}
+
+{freeform:page:4 required="question_3"}
+    &lt;h4&gt;Question 3&lt;/h4&gt;
+    &lt;p&gt;
+        Which meals do you eat throughout the day (check all that apply)?:
+
+        &lt;input type="checkbox" name="question_3[]" id="question_3_breakfast" value="Breakfast" /&gt;
+        &lt;label for="question_3_breakfast"&gt;Breakfast&lt;/label&gt;
+
+        &lt;input type="checkbox" name="question_3[]" id="question_3_lunch" value="Lunch" /&gt;
+        &lt;label for="question_3_lunch"&gt;Lunch&lt;/label&gt;
+
+        &lt;input type="checkbox" name="question_3[]" id="question_3_supper" value="Supper" /&gt;
+        &lt;label for="question_3_supper"&gt;Supper&lt;/label&gt;
+
+        &lt;input type="checkbox" name="question_3[]" id="question_3_latenightsnack" value="Late Night Snack" /&gt;
+        &lt;label for="question_3_latenightsnack"&gt;Late Night Snack&lt;/label&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Submit" /&gt;&lt;/p&gt;
+{/freeform:page:4}
+
+{/if}
+
+{/exp:freeform:form}
+</pre>
+
+<p><a name="simple_voting"></a></p>
+
+<h3>Simple Voting / Polls</h3>
+
+<p>The following example shows you how to create a voting form. With its
+current parameters set, it will not send any email notifications, but
+will post the data to the database. We've also set conditionals in the
+code so that users are NOT allowed to submit the form more than once.</p>
+
+<pre class="brush: html;">&lt;h3&gt;Weekly Vote&lt;/h3&gt;
+
+{exp:freeform:form
+    form_name="american_idol"
+    required="name|email|vote"
+    return="vote/thank_you"
+}
+
+{if freeform:duplicate}
+    &lt;p&gt;Sorry, you’ve already voted.&lt;/p&gt;
+{/if}
+
+{if freeform:not_duplicate}
+    &lt;p&gt;&lt;label&gt;{freeform:label:name}&lt;/label&gt; {freeform:field:name}&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;{freeform:label:email}&lt;/label&gt; {freeform:field:email}&lt;/p&gt;
+
+    &lt;p&gt;
+        Choose your favorite American Idol:
+        &lt;input type="radio" name="vote" id="vote_1" value="Kelly Clarkson" /&gt;
+        &lt;label for="vote_1"&gt;Kelly Clarkson&lt;/label&gt;
+
+        &lt;input type="radio" name="vote" id="vote_2" value="Ruben Studdard" /&gt;
+        &lt;label for="vote_2"&gt;Ruben Studdard&lt;/label&gt;
+
+        &lt;input type="radio" name="vote" id="vote_3" value="Fantasia Barrino" /&gt;
+        &lt;label for="vote_3"&gt;Fantasia Barrino&lt;/label&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Vote!" /&gt;&lt;/p&gt;
+{/if}
+
+{/exp:freeform:form}
+</pre>
+
+<p><a name="tellafriend_form"></a></p>
+
+<h3>Tell-A-Friend Form</h3>
+
+<p>In this example, your users can to send a <em>Tell-A-Friend</em> style message
+to their friends about your site. It will send an email notification to
+the email address they enter (in the field with the short name of
+recipient_email_user), and the data will also be posted to the
+database and be available for viewing in the Freeform CP. The
+<a href="#recipient_user_input">recipient_user_input</a> field is required with a
+value of yes.</p>
+
+<pre class="brush: html;">&lt;h3&gt;Tell A Friend About This Site&lt;/h3&gt;
+&lt;p&gt;Tell your friends about this site! Just fill out the form below.&lt;/p&gt;
+
+{exp:freeform:form
+    form_name="tell_a_friend"
+    required="name|email|friend_email"
+    return="tell-a-friend/thank_you"
+    recipient_user_input="yes"
+    recipient_user_limit="1"
+    recipient_user_template="tell_a_friend"
+}
+
+    &lt;p&gt;Your Name: &lt;input type="text" name="name" /&gt;&lt;/p&gt;
+    &lt;p&gt;Your Email: &lt;input type="text" name="email" /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Friends Name: &lt;input type="text" name="friends_name" /&gt;&lt;/p&gt;
+    &lt;p&gt;Friends Email: &lt;input type="text" name="recipient_email_user" /&gt;&lt;/p&gt;
+
+    &lt;p&gt; Comments:&lt;br /&gt;
+        &lt;textarea name="comments"&gt;
+            Hey there! You should check out this site - it’s totally awesome!
+        &lt;/textarea&gt;
+    &lt;/p&gt;
+
+    {if freeform:captcha}
+        &lt;p&gt;Please enter the word you see in the image below:&lt;/p&gt;
+        &lt;p&gt;{freeform:captcha}&lt;br /&gt;
+        &lt;input type="text" name="captcha" style="width:140px;" /&gt;&lt;/p&gt;
+    {/if}
+
+    &lt;p&gt;&lt;input type="submit" name="submit" value="Send!" /&gt;&lt;/p&gt;
+
+{/exp:freeform:form}
+</pre>
+
+<p><a name="ajax_validation"></a></p>
+
+<h3>AJAX Validation</h3>
+
+<p>The following example shows you how you might implement AJAX validation
+on your form. Comments explaining each part are included inline with the
+example code.</p>
+
+<pre class="brush: html;">&lt;style type="text/css"&gt;
+    .general_errors,
+    .error_message {
+        color:            red;
+        border:            1px solid red;
+        border-radius:    3px;
+        padding:        0 10px;
+        display:        none;
+        margin-bottom:    10px;
+        width:            300px;
+    }
+&lt;/style&gt;
+
+{exp:freeform:form
+    form:id="ajax_form"
+    {if segment_3}form_name="{segment_3}"{/if}
+    {if segment_3 == ''}form_id="1"{/if}
+}
+    {if freeform:no_results}
+        Form Not Found.
+    {/if}
+    &lt;h1&gt;{freeform:form_label}&lt;/h1&gt;
+
+    &lt;!-- place holder for ajax errors--&gt;
+    &lt;div class="general_errors"&gt;&lt;/div&gt;
+
+    &lt;dl&gt;
+    {freeform:all_form_fields}
+        &lt;dt&gt;
+            &lt;label&gt;{freeform:field_label}&lt;/label&gt;
+        &lt;/dt&gt;
+        &lt;dd&gt;
+            &lt;!-- place holder for ajax errors--&gt;
+            &lt;div class="error_message"&gt;&lt;/div&gt;
+            {freeform:field_output}
+        &lt;/dd&gt;
+    {/freeform:all_form_fields}
+    &lt;/dl&gt;
+
+    {if freeform:captcha}
+        &lt;p&gt;Please enter the word you see in the image below:&lt;/p&gt;
+        &lt;p&gt;
+            {freeform:captcha}&lt;br /&gt;
+            &lt;input
+                type="text"
+                name="captcha"
+                value=""
+                size="20"
+                maxlength="20"
+                style="width:140px;" /&gt;
+        &lt;/p&gt;
+    {/if}
+
+    &lt;p&gt;{freeform:submit}&lt;/p&gt;
+{/exp:freeform:form}
+
+&lt;!-- example requires jquery --&gt;
+&lt;script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;
+&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+    jQuery(function($){
+        var $form            = $('#ajax_form');
+        var $generalErrors    = $('.general_errors');
+
+        $form.submit(function(e){
+            //hide all errors
+            $('.error_message').hide().html('');
+            $generalErrors.hide().html('');
+
+            //jquery ajax shortcut
+            $.post(
+                //form url (Freeform autodetects ajax)
+                $form.attr('action'),
+                //form params
+                $form.serialize(),
+                //data handler
+                function(data)
+                {
+                    // -------------------------------------
+                    //    `data` is a json string that jQuery
+                    //    automatically detects and converts.
+                    //    data {
+                    //        //posting successful?
+                    //
+                    //        "success" : true/false,
+                    //
+                    //        //object containing error messages
+                    //        //if success is false
+                    //        //multiple error messages are an array
+                    //        //single error messages are a string
+                    //
+                    //        "errors"    : {
+                    //            "field_name1"    : 'single error message',
+                    //            "field_name2"    : [
+                    //                'multiple error messages',
+                    //                'for the same field'
+                    //            ]
+                    //        }
+                    //
+                    //        //the return url of return="" if set, or this current url
+                    //
+                    //        "return_url"    : "http://yoursite.com/return/segment/"
+                    //    }
+                    // -------------------------------------
+                    if (data.success == false)
+                    {
+                        //data.errors
+                        $.each(data.errors, function(i, item){
+
+                            var $errorHolder = $('[name="' + i + '"]').
+                                                    parent().find('.error_message');
+                            var error         = ($.isArray(item) ? item.join('&lt;br/&gt;') : item);
+
+                            //does the error holder field exist?
+                            if ($errorHolder.length &gt; 0)
+                            {
+                                $errorHolder.append('&lt;p&gt;' + error + '&lt;/p&gt;').show();
+                            }
+                            //lets add it to general errors
+                            else
+                            {
+                                $generalErrors.append('&lt;p&gt;' + error + '&lt;/p&gt;').show();
+                            }
+                        });
+                    }
+                    else if (data.success)
+                    {
+                        window.location.href = data['return_url'];
+                    }
+                }
+            );
+
+            e.preventDefault();
+            return false;
+        });
+    });
+&lt;/script&gt;
+</pre>
+			</article>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

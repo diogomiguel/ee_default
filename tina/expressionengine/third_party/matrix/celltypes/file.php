@@ -124,6 +124,24 @@ class Matrix_file_ft {
 			form_dropdown('content_type', $content_type_options, $data['content_type'])
 		);
 
+		$r[] = array(
+			'<strong>'.lang('file_ft_configure_frontend').'</strong>',
+			'<i class="instruction_text">'.lang('file_ft_configure_frontend_subtext').'</i>'
+		);
+
+		$show_existing = isset($data['file_show_existing']) ? $data['file_show_existing'] : '';
+		$r[] = array(
+			lang('file_ft_show_files'),
+			'<label>'.form_checkbox('file_show_existing', 'y', ($show_existing == 'y')).' '.lang('yes').' </label> <i class="instruction_text">('.lang('file_ft_show_files_subtext').')</i>'
+		);
+
+		$num_existing = isset($data['file_num_existing']) ? $data['file_num_existing'] : '';
+		$r[] = array(
+			lang('file_ft_limit_left'),
+			form_input('file_num_existing', $num_existing, 'class="center" id="num_existing" style="width: 55px;"').
+			NBS.' <strong>'.lang('file_ft_limit_right').'</strong> <i class="instruction_text">('.lang('file_ft_limit_files_subtext').')</i>'
+		);
+
 		return $r;
 	}
 
@@ -134,11 +152,6 @@ class Matrix_file_ft {
 	 */
 	function display_cell($data)
 	{
-		if (REQ == 'PAGE')
-		{
-			return 'File cells don’t work within SafeCracker. Use SafeCracker File instead.';
-		}
-
 		$this->_prep_settings($this->settings);
 
 		if (! isset($this->cache['displayed']))
@@ -151,7 +164,14 @@ class Matrix_file_ft {
 
 			// include matrix_text.js
 			$theme_url = $this->EE->session->cache['matrix']['theme_url'];
-			$this->EE->cp->add_to_foot('<script type="text/javascript" src="'.$theme_url.'scripts/matrix_file.js"></script>');
+			if (REQ == 'CP')
+			{
+				$this->EE->cp->add_to_foot('<script type="text/javascript" src="'.$theme_url.'scripts/matrix_file.js"></script>');
+			}
+			else
+			{
+				$this->EE->cp->add_to_foot('<script type="text/javascript" src="'.$theme_url.'scripts/matrix_file_frontend.js"></script>');
+			}
 
 			$this->EE->lang->loadfile('matrix');
 
@@ -190,6 +210,8 @@ class Matrix_file_ft {
 				$filename = $matches[2];
 			}
 		}
+
+		$existing_file = FALSE;
 
 		if (isset($filedir))
 		{
@@ -239,6 +261,7 @@ class Matrix_file_ft {
 			           . '<div class="matrix-filename">'.$filename.'</div>';
 
 			$add_style = ' style="display: none;"';
+			$existing_file = TRUE;
 		}
 		else
 		{
@@ -250,9 +273,78 @@ class Matrix_file_ft {
 
 		$add_line = ($this->settings['content_type'] != 'image') ? 'add_file' : 'add_image';
 
-		$r['data'] .= '<input type="hidden" name="'.$this->cell_name.'[filedir]"  value="'.$filedir .'" class="filedir" />'
-		            . '<input type="hidden" name="'.$this->cell_name.'[filename]" value="'.$filename.'" class="filename" />'
-		            . '<a class="matrix-btn matrix-add"'.$add_style.'>'.$this->EE->lang->line($add_line).'</a>';
+
+		$r['data'] .= '<input type="hidden" name="'.$this->cell_name.'[filedir]"  value="'.$filedir .'" class="filedir" />';
+
+		if (REQ != 'PAGE')
+		{
+			$r['data'] .= '<a class="matrix-btn matrix-add"'.$add_style.'>'.$this->EE->lang->line($add_line).'</a>';
+
+		}
+		else
+		{
+			if ($existing_file)
+			{
+				$r['data'] .= '<a href="#" class="undo_remove">' . lang('file_undo_remove') . '</a><br />';
+
+			}
+
+			$r['data'] .= '<div style="display: inline-block; text-align: left;" class="upload_controls">';
+			$r['data'] .= '<input type="file" name="'.$this->cell_name.'" class="file-chooser" /><br />';
+			$allowed_filedir = $this->settings['directory'];
+
+			// If we are allowing any filedir, then, by design, we won't show a list of existing files but display a dropdown selector for filedir instead.
+			if ($allowed_filedir == 'all')
+			{
+				// Retrieve all directories that are both allowed for this user and
+				// for this field
+				$upload_dirs = $this->EE->file_upload_preferences_model->get_dropdown_array($this->EE->session->userdata('group_id'));
+				$r['data'] .= form_dropdown($this->cell_name.'[filedir]', $upload_dirs);
+			}
+			else
+			{
+				if (isset($this->settings['file_show_existing']) && $this->settings['file_show_existing'] == 'y')
+				{
+					$options = array(
+						'order' => array('upload_date' => 'desc')
+					);
+
+					if (isset($this->settings['file_num_existing']) && $this->settings['file_num_existing'])
+					{
+						$options['limit'] = $this->settings['file_num_existing'];
+					}
+
+					$this->EE->load->model('file_model');
+
+					// Load files in from database
+					$files_from_db = $this->EE->file_model->get_files(
+						empty($this->settings['directory']) ? array() : $this->settings['directory'],
+						$options
+					);
+
+					$files = array(
+						'' => lang('file_ft_select_existing')
+					);
+
+					// Put database files into list
+					if ($files_from_db['results'] !== FALSE)
+					{
+						foreach ($files_from_db['results']->result() as $file)
+						{
+							$files[$file->file_name."|".$file->upload_location_id] = $file->file_name;
+						}
+					}
+
+					$existing_files = form_dropdown($this->cell_name.'[uploaded_existing]', $files);
+
+					$r['data'] .= '<span clas="existing">'.$existing_files.'</span>';
+				}
+			}
+			$r['data'] .= '</div>';
+		}
+
+		$r['data'] .= '<input type="hidden" name="' . $this->cell_name . '[existing]" value="' . $filename . '|' . $filedir . '" class="existing_file"/>';
+
 
 		// pass along the EE version in the settings
 		$r['settings']['ee22plus'] = version_compare(APP_VER, '2.2', '>=');
@@ -289,7 +381,86 @@ class Matrix_file_ft {
 	 */
 	function save_cell($data)
 	{
-		return $this->EE->file_field->format_data($data['filename'], $data['filedir']);
+		$field_name = $this->settings['field_name'];
+		$row_name = $this->settings['row_name'];
+		$col_name = $this->settings['col_name'];
+		$allowed_filedir = empty($this->settings['directory']) ? 'all' : $this->settings['directory'];
+
+		// Some data mapping
+		if (!empty($data['uploaded_existing']))
+		{
+			$data['existing'] = $data['uploaded_existing'];
+		}
+
+		$allowed_filedirs = $this->_get_upload_preferences($this->EE->session->userdata('group_id'));
+		foreach ($allowed_filedirs as &$filedir)
+		{
+			$filedir = $filedir['id'];
+		}
+
+		// Use existing data from channel form
+		if (!empty($data['existing']) && strpos($data['existing'], '|') && strlen($data['existing']) > 1)
+		{
+			$parts = explode('|', $data['existing']);
+			$data['filedir'] = array_pop($parts);
+			$data['filename'] = join("|", $parts); // Just in case there *was* a | in the filename as well.
+
+			// Precaution.
+			if ($allowed_filedir != 'all' && !in_array($data['filedir'], $allowed_filedirs))
+			{
+				return '';
+			}
+		}
+		// Upload new data
+		elseif (!empty($_FILES[$field_name]['tmp_name'][$row_name][$col_name]))
+		{
+
+			// Set the target filedir.
+			if ($allowed_filedir == 'all')
+			{
+				$target_filedir = $_POST[$field_name][$row_name][$col_name]['filedir'];
+
+				// Nope.
+				if (!in_array($target_filedir, $allowed_filedirs))
+				{
+					return '';
+				}
+			}
+			else
+			{
+				$target_filedir = $allowed_filedir;
+			}
+
+			$_files = $_FILES;
+
+			// Shuffle variables around, so Filemanager can find them.
+			foreach ($_FILES[$field_name] as $key => $value)
+			{
+				$_FILES[$field_name][$key] = $value[$row_name][$col_name];
+			}
+			$this->EE->load->library('Filemanager');
+			$data = $this->EE->filemanager->upload_file($target_filedir, $field_name);
+
+			// Revert back to the state before our dirty manipulations.
+			$_FILES = $_files;
+
+			if (array_key_exists('error', $data))
+			{
+				return '';
+			}
+			else
+			{
+				return '{filedir_'.$target_filedir.'}'.$data['file_name'];
+			}
+		}
+
+		// Check for data passed directly
+		if (!empty($data['filename']) && !empty($data['filedir']))
+		{
+			return $this->EE->file_field->format_data($data['filename'], $data['filedir']);
+		}
+
+		return '';
 	}
 
 	// --------------------------------------------------------------------
@@ -306,9 +477,10 @@ class Matrix_file_ft {
 
 	/**
 	 * Replaces a File cell tag.
-	 * @param array  $file_info Whatever was returned by pre_process()
-	 * @param array  $params
-	 * @param string $tagdata
+	 *
+	 * @param array $file_info Whatever was returned by pre_process()
+	 * @param array $params
+	 * @param $tagdata
 	 * @return string
 	 */
 	function replace_tag($file_info, $params = array(), $tagdata = FALSE)

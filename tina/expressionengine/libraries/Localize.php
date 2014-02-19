@@ -264,6 +264,15 @@ class Localize {
 	 */
 	private function _datetime($date_string = NULL, $timezone = TRUE)
 	{
+		// Fix for some versions of PHP 5.2 where DateTime will throw an
+		// uncaught exception when an invalid date string is passed in
+		if ( ! empty($date_string) &&
+			! is_numeric($date_string) &&
+			@strtotime($date_string) === FALSE)
+		{
+			return FALSE;
+		}
+
 		// Localize to member's timezone or leave as GMT
 		if (is_bool($timezone))
 		{
@@ -326,7 +335,7 @@ class Localize {
 	 * @param	string	Name of dropdown form field element
 	 * @return	string	HTML for dropdown list
 	 */
-	public function timezone_menu($default = NULL, $name = 'server_timezone')
+	public function timezone_menu($default = NULL, $name = 'default_site_timezone')
 	{
 		// For the installer
 		ee()->load->helper('language');
@@ -771,7 +780,7 @@ EOF;
 			$now = $this->now;
 		}
 
-		if ($tz = ee()->config->item('server_timezone'))
+		if ($tz = ee()->config->item('default_site_timezone'))
 		{
 			$now += $zones[$tz] * 3600;
 		}
@@ -851,7 +860,7 @@ EOF;
 
 		if (ee()->session->userdata['timezone'] == '')
 		{
-			if ($tz = ee()->config->item('server_timezone'))
+			if ($tz = ee()->config->item('default_site_timezone'))
 			{
 				$offset += $zones[$tz];
 			}

@@ -11,15 +11,15 @@
 |
 */
 
-$config['app_version'] = '261';
+$config['app_version'] = '273';
 $config['install_lock'] = "";
-$config['license_number'] = "";
+$config['license_number'] = "0167-5397-6796-8922";
 $config['debug'] = '1';
-$config['cp_url'] = 'http://ee-default.loc/system/index.php';
-$config['doc_url'] = "http://expressionengine.com/user_guide/";
+$config['cp_url'] = 'http://ee-default.loc/admin.php';
+$config['doc_url'] = "http://ellislab.com/expressionengine/user-guide/";
 $config['is_system_on'] = "y";
 $config['allow_extensions'] = 'y';
-$config['site_label'] = 'Default EE Build';
+$config['site_label'] = 'EE Default';
 $config['cookie_prefix'] = '';
 
 
@@ -48,7 +48,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = "";
+$config['index_page'] = "index.php";
 
 /*
 |--------------------------------------------------------------------------
@@ -325,6 +325,8 @@ $config['rewrite_short_tags'] = TRUE;
 $config['proxy_ips'] = "";
 
 
+/* End of file config.php */
+/* Location: ./system/expressionengine/config/config.php */
 /* End of file config.php */
 /* Location: ./system/expressionengine/config/config.php */
 require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));

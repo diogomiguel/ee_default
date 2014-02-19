@@ -10,7 +10,7 @@ Matrix.bind('date', 'display', function(cell){
 
 	if (minutes < 10) minutes = '0'+minutes;
 
-	if (hours > 11) {
+	if (hours > 12) {
 		hours = hours - 12;
 		var meridiem = " PM";
 	} else {

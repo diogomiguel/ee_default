@@ -16,8 +16,10 @@ $db['expressionengine']['cache_on'] = FALSE;
 $db['expressionengine']['autoinit'] = FALSE;
 $db['expressionengine']['char_set'] = 'utf8';
 $db['expressionengine']['dbcollat'] = 'utf8_general_ci';
-$db['expressionengine']['cachedir'] = '/Users/diogomiguelsilva/Sites/EE-default/system/expressionengine/cache/db_cache/';
+$db['expressionengine']['cachedir'] = '/Users/diogomiguelsilva/Sites/EE-default/tina/installer/cache/db_cache/';
 
 /* End of file database.php */
 /* Location: ./system/expressionengine/config/database.php */
+/* End of file config.php */
+/* Location: ./system/expressionengine/config/config.php */
 require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));

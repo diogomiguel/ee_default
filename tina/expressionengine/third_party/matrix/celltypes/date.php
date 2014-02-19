@@ -69,7 +69,7 @@ class Matrix_date_ft {
 		if (preg_match('/^(?P<first_part>[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}\s)(?P<hours>[0-9]{1,2})(?P<second_part>:[0-9]{1,2}(:[0-9]{1,2})?)(?P<meridiem>\s[AP]M)?$/i', $datestr, $matches))
 		{
 			// Prevent a seemingly valid, yet totally invalid, date from crashing EE.
-			if (strtolower($matches['meridiem']) == ' pm' && $matches['hours'] === '0')
+			if (isset($matches['meridiem']) && strtolower($matches['meridiem']) == ' pm' && $matches['hours'] === '0')
 			{
 				$datestr = $matches['first_part'].'12'.$matches['second_part'].$matches['meridiem'];
 			}
@@ -89,7 +89,7 @@ class Matrix_date_ft {
 		}
 
 		// get the initial input value
-		$formatted_date = $data ? $this->EE->localize->set_human_time($data) : '';
+		$formatted_date = $data ? $this->EE->localize->human_time($data) : '';
 
 		$r['data'] = form_input(array(
 			'name'  => $this->cell_name,
@@ -136,7 +136,7 @@ class Matrix_date_ft {
 
 		if (isset($params['format']))
 		{
-			$data = $this->EE->localize->decode_date($params['format'], $data);
+			$data = $this->EE->localize->format_date($params['format'], $data);
 		}
 
 		return $data;

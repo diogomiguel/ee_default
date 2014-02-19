@@ -20,6 +20,7 @@ Matrix.bind('file', 'display', function(cell){
 		$filedirInput.val('');
 		$filenameInput.val('');
 		$addBtn.show();
+		cell.dom.$td.find('.existing_file').remove();
 	};
 
 	$removeBtn.click(removeFile);

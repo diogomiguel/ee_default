@@ -1,0 +1,60 @@
+$helveticaNeue:"helvetica_neueroman","Helvetica Neue","Helvetica",Arial,sans-serif;
+$helveticaNeueBold:"helvetica_neuebold","Helvetica Neue Bold","Helvetica",Arial,sans-serif;
+$helveticaNeueLight:"helvetica_neuelight","Helvetica Neue Light","Helvetica",Arial,sans-serif;
+$helveticaNeueCondensed:"helvetnc","Helvetica Neue Condensed","Helvetica",Arial,sans-serif;
+$globaleBold: "globale_bold_ttregular","Globale Bold","GlobaleBold",Arial,sans-serif;
+$globale: "globale_ttregular","Globale",Arial,sans-serif;
+$arial:Arial,sans-serif;
+
+$images-path:'../images/';
+
+$font-size:16px;
+
+$em: $font-size / 1em;	// Shorthand for outputting ems
+
+
+//COLORS
+$tundora:#444444;
+$astronaut:#2b2674;
+$candlelight:#ffd722;
+$gipsyWhite:#fefefe;
+
+//MIXINS
+@mixin font($px) {
+  font-size: #{$px/$font-size}em;
+}
+@mixin fontInherited($px,$ppx) {
+  font-size: #{$px/$ppx}em;
+}
+@mixin pxToEm($key, $px) {
+	#{$key} : #{$px/$font-size}em;
+}
+@mixin pxToPc($key, $px,$ppx) {
+  #{$key}: #{ceil($px*100/$ppx) * 1%};
+}
+@mixin opac($val){
+	opacity: $val;
+	-moz-opacity: $val;
+	filter:alpha(opacity= #{$val * 100});
+}
+
+
+
+
+
+@mixin outerShadow($distance, $strength, $opac){
+	-webkit-box-shadow: 0px $distance $strength rgba(50, 50, 50, $opac);
+	-moz-box-shadow:    0px $distance $strength rgba(50, 50, 50, $opac);
+	box-shadow:         0px $distance $strength rgba(50, 50, 50, $opac);
+	
+}
+@mixin outerShadowBottom($distance, $strength, $opac){
+	-webkit-box-shadow: 0px $distance $strength -2px rgba(50, 50, 50, $opac);
+	-moz-box-shadow:    0px $distance $strength -2px rgba(50, 50, 50, $opac);
+	box-shadow:         0px $distance $strength -2px rgba(50, 50, 50, $opac);
+}
+@mixin removeShadow(){
+	-webkit-box-shadow: none;
+	-moz-box-shadow:    none;
+	box-shadow:         none;
+}
