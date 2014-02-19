@@ -1,0 +1,37 @@
+# Required
+# --------
+
+scheme: ftp
+host: 217.147.177.22
+username: 24sq
+password: 13EWq3g7yT
+
+# Optional
+# --------
+
+# Remote path
+path: /domains/24sq.net
+
+passive: false
+
+# Local Path
+# Remote file name in which the current revision is stored
+revision_file: .revision
+
+# These files (from Git) will not be uploaded during a deploy
+exclude:
+    - .gitignore
+    - .gitkeep
+    - dandelion.yml
+    - dandelion-live.yml
+    - public_html/sass
+    - public_html/Gruntfile.js
+    - public_html/themes/profile_themes/agile_records
+    - public_html/themes/site_themes/agile_records
+    - public_html/themes/wiki_themes
+    - public_html/node_modules
+    - public_html/automin
+    - tina/expressionengine/cache
+
+# These files (from your working directory) will be uploaded on every deploy
+additional:

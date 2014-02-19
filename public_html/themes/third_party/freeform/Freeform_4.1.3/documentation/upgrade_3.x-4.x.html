@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>		<html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>			<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie8"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html class="no-js"> <!--<![endif]-->
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Freeform 3.x to 4.x Guide | Freeform | Solspace Addon Documentation</title>
+		<meta name="description" content="" />
+		<meta name="copyright" content="(c) 2010 Copyright content: Copyright design: Solspace, Inc."/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox-1.3.4.css" />
+		<link href="assets/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="assets/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="assets/js/modernizr.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<header>
+			<div class="header-inner">
+				<div class="logo">
+					<img src="assets/images/logo.png" />
+				</div>
+
+				<div class="bread_crumbs">
+					<ul class="crumbs">
+						<li class="first"><a href="index.html">Freeform</a></li>
+						<li>Freeform 3.x to 4.x Guide</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="content-wrapper">
+			<nav class="toc">
+				<ul>
+<li><a href="http://www.solspace.com/software/detail/freeform/">More Info | Purchase</a></li>
+<li><a href="change_log.html">Change Log</a></li>
+<li><a href="install_update.html">Install / Update</a></li>
+<li><a href="control_panel.html">Control Panel</a></li>
+<li><a href="channel_entry_fieldtype.html">Channel Entry Fieldtype</a></li>
+<li><a href="default_fieldtypes.html">Default Fieldtypes</a></li>
+<li><a href="fieldtype_development.html">Fieldtype Development</a></li>
+<li><a href="extension_hooks.html">Extension Hooks</a></li>
+<li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+<li class="current"><p><a href="upgrade_3.x-4.x.html">Freeform 3.x to 4.x Guide</a></p></li>
+<li class="template_tags"><h3>Template Tags</h3>
+
+<ul>
+<li><a href="composer.html">Composer</a></li>
+<li><a href="composer_edit.html">Composer_Edit</a></li>
+<li><a href="edit.html">Edit</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="error_page.html">Error Page</a></li>
+<li><a href="form.html">Form</a></li>
+<li><a href="form_info.html">Form_Info</a></li>
+</ul></li>
+<li><h3>Requirements</h3><div class="requirements">
+
+<ul>
+<li>ExpressionEngine 2.4+</li>
+<li>PHP 5.2+</li>
+<li>MySQL 5+</li>
+<li>All modern browsers or IE 8+</li>
+</ul></div></li>
+</ul>
+			</nav>
+
+			<article class="docs">
+				<h2>Upgrading from Freeform 3.x to 4.x</h2>
+
+<p>Some of the key changes for Freeform is that forms are now pre-set in the control panel, and are no longer "loose" like they used to be in Freeform 3.x. This means that you must take the time to set up your forms in the control panel, and correctly assign custom fields and notifications templates. This also means that you will see large performance benefits as each form has its own table in the database (whereas all forms shared one in Freeform 3.x), as well as robust managing and administrating of forms and their submissions.</p>
+
+<p>Freeform 4 also introduces the concept of field types, just like you have for channel fields. It allows you to smartly create and manage a wide variety of field types, giving you more flexibility in the data you collect, and more control in how it displays in the front end templates, notification templates, and control panel. One key difference between Freeform 3.x and 4.x is how files/attachments are handled. Freeform 4 contains a File Upload field type, allowing you enormous flexibility in how you handle, store and display file attachements.</p>
+
+<p>Lastly, new to Freeform 4 is a built in Composer tool, which is an intuitive and enjoyable drag and drop interface to create your forms. In Freeform 4, you can create and manage your forms in either the new Composer tool, or the traditional approach within EE templates (like Freeform 3.x does). Freeform 4 allows you to have some forms that are Composer-built, and some that are EE template-based - it's your choice!</p>
+
+<h2>{exp:freeform:form}</h2>
+
+<p>There are a variety of parameters that have been renamed, while several are obsolete because of Freeform 4's field types. Variables, variable pairs, and conditionals are all now prepended with <strong>freeform:</strong>.</p>
+
+<h3>Parameters</h3>
+
+<ul>
+<li><em>collection</em> --> changed to <em>form_name</em></li>
+<li><em>allowed_file_types</em> --> now controlled directly per upload fieldtype</li>
+<li><em>file_upload</em> --> file uploading now done with upload fieldtype</li>
+<li><em>mailinglist</em> --> mailing list subscribing now done with mailinglist fieldtype</li>
+<li><em>mailinglist_opt_in</em> --> mailing list subscribing now done with mailinglist fieldtype</li>
+<li><em>notify</em> --> changed to <em>admin_notify</em> (or can be set in the control panel per form)</li>
+<li><em>onsubmit</em> --> use <em>form:ATTRIBUTE_NAME</em> (ex: <strong>form:onsubmit</strong>)</li>
+<li><em>send_attachment</em> --> now controlled directly in notification templates</li>
+<li><em>send_user_attachment</em> --> now controlled directly in notification templates</li>
+<li><em>send_user_email</em> --> changed to <em>notify_user</em></li>
+<li><em>template</em> --> changed to <em>admin_notification_template</em></li>
+<li><em>user_email_template</em> --> changed to <em>user_notification_template</em> (also see <em>user_email_field</em>)</li>
+<li><em>reply_to</em> --> now part of notification templates (controlled in control panel)</li>
+<li><em>reply_to_name_field</em> --> now part of notification templates (controlled in control panel)</li>
+<li><em>reply_to_email_field</em> --> now part of notification templates (controlled in control panel)</li>
+<li>output_json --> use <em>ajax</em> now</li>
+<li>ajax_request --> use <em>ajax</em> now</li>
+</ul>
+
+<h3>Variables</h3>
+
+<ul>
+<li><em>name</em> --> no longer exists. Use <em>logged_in_screen_name</em> to achieve same effect.</li>
+<li><em>email</em> --> no longer exists. Use <em>logged_in_email</em> to achieve same effect.</li>
+<li><em>captcha</em> --> changed to <em>freeform:captcha</em></li>
+<li><em>recipient_name1</em> --> changed to <em>freeform:recipient_name1</em></li>
+<li><em>recipient_value1</em> --> changed to <em>freeform:recipient_value1</em></li>
+</ul>
+
+<h3>Variable Pairs</h3>
+
+<ul>
+<li><em>recipients</em> --> changed to <em>freeform:recipients</em></li>
+</ul>
+
+<h3>Conditionals</h3>
+
+<ul>
+<li><em>if duplicate</em> --> changed to <em>if freeform:duplicate</em></li>
+<li><em>if not_duplicate</em> --> changed to <em>if freeform:not_duplicate</em></li>
+<li><em>if captcha</em> --> changed to <em>if freeform:captcha</em></li>
+</ul>
+
+<h3>Form Fields</h3>
+
+<ul>
+<li><em>captcha</em> --> changed to <em>freeform:captcha</em></li>
+<li><em>file1</em> --> file uploading now done with upload fieldtype</li>
+<li><em>mailinglist</em> --> mailing list subscribing now done with mailinglist fieldtype</li>
+</ul>
+
+<p><br /></p>
+
+<h2>{exp:freeform:entries}</h2>
+
+<p>In addition to a parameter name change, all of the variables, variable pairs, and conditionals in the <strong>Freeform:Entries</strong> tag need to be updated as Freeform 4 now prepends them with <strong>freeform:</strong>.</p>
+
+<h3>Parameters</h3>
+
+<ul>
+<li><em>collection</em> --> changed to <em>form_name</em></li>
+</ul>
+
+<h3>Variables</h3>
+
+<ul>
+<li><em>author_id</em> --> changed to <em>freeform:author_id</em></li>
+<li><em>attachment_count</em> --> changed to <em>freeform:attachment_count</em></li>
+<li><em>collection_name</em> --> changed to <em>freeform:form_name</em> (also see <em>freeform:form_label</em>)</li>
+<li><em>count</em> --> changed to <em>freeform:count</em></li>
+<li><em>edit_date</em> --> changed to <em>freeform:edit_date</em></li>
+<li><em>entry_date</em> --> changed to <em>freeform:entry_date</em></li>
+<li><em>entry_id</em> --> changed to <em>freeform:entry_id</em></li>
+<li><em>gmt_edit_date</em> --> no longer exists</li>
+<li><em>gmt_entry_date</em> --> no longer exists</li>
+<li><em>group_id</em> --> no longer exists. Use <em>author_id</em> in conjunction with the <a href="http://ellislab.com/expressionengine/user-guide/modules/member/index.html#custom-profile-data-tag">{exp:member:custom_profile_data}</a> tag.</li>
+<li><em>ip_address</em> --> changed to <em>freeform:ip_address</em></li>
+<li><em>reverse_count</em> --> changed to <em>freeform:reverse_count</em></li>
+<li><em>switch</em> --> changed to <em>freeform:switch</em></li>
+<li><em>total_entries</em> --> changed to <em>freeform:total_results</em> or <em>freeform:absolute_results</em></li>
+<li><em>template</em> --> no longer exists</li>
+<li><em>FREEFORM_FIELD_NAME</em> --> changed to <em>freeform:field:FIELD_NAME</em></li>
+</ul>
+
+<h3>Variable Pairs</h3>
+
+<ul>
+<li><em>attachments</em> --> now controlled directly per upload fieldtype</li>
+</ul>
+
+<h3>Conditionals</h3>
+
+<ul>
+<li><em>if no_results</em> --> changed to <em>if freeform:no_results</em></li>
+</ul>
+
+<p><br /></p>
+
+<h2>{exp:freeform:count}</h2>
+
+<p>This template tag no longer exists in Freeform 4.x, and there is currently no replacement approach available.</p>
+			</article>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

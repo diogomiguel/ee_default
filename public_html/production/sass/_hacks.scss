@@ -1,0 +1,81 @@
+@import "compass/css3/pie";
+
+$pie-behavior: url("resources/other/PIE.htc");
+
+// It is suggested that you use Sass's @extend directive to apply the PIE
+// behavior to your elements. Setting this variable will tell the `pie` mixin
+// to extend it. Or you can just extend the base class yourself.
+$pie-base-class: pie-element;
+
+// There are two approaches to creating PIE elements
+// The default approach is to make the element position: relative.
+.pie-element {
+  // relative is the default, so passing relative
+  // is redundant, but we do it here for clarity.
+  @include pie-element(relative);
+}
+%display-fix{
+	display:inline-block;
+	zoom:1;
+	*display:inline;
+}
+// IE 8 and <
+.lt-ie9{
+	#nav-main, .nav-sub_main-section, #fso_neo-request-wrapper, #fsi-request-wrapper,
+	.content, .content-special-wrapper, .block-image, #did-you-know, #faqs-highlight, #inner-bmi-container, .top-highlight-block, #fso_neo-features-content, #fso_neo-features-map_block, 
+	#fsi-features-content, #fsi-features-map_block, 
+	#block-fsi-case_studies-container, #fsn2-features-content, #fsn2-features-content, #blocks-fsn2-hcp-container, #block-faa-how_to-container, #block-faa-how_to-carousel-pagination li{
+		@include pie;
+	}
+	%btn-yellow, %btn-prod-top_blue{
+		@include pie;
+	}
+	
+}
+.lt-ie8{
+	#inner-content-related{
+		width:100%;
+		float:left;
+	}
+	.clearfix {
+		height: 1%;
+	    overflow: hidden; /* Clearfix! */
+	    zoom: 1;  /* Triggering "hasLayout" in IE */
+		display:inline-block;
+	}
+	#btn-fso_neo-request-meter span, #utilities span:after, .nav-sub-highlighted_content div, #btn-fso_neo-request-meter span, #nav-footer li, #block-faa-how_to-carousel-pagination li, .product-features-tabs a{
+		@extend %display-fix;
+	}
+	%btn-prod-top_blue span{
+		@extend %display-fix;
+		position:relative;
+		top:-3px;
+	}
+	#fsi-top-buttons a, #faa-buttons a, #faa-neo-buttons a, #fsi-top-buttons a, #fsn2-buttons a{
+		@extend %display-fix;
+	}
+	#fsi-features-tabs{
+		overflow:hidden;
+	}
+	#block-fsi-features .wrapper, #block-fso_neo-features .wrapper, #block-faa-features .wrapper, #block-fsn2-features .wrapper{
+		padding-top:3em;
+	}
+	#fsi-request-form .label-radio input, #fso_neo-request-form .label-radio input{
+		margin:0;
+	}
+	#main{
+		position:relative;
+	}
+	#fsn2-buttons{
+		width:auto;
+	}
+	#fsn2-top_meter{
+		top:1em;
+	}
+	#movie-content-movies-listing li.list-img_mod5{
+		clear:both;
+	}
+	#btn-inner-extra{
+		@extend %display-fix;
+	}
+}

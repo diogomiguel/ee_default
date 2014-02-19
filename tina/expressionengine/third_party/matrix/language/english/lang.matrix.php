@@ -37,6 +37,10 @@
 'max_value' => 'Max Value',
 'decimals' => 'Decimals',
 
+'allowed_dirs_file' => 'Allowed file upload directories',
+'field_content_file' => 'Allowed file content type',
+//''
+
 // -------------------------------------------
 //  Field
 // -------------------------------------------
@@ -54,6 +58,18 @@
 
 'add_image' => 'Add Image',
 'select_file_error' => 'There was an error selecting your file. Please try again, or save and re-edit the entry if the problem persists.',
+'file_undo_remove' => 'Undo Remove',
+
+// For pre EE 2.7 file field
+'file_ft_configure_frontend'	=> 'Frontend Options',
+'file_ft_configure_frontend_subtext' => 'Change the behavior of the field when used in a front-end template.',
+'file_ft_show_files'			=> 'Show existing files?',
+'file_ft_show_files_subtext'	=> 'authors will be able to select an existing file from a dropdown',
+'file_ft_limit_left'			=> 'Limit existing files to',
+'file_ft_limit_right'			=> 'returned',
+'file_ft_limit_files_subtext'	=> 'leave blank to show ALL files',
+'file_ft_select_existing'		=> 'Select an existing file',
+
 
 // -------------------------------------------
 //  Errors

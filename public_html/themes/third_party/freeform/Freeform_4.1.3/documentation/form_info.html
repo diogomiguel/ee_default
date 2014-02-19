@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>		<html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>			<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie8"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html class="no-js"> <!--<![endif]-->
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Form_Info | Freeform | Solspace Addon Documentation</title>
+		<meta name="description" content="" />
+		<meta name="copyright" content="(c) 2010 Copyright content: Copyright design: Solspace, Inc."/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox-1.3.4.css" />
+		<link href="assets/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="assets/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="assets/js/modernizr.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<header>
+			<div class="header-inner">
+				<div class="logo">
+					<img src="assets/images/logo.png" />
+				</div>
+
+				<div class="bread_crumbs">
+					<ul class="crumbs">
+						<li class="first"><a href="index.html">Freeform</a></li>
+						<li>Form_Info</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="content-wrapper">
+			<nav class="toc">
+				<ul>
+<li><a href="http://www.solspace.com/software/detail/freeform/">More Info | Purchase</a></li>
+<li><a href="change_log.html">Change Log</a></li>
+<li><a href="install_update.html">Install / Update</a></li>
+<li><a href="control_panel.html">Control Panel</a></li>
+<li><a href="channel_entry_fieldtype.html">Channel Entry Fieldtype</a></li>
+<li><a href="default_fieldtypes.html">Default Fieldtypes</a></li>
+<li><a href="fieldtype_development.html">Fieldtype Development</a></li>
+<li><a href="extension_hooks.html">Extension Hooks</a></li>
+<li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+<li><p><a href="upgrade_3.x-4.x.html">Freeform 3.x to 4.x Guide</a></p></li>
+<li class="template_tags"><h3>Template Tags</h3>
+
+<ul>
+<li><a href="composer.html">Composer</a></li>
+<li><a href="composer_edit.html">Composer_Edit</a></li>
+<li><a href="edit.html">Edit</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="error_page.html">Error Page</a></li>
+<li><a href="form.html">Form</a></li>
+<li class="current"><a href="form_info.html">Form_Info</a></li>
+</ul></li>
+<li><h3>Requirements</h3><div class="requirements">
+
+<ul>
+<li>ExpressionEngine 2.4+</li>
+<li>PHP 5.2+</li>
+<li>MySQL 5+</li>
+<li>All modern browsers or IE 8+</li>
+</ul></div></li>
+</ul>
+			</nav>
+
+			<article class="docs">
+				<p>The <em>Freeform:Form_Info</em> tag is used to display information about a
+specific form, or display a list of available forms.</p>
+
+<pre class="brush: html;">{exp:freeform:form_info} content {/exp:freeform:form_info} </pre>
+
+<ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#conditionals">Conditionals</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+
+<p><a name="parameters"></a></p>
+
+<h2>Parameters</h2>
+
+<p>The following parameters are available for use:</p>
+
+<ul>
+<li><a href="#form_id">form_id</a></li>
+<li><a href="#form_name">form_name</a></li>
+</ul>
+
+<p><a name="form_id"></a></p>
+
+<h3>form_id=</h3>
+
+<pre class="brush: html;">form_id="4" </pre>
+
+<p>This parameter can be used if you wish to limit the results to just
+display a single form, or specify a select few forms. Use the unique ID
+of the form(s), and separate multiples with the pipe character (<strong>|</strong>).
+Alternatively, you can use the <a href="#form_name">form_name</a> parameter.</p>
+
+<p><a name="form_name"></a></p>
+
+<h3>form_name=</h3>
+
+<pre class="brush: html;">form_name="contact_form" </pre>
+
+<p>This parameter can be used if you wish to limit the results to just
+display a single form, or specify a select few forms. Use the short
+names of the form(s), and separate multiples with the pipe character
+(<strong>|</strong>). Alternatively, you can use the <a href="#form_id">form_id</a> parameter.</p>
+
+<p><a name="variables"></a></p>
+
+<h2>Variables</h2>
+
+<p>The following variables are available for use:</p>
+
+<ul>
+<li><a href="#freeform_count">freeform:count</a></li>
+<li><a href="#freeform_total_results">freeform:total_results</a></li>
+<li><a href="#freeform_form_id">freeform:form_id</a></li>
+<li><a href="#freeform_form_name">freeform:form_name</a></li>
+<li><a href="#freeform_form_label">freeform:form_label</a></li>
+<li><a href="#freeform_form_description">freeform:form_description</a></li>
+<li><a href="#freeform_total_entries">freeform:total_entries</a></li>
+<li><a href="#freeform_site_id">freeform:site_id</a></li>
+<li><a href="#freeform_switch">freeform:switch</a></li>
+<li><a href="#freeform_author">freeform:author</a></li>
+<li><a href="#freeform_author_id">freeform:author_id</a></li>
+<li><a href="#freeform_entry_date">freeform:entry_date</a></li>
+<li><a href="#freeform_edit_date">freeform:edit_date</a></li>
+</ul>
+
+<p><a name="freeform_count"></a></p>
+
+<h3>freeform:count</h3>
+
+<pre class="brush: html;">{freeform:count} </pre>
+
+<p>This variable outputs the display order number for each result in the
+list of forms.</p>
+
+<p><a name="freeform_total_results"></a></p>
+
+<h3>freeform:total_results</h3>
+
+<pre class="brush: html;">{freeform:total_results} </pre>
+
+<p>This variable outputs the total amount of forms in the results. You
+would typically use this in a conditional statement.</p>
+
+<p><a name="freeform_form_id"></a></p>
+
+<h3>freeform:form_id</h3>
+
+<pre class="brush: html;">{freeform:form_id} </pre>
+
+<p>This variable displays the unique ID of the form.</p>
+
+<p><a name="freeform_form_name"></a></p>
+
+<h3>freeform:form_name</h3>
+
+<pre class="brush: html;">{freeform:form_name} </pre>
+
+<p>This variable displays the unique short name of the form.</p>
+
+<p><a name="freeform_form_label"></a></p>
+
+<h3>freeform:form_label</h3>
+
+<pre class="brush: html;">{freeform:form_label} </pre>
+
+<p>This variable displays the label of the form.</p>
+
+<p><a name="freeform_form_description"></a></p>
+
+<h3>freeform:form_description</h3>
+
+<pre class="brush: html;">{freeform:form_description} </pre>
+
+<p>This variable displays the description of the form.</p>
+
+<p><a name="freeform_site_id"></a></p>
+
+<h3>freeform:site_id</h3>
+
+<pre class="brush: html;">{freeform:site_id} </pre>
+
+<p>This variable displays the Site ID that the form belongs to. May become
+important when Multiple Site Manager (MSM) is installed.</p>
+
+<p><a name="freeform_total_entries"></a></p>
+
+<h3>freeform:total_entries</h3>
+
+<pre class="brush: html;">{freeform:total_entries} </pre>
+
+<p>This variable displays the total entries for each form (not including incomplete
+multipage forms).</p>
+
+<p><a name="freeform_swtich"></a></p>
+
+<h3>freeform:switch</h3>
+
+<pre class="brush: html;">{freeform:switch="black|grey"} </pre>
+
+<p>This variable allows you to switch a CSS class back and fourth for all
+outputted results.</p>
+
+<p><a name="freeform_author"></a></p>
+
+<h3>freeform:author</h3>
+
+<pre class="brush: html;">{freeform:author} </pre>
+
+<p>This variable displays the screen name of the user that created the
+form.</p>
+
+<p><a name="freeform_author_id"></a></p>
+
+<h3>freeform:author_id</h3>
+
+<pre class="brush: html;">{freeform:author_id} </pre>
+
+<p>This variable displays the member ID of the user that created the form.</p>
+
+<p><a name="freeform_entry_date"></a></p>
+
+<h3>freeform:entry_date</h3>
+
+<pre class="brush: html;">{freeform:entry_date format="%F %j, %Y} </pre>
+
+<p>This variable will display the date the form was created. This variable
+should be formatted using standard EE date formatting.</p>
+
+<p><a name="freeform_edit_date"></a></p>
+
+<h3>freeform:edit_date</h3>
+
+<pre class="brush: html;">{freeform:edit_date format="%F %j, %Y} </pre>
+
+<p>This variable will display the date the form was last edited. This
+variable should be formatted using standard EE date formatting.</p>
+
+<p><a name="conditionals"></a></p>
+
+<h2>Conditionals</h2>
+
+<p>All of the above variables can be used as conditionals. Additionally,
+the following conditionals are available for use:</p>
+
+<ul>
+<li><a href="#freeform_no_results">if freeform:no_results</a></li>
+</ul>
+
+<p><a name="freeform_no_results"></a></p>
+
+<h3>if freeform:no_results</h3>
+
+<pre class="brush: html;">{if freeform:no_results}Sorry, no results were found.{/if} </pre>
+
+<p>This conditional displays its contents when there are no results found
+for this tag with the given set of parameters.</p>
+
+<p><a name="examples"></a></p>
+
+<h2>Examples</h2>
+
+<ul>
+<li><a href="#example_all_forms">Display a list of all forms</a></li>
+<li><a href="#example_details">Display detailed information about a form</a></li>
+</ul>
+
+<h1><a name="example_all_forms"></a></h1>
+
+<h3>Display a list of all forms</h3>
+
+<p>The below example will display a list of all available forms on your
+site:</p>
+
+<pre class="brush: html;">&lt;ul&gt;
+{exp:freeform:form_info}
+    &lt;li style="color:{freeform:switch='black|grey'};"&gt;
+    &lt;a href="{path='my_forms/form'}/{freeform:form_name}"&gt;{freeform:form_label}&lt;/a&gt;
+    ({freeform:total_entries} entries)
+&lt;/li&gt;
+{/exp:freeform:form_info}
+&lt;/ul&gt;
+</pre>
+
+<h1><a name="example_details"></a></h1>
+
+<h3>Display detailed information about a form</h3>
+
+<p>The below example will display detailed information for a specific form:</p>
+
+<pre class="brush: html;">{exp:freeform:form_info
+    form_name="food_survey"
+}
+
+    &lt;h2&gt;{freeform:form_label}&lt;/h2&gt;
+    &lt;p&gt;{freeform:form_description}&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+            Form created by:
+            &lt;a href="{path='members/profile'}/{freeform:author_id}"&gt;
+                {freeform:author}
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            Created on: {freeform:entry_date format="%F %j, %Y}
+        &lt;/li&gt;
+        &lt;li&gt;
+            Last edited on: {freeform:edit_date format="%F %j, %Y}
+        &lt;/li&gt;
+    &lt;/ul&gt;
+{/exp:freeform:form_info}
+</pre>
+			</article>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

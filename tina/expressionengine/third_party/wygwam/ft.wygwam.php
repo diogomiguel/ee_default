@@ -38,6 +38,12 @@ class Wygwam_ft extends EE_Fieldtype {
 		$converter = new FF2EE2('wygwam');
 		return $converter->global_settings;
 	}
+	
+	// ADD DIOGO
+	public function accepts_content_type($name)
+	{
+		return TRUE;
+	}
 
 	// --------------------------------------------------------------------
 
@@ -167,6 +173,25 @@ class Wygwam_ft extends EE_Fieldtype {
 			$this->EE->table->add_row($row[0], $row[1]);
 		}
 	}
+	
+	/**
+   * DIOGO - Display Grid Cell Settings
+   */
+  public function grid_display_settings($settings)
+  {
+			$settings = array_merge(Wygwam_helper::default_settings(), $settings);
+			$rows = $this->_field_settings($settings);
+			$grid_settings = array();
+			
+			
+			
+			foreach ($rows as $row)
+			{
+				$grid_settings[] = $row[0];
+				$grid_settings[] = $row[1];
+			}
+      return $grid_settings;
+  }
 
 	/**
 	 * Display Cell Settings
@@ -243,6 +268,92 @@ class Wygwam_ft extends EE_Fieldtype {
 	{
 		$settings = array_merge($this->EE->input->post('wygwam'));
 
+		// cross the T's
+		$settings['field_fmt'] = 'none';
+		$settings['field_show_fmt'] = 'n';
+		$settings['field_type'] = 'wygwam';
+
+		// -------------------------------------------
+		//  Field Conversion
+		// -------------------------------------------
+
+		if (!empty($settings['convert']))
+		{
+			$field_id = $this->EE->input->post('field_id');
+			if ($field_id)
+			{
+				$this->EE->db->select('entry_id, field_id_'.$field_id.' data, field_ft_'.$field_id.' format');
+				$query = $this->EE->db->get_where('channel_data', 'field_id_'.$field_id.' != ""');
+
+				if ($query->num_rows())
+				{
+					// prepare Typography
+					$this->EE->load->library('typography');
+					$this->EE->typography->initialize();
+
+					// prepare Textile
+					if ($settings['convert'] == 'textile')
+					{
+						if (! class_exists('Textile'))
+						{
+							require_once PATH_THIRD.'wygwam/lib/textile/textile.php';
+						}
+
+						$textile = new Textile();
+					}
+
+					foreach ($query->result_array() as $row)
+					{
+						$data = $row['data'];
+						Wygwam_helper::replace_file_tags($data);
+
+						$convert = FALSE;
+
+						// Auto <br /> and XHTML
+						switch ($row['format'])
+						{
+							case 'br':    $convert = TRUE; $data = $this->EE->typography->nl2br_except_pre($data); break;
+							case 'xhtml': $convert = TRUE; $data = $this->EE->typography->auto_typography($data); break;
+						}
+
+						// Textile
+						if ($settings['convert'] == 'textile')
+						{
+							$convert = TRUE;
+							$data = $textile->TextileThis($data);
+						}
+
+						// Save the new field data
+						if ($convert)
+						{
+							Wygwam_helper::replace_file_urls($data);
+
+							$this->EE->db->query($this->EE->db->update_string('exp_channel_data',
+								array(
+									'field_id_'.$field_id => $data,
+									'field_ft_'.$field_id => 'none'
+								),
+								'entry_id = '.$row['entry_id']
+							));
+						}
+					}
+				}
+			}
+
+			unset($settings['convert']);
+		}
+
+		return $settings;
+	}
+	
+	/**
+	 * Diogo - Grid Save Settings
+	 */
+	
+	function grid_save_settings($settings)
+	{
+		$settings = $settings['wygwam'];
+		
 		// cross the T's
 		$settings['field_fmt'] = 'none';
 		$settings['field_show_fmt'] = 'n';
@@ -413,16 +524,37 @@ class Wygwam_ft extends EE_Fieldtype {
 	 */
 	function display_field($data)
 	{
+		return $this->_display_html($data, "");
+	}
+	
+	/**
+	 * Diogo - Grid Display Field
+	 */
+	function grid_display_field($data)
+	{
+
+		return $this->_display_html($data, "grid");
+	}
+	
+	
+	/**
+	 * Diogo - Grid Display HTML
+	 */
+	protected function _display_html($data, $container)
+	{
 		Wygwam_helper::include_field_resources();
 		Wygwam_helper::insert_config_js($this->settings);
 
 		$id = str_replace(array('[', ']'), array('_', ''), $this->field_name);
-		$defer = (isset($this->settings['defer']) && $this->settings['defer'] == 'y') ? 'true' : 'false';
-
+		$defer = ((isset($this->settings['defer']) && $this->settings['defer'] == 'y')) ? 'true' : 'false';
+		
 		// Don't initialize this for Content Element templates
 		if ($id != '__element_name_____index___data')
 		{
-			Wygwam_helper::insert_js('new Wygwam("'.$id.'", "'.$this->settings['config'].'", '.$defer.');');
+			if ($container == 'grid')
+				Wygwam_helper::insert_js('new Wygwam("'.$id.'", "'.$this->settings['config'].'", '.$defer.', true);');
+			else
+				Wygwam_helper::insert_js('new Wygwam("'.$id.'", "'.$this->settings['config'].'", '.$defer.', false);');
 		}
 
 		// pass the data through form_prep() if this is SafeCracker
@@ -439,9 +571,16 @@ class Wygwam_ft extends EE_Fieldtype {
 
 		// convert site page tags to URLs
 		Wygwam_helper::replace_page_tags($data);
-
-		return '<div class="wygwam"><textarea id="'.$id.'" name="'.$this->field_name.'" rows="10" data-config="'.$this->settings['config'].'" data-defer="'.($this->settings['defer'] == 'y' ? 'y' : 'n').'">'.$data.'</textarea></div>'.$this->_generate_asset_inputs_string($asset_info);
+		
+		$return_data = '<div class="wygwam"><textarea id="'.$id.'" name="'.$this->field_name.'" rows="10" data-config="'.$this->settings['config'].'" data-defer="'.($this->settings['defer'] == 'y' ? 'y' : 'n').'">'.$data.'</textarea></div>'.$this->_generate_asset_inputs_string($asset_info);
+		
+		if ($container == 'grid')
+		{
+				$return_data = '<div class="grid_full_cell_container">'.$return_data.'</div>';
+		}
+		return $return_data;
 	}
+	
 
 	/**
 	 * Display Cell
@@ -484,6 +623,7 @@ class Wygwam_ft extends EE_Fieldtype {
 
 		return '<textarea name="'.$this->cell_name.'" rows="10">'.$data.'</textarea>'.$this->_generate_asset_inputs_string($asset_info);;
 	}
+	
 
 	/**
 	 * Display Variable Field
@@ -756,7 +896,8 @@ class Wygwam_ft extends EE_Fieldtype {
 	function replace_element_tag($data, $params = array(), $tagdata)
 	{
 		return $this->EE->functions->var_swap($tagdata, array(
-			'value' => $this->replace_tag($this->pre_process($data))
+			'value' => $this->replace_tag($this->pre_process($data)),
+			'element_name' => $this->element_name
 		));
 	}
 

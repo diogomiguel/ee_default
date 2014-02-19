@@ -269,11 +269,10 @@ if(isset($config)) {
         'site_url' => NSM_SITE_URL,
         'base_url' => NSM_SITE_URL,
         'cp_url' => NSM_SITE_URL.'/index.php',
-
+				
         // Set this so we can use query strings
         // 'uri_protocol' => 'PATH_INFO',
-
-
+				
 
         // Datbase preferences
         'db_debug' => 'n',
@@ -284,10 +283,10 @@ if(isset($config)) {
         // Some of these preferences might actually need to be set in the index.php files.
         // Not sure which ones yet, I'll figure that out when I have my first MSM site.
         'is_site_on' => 'y',
-        'site_404' => 'site/four04',
+        'site_404' => '404/index',
 
         // Localization preferences
-        'server_timezone' => 'UP10',
+        'server_timezone' => 'GMT',
         'server_offset' => FALSE,
         'time_format' => 'eu',
         'daylight_savings' => 'n',
@@ -352,7 +351,7 @@ if(isset($config)) {
         // Captcha settings
         'captcha_font' => 'y',
         'captcha_rand' => 'y',
-        'captcha_require_members' => 'n',
+        'captcha_require_members' => 'y',
         'captcha_path' => NSM_BASEPATH .'/public_html/images/captchas/',
         'captcha_url' => NSM_SITE_URL. '/images/captchas/',
 
@@ -361,7 +360,7 @@ if(isset($config)) {
 
 				// Stash
 				'stash_file_basepath' => APPPATH . 'stash_templates/',
-				'stash_file_sync' => (NSM_ENV === 'production' ? FALSE : TRUE),
+				'stash_file_sync' => (NSM_ENV === 'local' ? TRUE : FALSE),
 				'stash_file_extensions' => array('html', 'md', 'css', 'js', 'rss', 'xml'),
 				'stash_static_basepath' => NSM_BASEPATH . '/public_html/stash_cache/',
 				'stash_static_url' => NSM_SITE_URL . '/stash_cache/',
@@ -371,9 +370,15 @@ if(isset($config)) {
 				'stash_default_scope' => 'local', // default variable scope if not specified
 				'stash_limit_bots' => TRUE, // stop database writes by bots to reduce load on busy sites
 				'stash_bots' => array('bot', 'crawl', 'spider', 'archive', 'search', 'java', 'yahoo', 'teoma'),
+				// Diogo Defined
+				'stash_cache' => (NSM_ENV === 'local' ? FALSE : TRUE),
 				
-				
-
+				//Auto Min
+				'automin_automin_enabled' => 'y',
+				'automin_caching_enabled' => 'y',
+				'automin_compress_html' => 'y',
+				'automin_cache_path' => NSM_BASEPATH . '/public_html/automin/',
+				'automin_cache_url' => NSM_SITE_URL . '/automin/',
         // File Upload config. 
         // @see: http://expressionengine.com/user_guide/general/hidden_configuration_variables.html#upload-preferences
         'upload_preferences' => array(
@@ -381,8 +386,12 @@ if(isset($config)) {
                  'name'        => 'Main',                          // Display name in control panel
                  'server_path' => NSM_BASEPATH . '/public_html/images/uploads/', // Server path to upload directory
                  'url'         => NSM_SITE_URL . '/images/uploads/'      // URL of upload directory
-             )
-         )
+						)
+
+         ),
+
+				//Devottee
+				'devotee_monitor_cachepath' => APPPATH . 'cache/devotee/'
 
         // NSM htaccess Generator Configuration
         // @see: http://ee-garage.com/nsm-htaccess-generator

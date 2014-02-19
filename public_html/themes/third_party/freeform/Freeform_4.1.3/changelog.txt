@@ -1,0 +1,334 @@
+Solspace - Freeform - Change Log
+
+4.1.3 (October 16, 2013)
+ - Fixed a bug where default fieldtypes might error on install on Windows servers.
+ - Fixed a bug where editing a form could show PHP errors in the control panel.
+ - Fixed a bug where form entry filtering was failing in IE8 due to the use of an old reserved keyword in javascript.
+
+4.1.2 (September 17, 2013)
+ - Fixed a bug where the Freeform fieldtype would trigger errors with PHP 5.2.x and EE 2.7.
+ - Adjusted random hash used to store dynamic recipient emails because ISS servers incorrectly reuse uniqid values.
+
+4.1.1 (September 16, 2013)
+ - Fixed a bug where the Freeform fieldtype could error on update in EE 2.7.
+ - Fixed a bug where the Freeform fieldtype was displaying unparsed tags and a PHP error in the post publish preview area in EE 2.7.
+
+4.1.0 (September 13, 2013)
+ - Added an option for exports to format entry and edit dates on output using the CP date format preference.
+ - Added ability to put attribute parameters on the freeform:submit variable (ex: {freeform:submit attr:value="Submit, yo!" attr:class="submission-power"}).
+ - Added {freeform:field_description} variable to the Freeform:Form {freeform:all_form_fields} variable pair.
+ - Added accessory to show submissions and fieldnames for forms to aid in template writing.
+ - Added {freeform:submit_previous} variable in Freeform:Form tag to allow moving backward in multipage forms after submitting data on the current page so it is not lost.
+ - Added "Submit Previous" option for Composer-based forms.
+ - Added Sticky controls option for Composer so insertable elements in the left navigation are fixed on long forms. Default on.
+ - Added code to help prevent issues with some ISP's and sending notifications where subject lines containing newlines might cause the emails to fail to send.
+ - Updated performance with Composer output with multipage forms. Now pages are only rendered if they are detected as the current page. This is enabled by default and can be disabled, if need be, with the disable_mp_performance="yes" parameter.
+ - Fixed a bug where the Freeform Channel fieldtype could show PHP errors in ExpressionEngine 2.6.
+ - Fixed a bug where entry dates in the CP would sometimes show Epoch instead of the proper, localized version of the date in versions of ExpressionEngine less than 2.6.
+ - Fixed a bug where strings in the Freeform:Form 'page_marker' parameter containing regular expression symbols would not correctly move to subsequent pages.
+ - Fixed a bug where HTML was not allowed in multi-item lists used in Radio, Checkbox Group, Select, and Multi-select fieldtypes.
+ - Fixed a bug where protocol-agnostic URL's (starting with '//' instead of 'http' or 'https' speficially), were not properly accepted by any Freeform tags.
+ - Fixed a bug where MySQL errors could occur when searching on multiple form ID's with Freeform:Entries.
+ - Fixed a bug where searching for entries in the Freeform CP when user sessions are using session ID's and cookies at the same time was sending the user to the login page.
+ - Fixed a language error in Preferences.
+ - Fixed a bug where editing a multipage form with a required file upload would report the file field not filled if no new file was added but the previous one was kept.
+ - Fixed bugs where dynamic recipients and user recipients were not getting data properly carried over when using inline errors and multipage navigation back and forth when using Composer.
+ - Fixed a bug where malformed field attributes using {freeform:field:FIELD_NAME} would result in a PHP error instead of simply failing to accept the attributes.
+ - Fixed a bug in EE 2.7+ where forms would not function with CSRF protection enabled.
+ - Fixed a bug where some types of errors would not work properly with custom errors pages.
+ - Fixed a bug where duplicating a form with fields chosen could result in an error on the edit screen for the duplicated form.
+
+4.0.12 (April 23, 2013)
+ - Added {FIELD_NAME:form_id} to Freeform's Channel fieldtype tag parsing.
+ - Added a preference for disabling the 'Missing Submit Button' warning in Composer.
+ - Added a preference (default on) to protect required data from third party extensions that accidentally malform needed output on Freeform extension hooks.
+ - Updated for compatibility with ExpressionEngine 2.6+.
+ - Fixed a bug where '%id%' was not being replaced in radio attributes.
+ - Fixed a bug where IP address and member ID were not being checked for duplicates on save form.
+ - Fixed a bug where a member ID of 0 could result in duplicates checked by IP address on accident.
+ - Fixed a bug where a file upload error happening on save after validate might cause a PHP error.
+ - Fixed a bug with migrations where table renaming could fail.
+ - Fixed a bug where having '0' as a multi-item list value (Select, Checkbox Group, Radio, etc), could result in single choices always being recorded as containing item '0' as well as the user choice.
+ - Fixed a bug where when submitting a Composer-based form without a Submit button, getting the 'submit button missing' warning, then clicking 'continue anyway', would result in an error instead of properly saving.
+ - Fixed a bug where PHP errors could occur when installing the fieldtype by itself.
+ - Fixed a bug where PHP errors could occur when downloading files from the file upload menu in the control panel.
+
+4.0.11 (March 14, 2013)
+ - Added a quicksave button to Freeform Composer.
+ - Added {composer:column_count} and {composer:field_count} variables to the Freeform:Composer tags.
+ - Added download buttons to the control panel entries file upload view area for force downloading files.
+ - Added links to file upload preference pages in the control panel entries file upload view area.
+ - Added 'data.return_url' to Freeform:Form AJAX submit response due to issues with 'data.return' and IE8's JS interpreter seeing it as a keyword 'return'.
+ - Updated Freeform to now allow automatic updating rather than requiring manual updating in the module at all times.
+ - Updated the control panel entries file upload view area to build its own links to files in order to mitigate issues with files uploaded above root.
+ - Updated default output of form methods to be lowercased 'post' to assist users in complying with older XHTML formats.
+ - Fixed a bug where the Hidden fieldtype (Pro) would not accept 'attr:' parameters.
+ - Fixed a bug where some fields were outputting entities for plain text emails.
+ - Fixed a bug where the 'freeform:mp_data:FIELD_NAME' and 'freeform:edit_data:FIELD_NAME' variables from multi-select fields would output unparsed data.
+ - Fixed a bug where an incorrect 'Invalid Form id(s) submitted' error would occur when in fact the error is caused due to missing POST data when submitting Freeform:Form.
+ - Fixed a bug where the 'date_range_start' and 'date_range_end' parameters on the Freeform:Entries tag were not properly accepting all types of PHP datetime formats: http://php.net/manual/en/datetime.formats.php
+ - Fixed a bug where multiple status filtering (status="status1|status2") was not working in Freeform:Entries.
+ - Fixed a bug where fields with multi-item choices (Multiselect, Checkbox Group, Radio), would not respect the 'backspace' parameter in Freeform:Entries.
+ - Fixed a language issue in the control panel where instructions notate '{all_form_fields}' where it should be saying '{freeform:all_form_fields}'.
+ - Fixed a bug where Notification templates using the '{all_form_fields}' variable pair were not ordering data by the field order set in the form edit screen in the CP and were going in Alphabetical order instead.
+ - Fixed a bug where some Freeform Composer and Control Panel Entries items via JavaScript wouldn't properly display some foreign characters.
+ - Fixed a bug where some older upload prefs for migrated file upload fields might not be counted.
+ - Fixed a bug where editing entries in Textarea fieldtypes would incorrectly encode HTML.
+ - Fixed a bug where the 'recipient_email_user' and 'recipient_email' fields were not properly requireable in Composer or in Freeform:Form.
+ - Fixed a bug where migrations would add a field of type VARCHAR to legacy tables and potentially overflow the max fields available and throw MySQL errors. Changed type to TEXT.
+ - Fixed a bug where migrations from Freeform 3.x would halt if a legacy field was using a MySQL reserved word such as 'group'.
+ - Fixed a bug where migrations of text fields would not carry over the field length settings and would error on import.
+ - Fixed a bug where requiring File Upload field types would not properly error when no files were uploaded.
+ - Fixed a bug where requiring fields that pass arrays to PHP, like Checkbox Groups, could result in a PHP error on submission of forms.
+ - Fixed a bug where the {freeform:filename}, {freeform:extension}, {freeform:filesize}, and {freeform:fileurl} variables were not parsing correctly when used in the {freeform:field:FIELD_NAME} variable pair in Freeform:Entries.
+ - Fixed a bug where using notify_on_edit="yes" with Freeform:Edit would only email edited form data and not all form data including unedited data.
+ - Removed unnecessary trimming of Freeform Composer output data.
+
+4.0.10 (December 21, 2012)
+ - Fixed a bug where MySQL errors would occur on any template form in ExpressionEngine 2.5.4+.
+
+4.0.9 (December 17, 2012)
+ - Added offline documentation files to download package.
+ - Fixed a bug where field validation was not being run the same between the template version of new form entries and the control panel version, possibly causing errors for extension hooks.
+ - Fixed a bug where field errors that exist prior to fieldtype validation would not be prefixed for generic output types.
+ - Fixed a bug where the "last_page" and "multipage" class vars were missing from the control panel class object and could cause errors with entry hooks.
+ - Fixed a bug where some class variables for "edit", "last_page" and "multipage" might not be available to hooks in the Freeform:Form tag.
+ - Fixed a bug where putting multiple forms on the same page could result in the same form being displayed twice instead of two different forms as expected.
+ - Fixed a bug where a channel would not show up in multi-input fieldtypes as an option (multi-select, select, checkbox group, radio), if it didn't have any field groups assigned to it.
+ - Fixed a bug where multi-input fieldtypes would add blank rows at the end of output choices (multi-select, select, checkbox group, radio).
+ - Fixed a bug in both Freeform:Edit and multipage forms where using "inline_errors" would not carry over the inputs after an error had occurred.
+
+4.0.8 (November 19, 2012)
+ - Added a safety net for the freeform_module_insert_begin hook that checks for a returned input array and if none, replaces with the input array existing before the hook call. This prevents irrecoverable errors with extensions not returning the form input array.
+ - Fixed a bug where running multiple Freeform:Entries tags in the same template could sometimes cause errors.
+ - Fixed a bug where the wrong tag for {attachment_count} was in the notification builder.
+ - Fixed a bug where blank values in the first line of multi-item fieldtypes were being filtered and removed.
+ - Fixed a bug where the "Reply To Email" field for notifications was not being parsed for variables.
+ - Fixed a bug where the a value of "0" was not being accepted as a valid input when a field was set to required.
+ - Fixed a bug where the default formatting for dates was "Y-m-d - H:s" instead of "Y-m-d - H:i".
+ - Fixed a bug in email notifications where multi-select data wasn't being parsed to it's correct display data, and was instead showing raw data.
+ - Fixed a bug where using the multipage_page_names="" parameter would require the use of the multipage_page="" parameter and wasn't autodetecting segments.
+ - Fixed a bug where the offset="" parameter was not functioning correctly for Freeform:Entries.
+ - Fixed a bug where the {freeform:absolute_count} variable in Freeform:Entries was not adjusting based on the 'offset' parameter.
+
+4.0.7 (October 3, 2012)
+ - Added an option to File Upload fields to individually ignore system XSS filtering settings in case users are experiencing issues with uploading files and do not want to disable XSS filtering system wide.
+ - Modified 'recipient_email' to no longer be a reserved field name in order to allow the storage of recipient emails in a custom field.
+ - Fixed a bug where the File Upload field could show an error while trying to throw a legitimate file upload error.
+ - Fixed a bug where forms could sometimes refuse to submit if using Captcha in Composer.
+ - Fixed a bug where uploading files in locales where commas are used to notate decimal places could cause SQL errors.
+ - Fixed a bug where JavaScript errors could occur if the server changed "application/json" repsonse types to "text/html".
+ - Fixed a bug where deleting entries with uploaded files could result in an error.
+ - Fixed a bug where having Captcha enabled in the system, but not having a captcha field in a composer layout would show an error when a user submitted the form on the front end.
+ - Fixed a bug where Admin Notification Emails would not show errors for invalid emails on the initial Form creation screen.
+ - Fixed a bug where used Captcha's wouldn't properly delete in some situations.
+ - Fixed a bug where fields added to forms that received no input on posted forms could cause MySQL errors when MySQL strict mode is enabled.
+
+4.0.6 (September 5, 2012)
+ - Added the "allow_status_edit" parameter to the Freeform:Form and Freeform:Edit tags to allow the submission of a "status" field that can override the default status.
+ - Added the {freeform:statuses} variable pair to the Freeform:Form and Freeform:Edit tags to populate existing statuses for a form field for setting/changing status of an entry.
+ - Added a 'Select All' checkbox to the migration utility to allow selecting of all collections to migrate.
+ - Fixed a bug where the default Composer template was not calling Captcha with the "freeform:" prefix.
+ - Fixed a bug where the selected composer template would not be used when previewing Composer output.
+ - Fixed a bug where statuses that were adjusted through the "status" parameter were not being saved.
+ - Fixed a bug with the Freeform 3.x -> 4.x migration utility where errors could occur with the MySQL strict flag enabled.
+ - Fixed a bug where the default date formatting on the "entry_date" insert for notifications was not using '%' as required for ExpressionEngine formatting.
+ - Fixed a bug where multi-option type fields would incorrectly suggest blank values for a value/label type setup.
+ - Fixed a bug where channels with empty field groups could show errors when using multi-select type fields.
+ - Fixed a bug where sending Base64 encoded data, containing UTF-8 special characters, to the browser and decoding it client side would result in garbled characters instead of the intended unicode output.
+ - Fixed a bug where the "secure_action" and "secure_return" parameters might not properly enable HTTPS URLs.
+ - Fixed a bug where the "form:action" parameter would add a second action instead of replacing the original on the form element.
+ - Fixed a bug where file names for uploaded files were not getting properly renamed.
+ - Fixed a bug where file names with spaces in them would cause errors and send a blank email body.
+ - Fixed a bug where migratating from a lower version of Freeform that did not contain a preferences table could throw an error on upgrade.
+ - Fixed a bug where AJAX templates could error out when asp_tags are enabled in PHP.ini.
+ - Fixed a bug where exports could run out of memory when many fields were in a single form.
+ - Fixed a bug where a langauge variable could collide with other addons and report incorrect error information.
+ - Fixed a bug where the "matching_fields" parameter would display a PHP error.
+
+4.0.5 (August 14, 2012)
+ - Added the ability to override the return URL of a form with a URI value in a field named 'return'.
+ - Moved the hooks: 'freeform_module_user_notification', 'freeform_module_admin_notification', and 'freeform_recipient_email' to occur after notification template parsing in order to work more like they did in Freeform 3.x.
+ - Modified custom CP CSS to better override popular CP themes: Sassy CP, NSM Override, and Nerdary, and adjusted the non-custom CP theme to be better compatible with the afore mentioned.
+ - Modified 'recipient_user_email' to no longer be a reserved field name in order to allow the storage of user emails in a custom field.
+ - Removed the prevention of naming fields 'subject' and 'message' and adjusted the migration script for Freeform 3.x -> Freeform 4.x to reflect it.
+ - Fixed a bug in migrations where fields might get accidentally duplicated if they were in more than one collection on migration.
+ - Fixed a bug where putting the ip2nation check in the 'config.php' file would trigger a nation ban check even if the ip2nation module were not installed.
+ - Fixed a bug where the missing required field errors would append the field name for inline errors and standard ajax error returning when it should only append for standard error output or custom error page templates (with or without ajax calls to).
+ - Fixed a bug where File Upload fields could run into issues with MySQL strict mode enabled.
+ - Fixed a bug where updating from Freeform Free to Freeform Pro would not automatically install the extra default field types.
+ - Fixed a bug where deleting fields from the same form at the same time could cause a DB error to occur.
+ - Fixed a bug where having no available custom fields would give a PHP error when attempting to edit a form and possibly prevent it from saving.
+
+4.0.4 (August 3, 2012)
+ - Fixed a bug where dynamic recipient email notifications were not sending.
+ - Fixed a bug where spam prevention was not storing all forms of user initiated emails.
+ - Fixed a bug where storing user initiated emails in the spam prevention database table could result in a MySQL error.
+ - Fixed a bug where admin notification template ID's were not properly being saved in form settings area.
+ - Fixed a bug where field names with hyphens would cause errors when retrieving entry data.
+ - Fixed a bug where the auto "short_name" creating script allowed full stops (.) when it shouldn't have. This affects the creation of Forms, Fields, Notifications, and Composer Templates.
+ - Fixed a bug where the Free version of Freeform could encounter a PHP error when attempting to delete a form.
+ - Removed the dummy EXT file as it was causing confusion on installation.
+
+4.0.3 (July 29, 2012)
+ - Fixed a bug where the Freeform Channel Fieldtype would not properly save the ID of the chosen form.
+
+4.0.2 (July 26, 2012)
+ - Added checks for current tables during migration to make sure they are Freeform 4.x schema and not legacy 3.x tables.
+ - Fixed a bug where a safety check for form updates that created missing tables was not working.
+ - Fixed a bug where updating from Freeform 4 to Freeform Pro was not properly finishing the update.
+ - Fixed a bug where passing arrays of inputs to a text based field would cause an error with notifications.
+ - Fixed a bug where migrating tables could accidentally leave over an incorrect legacy table and prevent further migration.
+ - Fixed a bug where File Upload field types would not properly save settings.
+ - Fixed a bug where only comma delimited emails worked for notifications and not both pipe and comma delimited functioned as the documentation suggested.
+
+4.0.1 (July 25, 2012)
+ - Removed a check for database credentials that would error on bootstrapped config files.
+
+4.0.0 (July 25, 2012)
+ - Completely re-wrote codebase
+ - Freeform is now only ExpressionEngine 2.x compatible (EE 2.4+)
+ - Ability to upgrade to and downgrade from Freeform Pro.
+ Forms
+  - Most variables, variable pairs, and conditionals in template tags are now prefixed with "freeform:".
+  - Collections are now individual forms created in the Freeform control panel, and the collection="" parameter is now either form_id="" or form_name="", where form_name is the short name.
+  - Added ability to detect duplicates on any field as well as member ID and IP address.
+  - Added optional duplicate redirect parameter.
+  - Added matching_fields="" parameter to allow for checks to see if two values across two fields match (ex: confirming email address).
+  - All form attributes, including the onsubmit parameter are available as form:ATTRIBUTE_NAME (ex: form:class, form:onsubmit, etc).
+  - File uploads are now handled by the File Upload fieldtype.
+  - Mailing List inclusion is now handled by the Mailing List fieldtype.
+  - Added inline error handling to forms.
+  - Added automatic AJAX support.
+  - Added ability to moderate entries in the CP by having them assigned to "Pending" status.
+  - Added optional HTML bracket encoding to Text and Textarea fieldtypes for security (default enabled).
+  - Added Freeform:Form_Info tag for showing all available forms, or the details of a given form.
+ Notifications
+  - Notifications now parse all template tags and variables.
+  - Added ability to set a different notification template for all 4 notification types.
+  - Added "all_form_fields" variable pair for Notification templates for more flexible template construction.
+  - Added searchable, clickable field list to Notification template editing in control panel.
+  - Added a Reply-To setting for notifications.
+ Control Panel
+  - Added new control panel UI theme by Eric Miller Design (option to disable in preferences).
+  - Added ability to duplicate Forms, Fields, and Notifications in the control panel.
+  - Added ability to create new entries in the control panel.
+  - Added customizable and saveable entry table layout, per user, per form.
+  - Entries table now has a moderation mode where entries with the status 'pending' can easily be approved or deleted.
+ Freeform Pro Only Features
+  - Third Party custom field types are installable.
+  - Drag and drop forms can be created in Composer.
+  - Editable Composer form output templates
+  - Additional default custom fields
+    - Checkbox
+    - Checkbox Group
+    - Country Select
+    - Hidden Field
+    - Multi Select
+    - Province Select (Canadian)
+    - Radio Buttons
+    - Select
+    - State Select (US)
+  - Export entries as XML and JSON in addition to the default CSV and Text.
+  - Front end editing with Freeform:Edit and Freeform:Composer_Edit tags.
+  - Ability to call a Composer-based form in ExpressionEngine entries through a Freeform custom channel field.
+  - Custom error page output.
+  - Spam keyword blocking.
+  - Custom form statuses.
+  - Multipage forms with automatic and manual page triggers.
+
+3.1.5 (January 25, 2013)
+ - Fixed a bug when editing then saving entries from the CP with the 'show_empties' checkbox checked.
+ - Fixed a bug where MySQL errors would occur in EE 2.5.4+.
+ - Fixed a bug where Freeform would show an error on form submission if the IP to Nation module was not installed.
+
+3.1.4 (May 10, 2012)
+ - Added entry_id to the JSON array that can be outputted upon successful submission.
+ - Fixed a bug where file upload errors did not display the error language properly to the end user.
+ - Fixed a bug where parameters would expire and still allow form submission when Secure Form Hashes was disabled.
+ - Fixed a bug where PHP 5.4 with E_STRICT would throw an error.
+ - Fixed a bug where in EE1, with Secure Forms disabled, an error would show up when editing a Freeform entry in the CP.
+ - Fixed a bug where empty fields would not show up when editing an entry in the CP if the status was closed.
+ - Fixed a bug where changing an existing field name with an already existing field name value would cause a MySQL error on submit.
+
+3.1.3 (February 13, 2012)
+ - Added the output_json="yes" parameter, which can be used with AJAX requests to return errors and success mesages in JSON. Default is 'no'.
+
+3.1.2 (February 10, 2012)
+ - Added option to select which fields are visible in the Entries tab of the Freeform control panel (EE2-only).
+ - Added compatibilty for MySQL Strict.
+ - Modified Freeform to support AJAX requests by default. To disable, use ajax_request="no" parameter on Freeform:Form.
+ - Fixed a potential XSS security issue in the MCP.
+ - Fixed a bug where forms were given an incorrect name attribute value when the form:name= parameter wasn't specified in Freeform:Form tag.
+ - Fixed a bug where the max_file preference was being calculated incorrectly.
+ - Fixed a bug where when exporting to CSV, entries with commas or quotes were not properly escaped.
+ - Fixed a bug where file uploads in forms submissions were being validated too late.
+
+3.1.1 (November 4, 2011)
+ - Fixed a bug where the entry_id parameter was being ignored in the Freeform:Entries tag.
+ - Fixed a bug where Freeform was adding "http://" to URL's submitted into custom fields.
+ - Fixed a bug where passing an array input and requiring the field would trigger a PHP error.
+ - Fixed a bug where using quotes in a Freeform field name label would not work correctly.
+
+3.1.0 (June 21, 2011)
+ - Converted Freeform to use Solspace Add-on Builder Framework, and Solspace Bridge for EE 1.x.
+ - Added compatibility for NSM addon updater.
+ - Added the ability to dynamically assign a "reply_to" value for admin notifications.
+ - Added 'allowed_file_types' parameter to Freeform:Form tag to allow additional validation of uploaded file types.
+ - Fixed a bug where the {collection_name} variable didn't parse in message area of notification templates.
+ - Fixed a bug where pagination in the CP was loosing some filter options.
+ - Fixed a bug where the entry_id param on freeform:entries wasn't being honored
+ - Fixed a bug where urls submitted in certain fields we're being prepended with 'http://' before saving
+ - Fixed a bug where requiring and array input would throw a php error
+
+3.0.6 (February 3, 2011)
+ - Updated and enhanced Freeform module CP area (in EE 2.x) to conform completely to native EE styling.
+ - Fixed a bug where file extensions where getting cut off of file uploads in EE 1.x.
+ - Fixed a bug where default Prefs were not correctly cached and caused errors on the front end.
+ - Fixed a bug where Template Label, From Name, and Email Subject in the Notification Template create/edit CP area could cause errors when containing quotes or other special or non-latin UTF-8 characters.
+ - Fixed a bug where when a required field contains a value of "0" it wouldn't pass validation.
+ - Fixed a bug where the default 'website' field did not contain any security on it.
+
+3.0.5 (November 29, 2010)
+ - Added CSV export option in the Freeform CP.
+ - Fixed a bug where the Collection name was not being properly recorded to the database.
+
+3.0.4 (November 23, 2010)
+ - Fixed a bug where the {collection_name} variable was not parsing in the Freeform:Entries tag.
+ - Fixed a bug where the ID field was being inserted into hidden fields and conflicted with Ajax when used on a form.
+ - Fixed a bug where the "select all" checkboxes feature in the Freeform CP area would not work.
+ - Fixed a bug where having "subject" as a field name would cause issues.
+ - Fixed a bug where the uploaded files would display to have a file size of "1KB" in the Freeform CP.
+ - Fixed a bug where Freeform Preferences were not always stored properly in the database.
+ - Removed "flow_ui" theme from Freeform module in EE 1.x.
+
+3.0.3 (August 18, 2010)
+ - Modified Freeform to now use the native EE 2.x JS success/error messages.
+ - Fixed a bug where the confirmation link in the Mailing List opt-in email notification triggered by Freeform was not being parsed.
+ - Fixed a bug where Freeform was taking away the file extensions of uploaded files, or in some cases renaming them improperly.
+ - Fixed a bug where date formatting was not working on the entry_date variable when used in a "user" notification email.
+ - Fixed a bug where Freeform was improperly displaying foreign characters as entities in the Entry Editing area of the Freeform module CP.
+ - Fixed a bug where other EE tags would not parse properly inside Freeform template tags.
+ - Fixed a bug where when creating a custom Freeform field in the Freeform CP would throw an error if "Process form data in secure mode" is disabled.
+
+3.0.2 (July 12, 2010)
+ - Modified all instances of BASEPATH to now use PATH_THIRD as the app folder is outside of the system folder in EE 2.1.
+
+3.0.1 (June 15, 2010)
+ - Updated all instances of XID_SECURE_HASH to $XID_SECURE_HASH in EE 2.x view files.
+ - Fixed a bug where an error would display in the CP if you have no Freeform fields.
+ - Fixed a bug where the final extension hook call in insert_new_entry was improperly cleared.
+ - Fixed a bug where duplicate checking and conditionals were not working correctly for Super Admins.
+
+3.0.0 (May 13, 2010)
+ - Added the new Dynamic Recipients feature to Freeform:Form. Allows you to predefine a list of recipients for a user to choose from.
+ - Added several new parameters, form fields, variables, and variable pair to assist with the Dynamic Recipients feature.
+ - Added Tell-A-Friend functionality to Freeform:Form. Users can now enter in recipient email address(es).
+ - Added spam controls for the Tell-A-Friend functionality via the new Preferences tab in the CP and/or new parameters for Freeform:Form.
+ - Added the form:attribute="" parameter type to the Freeform:Form tag.
+ - Upgraded module to use Solspace Bridge 1.0 with CodeIgniter, therefore allowing compatibility with EE 2.x.
+ - Modified Freeform module to be PHP 5.3 compatible without throwing deprecated errors.
+ - Renamed all references to "form_name" to "collection". Deprecated "form_name" parameter.
+ - Fixed a bug where the {entry_date format=""} variable was not being correctly parsed in the User Notification email.
+ - Fixed a bug where if a Freeform field didn't exist and was added to the required="" parameter in Freeform:Form, it would return a PHP error.
+ - Overhauled and enhanced online Documentation.

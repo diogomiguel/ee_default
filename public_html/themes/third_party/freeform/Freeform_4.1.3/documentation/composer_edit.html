@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>		<html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>			<html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie8"> <![endif]-->
+<!--[if IE 8]>			<html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html class="no-js"> <!--<![endif]-->
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Composer_Edit | Freeform | Solspace Addon Documentation</title>
+		<meta name="description" content="" />
+		<meta name="copyright" content="(c) 2010 Copyright content: Copyright design: Solspace, Inc."/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="assets/css/normalize.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/fancybox/jquery.fancybox-1.3.4.css" />
+		<link href="assets/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<link href="assets/syntaxhighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<script src="assets/js/modernizr.min.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<header>
+			<div class="header-inner">
+				<div class="logo">
+					<img src="assets/images/logo.png" />
+				</div>
+
+				<div class="bread_crumbs">
+					<ul class="crumbs">
+						<li class="first"><a href="index.html">Freeform</a></li>
+						<li>Composer_Edit</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="content-wrapper">
+			<nav class="toc">
+				<ul>
+<li><a href="http://www.solspace.com/software/detail/freeform/">More Info | Purchase</a></li>
+<li><a href="change_log.html">Change Log</a></li>
+<li><a href="install_update.html">Install / Update</a></li>
+<li><a href="control_panel.html">Control Panel</a></li>
+<li><a href="channel_entry_fieldtype.html">Channel Entry Fieldtype</a></li>
+<li><a href="default_fieldtypes.html">Default Fieldtypes</a></li>
+<li><a href="fieldtype_development.html">Fieldtype Development</a></li>
+<li><a href="extension_hooks.html">Extension Hooks</a></li>
+<li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+<li><p><a href="upgrade_3.x-4.x.html">Freeform 3.x to 4.x Guide</a></p></li>
+<li class="template_tags"><h3>Template Tags</h3>
+
+<ul>
+<li><a href="composer.html">Composer</a></li>
+<li class="current"><a href="composer_edit.html">Composer_Edit</a></li>
+<li><a href="edit.html">Edit</a></li>
+<li><a href="entries.html">Entries</a></li>
+<li><a href="error_page.html">Error Page</a></li>
+<li><a href="form.html">Form</a></li>
+<li><a href="form_info.html">Form_Info</a></li>
+</ul></li>
+<li><h3>Requirements</h3><div class="requirements">
+
+<ul>
+<li>ExpressionEngine 2.4+</li>
+<li>PHP 5.2+</li>
+<li>MySQL 5+</li>
+<li>All modern browsers or IE 8+</li>
+</ul></div></li>
+</ul>
+			</nav>
+
+			<article class="docs">
+				<p>Pro Only Feature</p>
+
+<p>The <em>Freeform:Composer_Edit</em> tag is used for editing of Freeform
+entries that were submitted to Composer-based form. It will display the
+appropriate forms that wa created using the Composer tool in the
+Freeform control panel. Simply specify the Freeform entry ID, the form
+name or ID, and the style template name or ID and this tag will do the
+rest. All other controls and notifications are handled within the
+Freeform control panel.</p>
+
+<pre class="brush: html;">{exp:freeform:composer_edit} </pre>
+
+<ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#variable_pairs">Variable Pairs</a></li>
+<li><a href="#conditionals">Conditionals</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+
+<p><a name="parameters"></a></p>
+
+<h2>Parameters</h2>
+
+<p>In additional to all of the parameters in
+<a href="form.html#parameters">Freeform:Form</a> (available as overrides to
+defaults), the following parameters are available for use:</p>
+
+<ul>
+<li><a href="#entry_id">entry_id</a></li>
+<li><a href="#form_id">form_id</a></li>
+<li><a href="#form_name">form_name</a></li>
+<li><a href="#composer_template_id">composer_template_id</a></li>
+<li><a href="#composer_template_name">composer_template_name</a></li>
+<li><a href="#return">return</a></li>
+<li><a href="#notify_on_edit">notify_on_edit</a></li>
+<li><a href="#restrict_edit_to_author">restrict_edit_to_author</a></li>
+</ul>
+
+<p><a name="entry_id"></a></p>
+
+<h3>entry_id=</h3>
+
+<pre class="brush: html;">entry_id="{segment_3}" </pre>
+
+<p>A valid Freeform entry ID is required to edit a given form submission.
+Freeform will try to detect the ID from the URI, but it can also be fed
+through this parameter through the URI, an embed, or a hardcoded value.</p>
+
+<p><a name="form_id"></a></p>
+
+<h3>form_id=</h3>
+
+<pre class="brush: html;">form_id="4" </pre>
+
+<p>Specify the ID of the form you created in the Freeform control panel so
+that Freeform knows which form to pull and which form the submissions
+should be tied to. Alternatively, you can use the
+<a href="#form_name">form_name</a> parameter.</p>
+
+<p><a name="form_name"></a></p>
+
+<h3>form_name=</h3>
+
+<pre class="brush: html;">form_name="contact_form" </pre>
+
+<p>Specify the short name of the form you created in the Freeform control
+panel so that Freeform knows which form to pull and which form the
+submissions should be tied to. Alternatively, you can use the
+<a href="#form_id">form_id</a> parameter.</p>
+
+<p><a name="composer_template_id"></a></p>
+
+<h3>composer_template_id=</h3>
+
+<pre class="brush: html;">composer_template_id="1" </pre>
+
+<p>Specify the ID of the styles/formatting template you created for the
+Composer-based form you created in the Freeform control panel.
+Alternatively, you can use the
+<a href="#composer_template_name">composer_template_name</a> parameter.</p>
+
+<p><a name="composer_template_name"></a></p>
+
+<h3>composer_template_name=</h3>
+
+<pre class="brush: html;">composer_template_name="contact_form" </pre>
+
+<p>Specify the short name of the styles/formatting template you created for
+the Composer-based form you created in the Freeform control panel.
+Alternatively, you can use the
+<a href="#composer_template_id">composer_template_id</a> parameter.</p>
+
+<p><a name="return"></a></p>
+
+<h3>return=</h3>
+
+<pre class="brush: html;">return="template_group/template" </pre>
+
+<pre class="brush: html;">return="template_group/template/%%entry_id%%" </pre>
+
+<p>This parameter lets you set where to send users once they have submitted
+the form. If not specified, the user will be returned to the same page.
+If you'd like to send the user to a page with the newly created Freeform
+entry ID in the URI, just add <strong>%%entry_id%%</strong> to the end of the URL you've
+specified in the <em>return</em> parameter. That variable will be replaced by the
+Freeform entry ID of the newly submitted entry.</p>
+
+<p><a name="notify_on_edit"></a></p>
+
+<h3>notify_on_edit=</h3>
+
+<pre class="brush: html;">notify_on_edit="yes" </pre>
+
+<p>If you wish to send out notifications to admins and users with the usual
+parameters upon successful edit of Freeform entry, you'll need to
+specify this parameter with a value of <strong>yes</strong>. Default is <strong>no</strong>.</p>
+
+<p><a name="restrict_edit_to_author"></a></p>
+
+<h3>restrict_edit_to_author=</h3>
+
+<pre class="brush: html;">restrict_edit_to_author="yes" </pre>
+
+<p>Specifying a value of <strong>no</strong> to this parameter will mean that anyone,
+including logged out users / guests can edit the entry. Default is <strong>yes</strong>,
+which means that only the original author of the Freeform entry, or a
+Super Admin, can edit the entry.</p>
+
+<p><a name="variables"></a></p>
+
+<h2>Variables</h2>
+
+<p>All of the variables in
+<a href="composer.html#variables">Freeform:Composer</a> are available for
+use.</p>
+
+<p><a name="variable_pairs"></a></p>
+
+<h2>Variable Pairs</h2>
+
+<p>All of the variable pairs in
+<a href="composer.html#variable_pairs">Freeform:Composer</a> are available
+for use.</p>
+
+<p><a name="conditionals"></a></p>
+
+<h2>Conditionals</h2>
+
+<p>All of the conditionals in
+<a href="composer.html#conditionals">Freeform:Composer</a> are available
+for use.</p>
+
+<p><a name="examples"></a></p>
+
+<h2>Examples</h2>
+
+<p>Your template code will look really simple since the work was done in
+the Composer tool in the Freeform control panel:</p>
+
+<pre class="brush: html;">{exp:freeform:composer_edit
+    entry_id="{segment_3}"
+    form_name="food_survey"
+    composer_template_name="food_survey"
+    return="food_survey/thank_you"
+}
+</pre>
+			</article>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shCore.js"></script>
+		<script src="assets/syntaxhighlighter/scripts/shAutoloader.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>
