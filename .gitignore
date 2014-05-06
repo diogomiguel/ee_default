@@ -1,0 +1,32 @@
+*.DS_Store
+*.tmproj
+.ftpquota
+.sass-cache
+
+veronica/expressionengine/cache/* 
+
+public_html/images/avatars/uploads/* 
+!public_html/images/avatars/uploads/index.html
+
+public_html/images/captchas/*
+!public_html/images/captchas/index.html
+
+public_html/images/member_photos/*
+!public_html/images/member_photos/index.html
+
+public_html/images/pm_attachments/*
+!public_html/images/pm_attachments/index.html
+
+public_html/images/signature_attachments/*
+!public_html/images/signature_attachments/index.html
+
+public_html/images/uploads/*
+!public_html/images/uploads/index.html
+
+public_html/images/website/dummies
+public_html/images/website/dummies/*
+
+public_html/stash_cache
+.htpasswd
+
+public_html/node_modules/*

@@ -186,6 +186,7 @@ var settings = {
 	// devtools_styles, dialog_backgroundCoverColor, dialog_backgroundCoverOpacity, dialog_buttonsOrder
 	dialog_buttonsOrder: { desc: 'The guideline to follow when generating the dialog buttons.', type: 'select', options: { OS: 'Operating System Default', ltr: 'Left-to-right', rtl: 'Right-to-left' }},
 	// dialog_magnetDistance,
+	dialog_noConfirmCancel: { desc: 'Toggles whether users should be asked to confirm that they want to close dialogs with unsaved changes. Setting it to “Yes” will disable the confirmation.', type: 'bool', val: 'n' },
 	disableNativeSpellChecker: { desc: 'Disables the built-in spell checker while typing natively available in the browser (currently Firefox and Safari only).', type: 'bool', val: 'y' },
 	// disableNativeTableHandles
 	disableObjectResizing: { desc: 'Disables the ability of resize objects (image and tables) in the editing area.', type: 'bool' },
@@ -244,6 +245,12 @@ var settings = {
 	resize_maxWidth: { desc: 'The maximum editor width, in pixels, when resizing it with the resize handle.', type: 'number', val: 3000 },
 	resize_minHeight: { desc: 'The minimum editor height, in pixels, when resizing it with the resize handle.', type: 'number', val: 250 },
 	resize_minWidth: { desc: 'The minimum editor width, in pixels, when resizing it with the resize handle.', type: 'number', val: 750 },
+	scayt_autoStartup: { desc: 'Whether SCAYT (“Spell Check As You Type”) should be enabled automatically.', type: 'bool', val: 'n' },
+	scayt_contextCommands: { desc: 'Customizes the display of SCAYT context menu commands.', val: 'all' },
+	scayt_contextMenuItemsOrder: { desc: 'Defines the order SCAYT context menu items by groups.', val: 'suggest|moresuggest|control' },
+	scayt_maxSuggestions: { desc: 'Defines the number of SCAYT suggestions to show in the main context menu.', type: 'number', val: 5 },
+	scayt_moreSuggestions: { desc: 'Enables/disables the "More Suggestions" sub-menu in the context menu', type: 'select', options: { on:'on', off:'off' }, val: 'on' },
+	scayt_sLang: { desc: 'Sets the default spell checking language for SCAYT.', type: 'select', options: { en_US:'en_US', en_GB:'en_GB', pt_BR:'pt_BR', da_DK:'da_DK', nl_NL:'nl_NL', en_CA:'en_CA', fi_FI:'fi_FI', fr_FR:'fr_FR', fr_CA:'fr_CA', de_DE:'de_DE', el_GR:'el_GR', it_IT:'it_IT', nb_NO:'nb_NO', pt_PT:'pt_PT', es_ES:'es_ES', sv_SE:'sv_SE' }, val: 'en_US' },
 	// * shiftEnterMode
 	skin: { desc: 'The skin to load. It may be the name of the skin folder inside the editor installation path, or the name and the path separated by a comma.', val: 'wygwam' },
 	// * smiley_columns, smiley_descriptions, smiley_images, smiley_path

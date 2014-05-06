@@ -24,14 +24,13 @@ exclude:
     - .gitkeep
     - dandelion.yml
     - dandelion-live.yml
-    - public_html/sass
+    - public_html/production
     - public_html/Gruntfile.js
     - public_html/themes/profile_themes/agile_records
     - public_html/themes/site_themes/agile_records
     - public_html/themes/wiki_themes
     - public_html/node_modules
-    - public_html/automin
-    - tina/expressionengine/cache
+    - veronica/expressionengine/cache
 
 # These files (from your working directory) will be uploaded on every deploy
 additional:
