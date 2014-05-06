@@ -2,118 +2,56 @@
 
 
 window.Wygwam;
-var gridBinded = false;
-var rowind = 0;
+
+
 /**
  * Wygwam
  */
-Wygwam = function(id, config, defer, grid) {
-		var that = this;
-		
-    if (grid == true){
-	
-			
-			if (gridBinded)
-				return;
-				
-			Grid.bind('wygwam',"display", function(el){
-				
-				
-				//Change row_id of wygwam only
-				var row_id = (el.attr('data-row-id') ? el.attr('data-row-id') : rowind),
-						col_id = el.attr('data-column-id'),
-						$textarea = el.find('textarea'),
-						config = $textarea.attr('data-config');
-				
-				
-				$textarea.attr('id', 'col_id_' + row_id + '_' + col_id);
-				that.init(el.find('textarea'), config, defer);
-				rowind++;
-			});
-			
-			Grid.bind('wygwam',"beforeSort", function(el){
-				var $textarea = el.find('textarea'),
-						$iframe = el.find('iframe:first'),
-						$cont = el.find('.wygwam:first');
+Wygwam = function(id, config, defer) {
 
-				// has CKEditor been initialized?
-				if (! $iframe.hasClass('wygwam')) {
+    // Allow initializing by a jQuery object that matched something
+    if (typeof id == "object" && typeof id.is == "function" && id.is('textarea'))
+    {
+        this.$element = id;
+    }
+    else
+    {
+        this.$element = $('#' + id);
+    }
 
-					// Make a clone of the editor DOM
-					var $clone = el.find('.cke').clone();
-					
-					// save the latest HTML value to the textarea
-					var id = $textarea.attr('id'),
-						editor = CKEDITOR.instances[id];
-					
-					editor.updateElement();
+    // No luck
+    if (this.$element.length == 0)
+    {
+        return;
+    }
 
-					// destroy the CKEDITOR.editor instance
-					editor.destroy();
+	this.id = id;
 
-					// make it look like nothing happened
-					$textarea.hide();
-					$clone.appendTo($cont);
-				}
-			});
-			
-			Grid.bind('wygwam',"afterSort", function(el){
-				var $textarea = el.find('textarea'),
-				 	  config = $textarea.attr('data-config');
-				
-				if (el.find('.cke').length)
-				{
-					el.find('.cke').remove();
-				}
-				
-				that.init($textarea, config, defer);
-			});
-			
-			gridBinded = true;
-		} else {
-			that.init(id, config, defer);
-		}
+    if (typeof config == "undefined")
+    {
+        config = this.$element.data('config');
+    }
+    this.config = (Wygwam.configs[config] || Wygwam.configs['default']);
+
+    if (typeof defer == "undefined")
+    {
+        this.defer = this.$element.data('defer') == "y";
+    }
+    else
+    {
+        this.defer = defer;
+    }
+
+	if (this.defer) {
+		this.showIframe();
+	} else {
+		this.initCKEditor();
+	}
 };
 
 
 Wygwam.prototype = {
-	init: function(id, config, defer) {
-			// Allow initializing by a jQuery object that matched something
-	    if (typeof id == "object" && typeof id.is == "function" && id.is('textarea'))
-	    {
-	        this.$element = id;
-	    }
-	    else
-	    {
-	        this.$element = $('#' + id);
-	    }
-	    // No luck
-	    if (this.$element.length == 0)
-	    {	
-	        return;
-	    }
-		this.id = id;
 
-	    if (typeof config == "undefined")
-	    {
-	        config = this.$element.data('config');
-	    }
-	    this.config = (Wygwam.configs[config] || Wygwam.configs['default']);
-
-	    if (typeof defer == "undefined")
-	    {
-	        this.defer = this.$element.data('defer') == "y";
-	    }
-	    else
-	    {
-	        this.defer = defer;
-	    }
-		if (this.defer) {
-			this.showIframe();
-		} else {
-			this.initCKEditor();
-		}
-	},
 	/**
 	 * Show Iframe
 	 */
@@ -152,6 +90,12 @@ Wygwam.prototype = {
 	initCKEditor: function() {
 		if (this.$iframe) {
 			this.$iframe.remove();
+		}
+
+		// Load in any custom config values
+		if (CKEDITOR.editorConfig)
+		{
+			CKEDITOR.editorConfig(this.config);
 		}
 
 		CKEDITOR.replace(this.$element[0], this.config);
