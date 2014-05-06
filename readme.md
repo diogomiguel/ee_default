@@ -1,10 +1,11 @@
 == README
+New With EE 2.8.1 + Re-structured Grunt
 
-Folder tina may be renamed. If you do pick a non obvious name.
+Folder veronica may be renamed. If you do pick a non obvious name.
 
 Using Grunt with grunt watch to compile static files and compress images. Node modules need to be installed separately though.
 
-To install expression engine from scratch, rename folder __installer to installer. Remove folder installer before deploying to any server.
+To install expression engine from scratch, rename folder ______installer to installer. Remove folder installer before deploying to any server.
 
 - Install instructions:
 http://ellislab.com/expressionengine/user-guide/installation/installation.html
