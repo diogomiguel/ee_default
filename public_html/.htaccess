@@ -588,8 +588,7 @@ RewriteCond %{DOCUMENT_ROOT}/stash_cache/1/$2/index.html (.*\.(.*))$
 RewriteCond %1 -f
 
 # Rewrite to the cached page
-RewriteRule ^(index.php/*)*(.*)(/*) /cached.php?cache_file=stash_cache/1/$2/index.%2 [L]
-
+RewriteRule ^(index.php/*)*(.*)(/*) /cached.php?cache_file=stash_cache/1/$2/index.%2 [L]	
 
 RewriteCond $1 !\.(gif|jpe?g|png)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
