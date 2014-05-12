@@ -2,6 +2,7 @@
 *.tmproj
 .ftpquota
 .sass-cache
+*.sql
 
 veronica/expressionengine/cache/* 
 
@@ -30,3 +31,6 @@ public_html/stash_cache
 .htpasswd
 
 public_html/node_modules/*
+
+.vagrant
+ee_default.sql
