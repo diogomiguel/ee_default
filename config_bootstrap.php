@@ -92,7 +92,7 @@ if(!defined('NSM_ENV')) {
      * @see http://php.net/manual/en/function.strstr.php
      */
     if ( strstr( NSM_SERVER_NAME, '.loc' ) ) define('NSM_ENV', 'local');
-    elseif( strstr( NSM_SERVER_NAME, '24sq.com' ) ) define('NSM_ENV', 'development');
+    elseif( strstr( NSM_SERVER_NAME, '192.168.50.4' ) ) define('NSM_ENV', 'development');
     elseif( strstr( NSM_SERVER_NAME, '24sq.com' ) ) define('NSM_ENV', 'staging');
     elseif( strstr( NSM_SERVER_NAME, 'mobi.' ) ) define('NSM_ENV', 'mobile');
     // Fallback to production settings
@@ -141,10 +141,10 @@ if ('local' === NSM_ENV) {
 }
 elseif('development' === NSM_ENV) { 
     $env_db_config = array(
-        'hostname' => '',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => 'c6ds7nv2',
+        'database' => 'ee_default',
     );
     $env_config = array();
     $env_global_vars = array();
