@@ -3,10 +3,10 @@
 $active_group = 'expressionengine';
 $active_record = TRUE;
 
-$db['expressionengine']['hostname'] = 'localhost';
-$db['expressionengine']['username'] = 'root';
-$db['expressionengine']['password'] = '{dsilva}';
-$db['expressionengine']['database'] = 'ee_default';
+$db['expressionengine']['hostname'] = '';
+$db['expressionengine']['username'] = '';
+$db['expressionengine']['password'] = '';
+$db['expressionengine']['database'] = '';
 $db['expressionengine']['dbdriver'] = 'mysql';
 $db['expressionengine']['pconnect'] = FALSE;
 $db['expressionengine']['dbprefix'] = 'ee_';
