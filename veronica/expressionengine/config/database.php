@@ -3,10 +3,17 @@
 $active_group = 'expressionengine';
 $active_record = TRUE;
 
+<<<<<<< HEAD
 $db['expressionengine']['hostname'] = '';
 $db['expressionengine']['username'] = '';
 $db['expressionengine']['password'] = '';
 $db['expressionengine']['database'] = '';
+=======
+$db['expressionengine']['hostname'] = 'localhost';
+$db['expressionengine']['username'] = 'root';
+$db['expressionengine']['password'] = '{dsilva}';
+$db['expressionengine']['database'] = 'ee_default';
+>>>>>>> d8ab70ea15c98dd8e4ba746ec2fd6eecbb49b052
 $db['expressionengine']['dbdriver'] = 'mysql';
 $db['expressionengine']['pconnect'] = FALSE;
 $db['expressionengine']['dbprefix'] = 'ee_';
