@@ -15,10 +15,13 @@ https://github.com/quickshiftin/set-ee-perms
 - Don't forget to add for bootstrap
 
 	`/* End of file config.php */`
+	
 	`/* Location: ./system/expressionengine/config/config.php */`
+	
 	`require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));`
 
 At the end of config.php and database.php
 
 - This is using a config bootstrap. Can found more about it here:
+
 http://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0CC8QFjAA&url=http%3A%2F%2Fee-garage.com%2Fnsm-config-bootstrap&ei=GeoEU9PlJ6Pe7Abs_oDoDA&usg=AFQjCNGRlt4W5_5XSc0FBVVETvDKulEgBQ&sig2=aRszmPqmQ10hdij1lN_WMw
