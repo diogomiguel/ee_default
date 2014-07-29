@@ -1,6 +1,6 @@
 # README
 
-* New With EE 2.8.1 + Re-structured Grunt
+**New With EE 2.8.1 + Re-structured Grunt**
 
 Using Grunt with grunt watch to compile static files and compress images. Node modules need to be installed separately though.
 
@@ -14,10 +14,10 @@ https://github.com/quickshiftin/set-ee-perms
 
 - Don't forget to add for bootstrap
 
-	/* End of file config.php */
-	/* Location: ./system/expressionengine/config/config.php */
-	require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));
-	
+	`/* End of file config.php */`
+	`/* Location: ./system/expressionengine/config/config.php */`
+	`require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));`
+
 At the end of config.php and database.php
 
 - This is using a config bootstrap. Can found more about it here:
