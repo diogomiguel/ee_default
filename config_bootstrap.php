@@ -119,10 +119,10 @@ if ('local' === NSM_ENV) {
 
     // Environment DB configuration
     $env_db_config = array(
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => '{dsilva}',
-        'database' => 'ee_default',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
     );
 
     // Environment config variables
@@ -141,10 +141,10 @@ if ('local' === NSM_ENV) {
 }
 elseif('development' === NSM_ENV) { 
     $env_db_config = array(
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => 'c6ds7nv2',
-        'database' => 'ee_default',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
     );
     $env_config = array();
     $env_global_vars = array();
