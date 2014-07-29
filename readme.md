@@ -4,7 +4,7 @@
 
 Using Grunt with grunt watch to compile static files and compress images. Node modules need to be installed separately though.
 
-To install expression engine from scratch, rename folder ______installer to installer. Remove folder installer before deploying to any server.
+To install expression engine from scratch, rename folder *______installer* to *installer*. Remove folder installer before deploying to any server.
 
 - Install instructions:
 http://ellislab.com/expressionengine/user-guide/installation/installation.html
@@ -15,9 +15,7 @@ https://github.com/quickshiftin/set-ee-perms
 - Don't forget to add for bootstrap
 
 	`/* End of file config.php */`
-	
 	`/* Location: ./system/expressionengine/config/config.php */`
-	
 	`require(realpath(dirname(__FILE__) . '/../../../config_bootstrap.php'));`
 
 At the end of config.php and database.php
